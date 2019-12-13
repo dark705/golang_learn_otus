@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"main/top"
+
+	"github.com/dark705/otus/hw03/top"
 )
 
 func main() {
-	content := getContentAsStringFromFile("/home/sgulinov/go_modules/project/otus/hw03/file.txt")
-	top.Top10(content)
+	content := getContentAsStringFromFile("file.txt")
+	fmt.Println(top.Top10(content))
 }
 
 func getContentAsStringFromFile(fileName string) string {
