@@ -2,35 +2,19 @@ package main
 
 import (
 	"fmt"
+	"strings"
+	"unicode"
 )
 
 const (
 	intStart = 48 //int 0
-	intEnd   = 57 //int 9
 )
 
-func isIntRune(r rune) bool {
-	return (intStart <= int(r)) && (int(r) <= intEnd)
-}
-
 func getIntFromRune(r rune) int {
-	if isIntRune(r) {
+	if unicode.IsDigit(r) {
 		return int(r) - intStart
-	} else {
-		return 0
 	}
-}
-
-func repeatRuneToString(r rune, i int) (out string) {
-	if r == 0 {
-		return ""
-	}
-
-	for i > 1 {
-		out += string(r)
-		i--
-	}
-	return
+	return 0
 }
 
 func Unpack(in string) (out string) {
@@ -42,16 +26,19 @@ func Unpack(in string) (out string) {
 			doubleSlash = true
 		}
 
-		if isIntRune(element) && doubleSlash {
+		if unicode.IsDigit(element) && doubleSlash {
 			needRepeatCount := getIntFromRune(element)
-			out += repeatRuneToString(prevElement, needRepeatCount+1)
+			out += strings.Repeat(string(prevElement), needRepeatCount)
 			doubleSlash = false
 			continue
 		}
 
-		if isIntRune(element) && prevElement != '\\' {
+		if unicode.IsDigit(element) && prevElement != '\\' {
 			needRepeatCount := getIntFromRune(element)
-			out += repeatRuneToString(prevElement, needRepeatCount)
+			if prevElement == 0 {
+				return ""
+			}
+			out += strings.Repeat(string(prevElement), needRepeatCount-1)
 			continue
 		}
 
@@ -62,7 +49,7 @@ func Unpack(in string) (out string) {
 		}
 	}
 
-	return
+	return out
 }
 
 func main() {
