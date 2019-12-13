@@ -35,5 +35,5 @@ func Top10(content string) (top10 []string) {
 		place++
 	}
 
-	return
+	return top10
 }
