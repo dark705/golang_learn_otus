@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func Top10(content string) (top10 []string) {
+func Top10(content string) []string {
 	type freq struct {
 		word  string
 		count int
@@ -19,7 +19,7 @@ func Top10(content string) (top10 []string) {
 		countWord[lowerWord]++
 	}
 
-	var collection []freq
+	collection := make([]freq, 0, len(countWord))
 	for word, count := range countWord {
 		collection = append(collection, freq{word, count})
 	}
@@ -29,9 +29,9 @@ func Top10(content string) (top10 []string) {
 	})
 
 	place := 0
+	top10 := make([]string, 0, 10)
 	for place < 10 && place < len(collection) {
 		top10 = append(top10, collection[place].word)
-		//fmt.Println(collection[place].word, collection[place].count)
 		place++
 	}
 

@@ -3,8 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-
-	"github.com/dark705/otus/hw03/top"
+	"main/top"
 )
 
 func main() {
