@@ -6,7 +6,7 @@ import (
 )
 
 func Top10(content string) (top10 []string) {
-	type words struct {
+	type freq struct {
 		word  string
 		count int
 	}
@@ -19,9 +19,9 @@ func Top10(content string) (top10 []string) {
 		countWord[lowerWord]++
 	}
 
-	var collection []words
+	var collection []freq
 	for word, count := range countWord {
-		collection = append(collection, words{word, count})
+		collection = append(collection, freq{word, count})
 	}
 
 	sort.Slice(collection, func(i, j int) bool {

@@ -24,7 +24,7 @@ func TestTop10(t *testing.T) {
 
 		for i := range result {
 			if result[i] != expected[i] {
-				t.Error("Test fail for string:", c.content, "\n return:", result, "\n expected:", expected)
+				t.Error("Test fail for string:", c.content, "\n result:", result, "\n expected:", expected)
 			}
 		}
 	}
