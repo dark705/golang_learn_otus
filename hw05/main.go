@@ -12,7 +12,7 @@ func Run(tasks []func() error, N int, M int) error {
 	tasksCh := make(chan func() error, N)
 	resCh := make(chan error, N)
 	doneWorkGoroutineCh := make(chan struct{}, N)
-	shutdown1 := make(chan string)
+	shutdown := make(chan string)
 
 	//run task in N separate Goroutines
 	for i := 1; i <= N; i++ {
@@ -44,10 +44,10 @@ func Run(tasks []func() error, N int, M int) error {
 			default:
 				suc++
 			}
-			if (err == M || suc+err == len(tasks)) && !done {
+			if (err > 0 && err == M || suc+err == len(tasks)) && !done {
 				done = true
 				close(tasksCh)
-				if err == M {
+				if err > 0 && err == M {
 					res = fmt.Sprintln("Exit by error", "err", err, "suc", suc)
 				} else {
 					res = fmt.Sprintln("Exit by all done", "err", err, "suc", suc)
@@ -58,7 +58,7 @@ func Run(tasks []func() error, N int, M int) error {
 				addTaskIndex++
 			}
 		}
-		shutdown1 <- res
+		shutdown <- res
 	}()
 
 	//Check all Goroutines done work
@@ -74,6 +74,6 @@ func Run(tasks []func() error, N int, M int) error {
 		}
 	}()
 
-	fmt.Println(<-shutdown1)
+	fmt.Println(<-shutdown)
 	return nil
 }
