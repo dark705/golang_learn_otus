@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -12,7 +13,7 @@ func Run(tasks []func() error, N int, M int) error {
 	tasksCh := make(chan func() error, N)
 	resCh := make(chan error, N)
 	doneWorkGoroutineCh := make(chan struct{}, N)
-	shutdown := make(chan string)
+	returnCh := make(chan error)
 
 	//run task in N separate Goroutines
 	for i := 1; i <= N; i++ {
@@ -26,17 +27,16 @@ func Run(tasks []func() error, N int, M int) error {
 
 	//Send tasks to tasksCh and check results
 	go func() {
-		var suc int
-		var err int
+		var suc, err int
 		var done bool
-		var res string
+		var res error
 
 		//Send first N tasks in to tasksCh
 		for i := 0; i < N; i++ {
 			tasksCh <- tasks[i]
 		}
 
-		addTaskIndex := N
+		addTaskIndex := N //index of task which will be send next
 		for resTask := range resCh {
 			switch resTask.(type) {
 			case error:
@@ -48,17 +48,19 @@ func Run(tasks []func() error, N int, M int) error {
 				done = true
 				close(tasksCh)
 				if err > 0 && err == M {
-					res = fmt.Sprintln("Exit by error", "err", err, "suc", suc)
+					message := fmt.Sprintln("Exit by N errors limit", "err", err, "suc", suc)
+					res = errors.New(message)
 				} else {
-					res = fmt.Sprintln("Exit by all done", "err", err, "suc", suc)
+					res = nil
 				}
 			}
 			if !done && addTaskIndex < len(tasks) {
+				//send Additional task for run, after some task done
 				tasksCh <- tasks[addTaskIndex]
 				addTaskIndex++
 			}
 		}
-		shutdown <- res
+		returnCh <- res
 	}()
 
 	//Check all Goroutines done work
@@ -74,6 +76,5 @@ func Run(tasks []func() error, N int, M int) error {
 		}
 	}()
 
-	fmt.Println(<-shutdown)
-	return nil
+	return <-returnCh
 }
