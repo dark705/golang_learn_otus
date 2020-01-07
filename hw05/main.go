@@ -16,7 +16,7 @@ func Run(tasks []func() error, N int, M int) error {
 	returnCh := make(chan error)
 
 	//run task in N separate Goroutines
-	for i := 1; i <= N; i++ {
+	for i := 0; i < N; i++ {
 		go func() {
 			for task := range tasksCh {
 				resCh <- task()
@@ -38,13 +38,15 @@ func Run(tasks []func() error, N int, M int) error {
 
 		addTaskIndex := N //index of task which will be send next
 		for resTask := range resCh {
-			switch resTask.(type) {
-			case error:
+			if resTask != nil {
 				err++
-			default:
+			} else {
 				suc++
 			}
-			if (err > 0 && err == M || suc+err == len(tasks)) && !done {
+			if done {
+				continue
+			}
+			if err > 0 && err == M || suc+err == len(tasks) {
 				done = true
 				close(tasksCh)
 				if err > 0 && err == M {
