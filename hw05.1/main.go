@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"sync"
 )
 
 func Run(tasks []func() error, N int, M int) error {
@@ -13,17 +12,16 @@ func Run(tasks []func() error, N int, M int) error {
 
 	tasksCh := make(chan func() error, N)
 	resCh := make(chan error, N)
+	doneWorkGoroutineCh := make(chan struct{}, N)
 	returnCh := make(chan error)
-	wg := sync.WaitGroup{}
 
 	//run task in N separate Goroutines
-	wg.Add(N)
 	for i := 0; i < N; i++ {
 		go func() {
-			defer wg.Done()
 			for task := range tasksCh {
 				resCh <- task()
 			}
+			doneWorkGoroutineCh <- struct{}{}
 		}()
 	}
 
@@ -68,8 +66,17 @@ func Run(tasks []func() error, N int, M int) error {
 	}()
 
 	//Check all Goroutines done work
-	wg.Wait()
-	close(resCh)
+	go func() {
+		var countDoneWorkGoroutines int
+		for {
+			<-doneWorkGoroutineCh
+			countDoneWorkGoroutines++
+			if countDoneWorkGoroutines == N {
+				close(resCh)
+				return
+			}
+		}
+	}()
 
 	return <-returnCh
 }
