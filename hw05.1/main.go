@@ -13,14 +13,14 @@ func Run(tasks []func() error, N int, M int) error {
 
 	tasksCh := make(chan func() error, N)
 	resCh := make(chan error, N)
-	returnCh := make(chan error)
-	wg := sync.WaitGroup{}
+	wgWorker := sync.WaitGroup{}
+	wgProducer := sync.WaitGroup{}
 
 	//run task in N separate Goroutines
-	wg.Add(N)
+	wgWorker.Add(N)
 	for i := 0; i < N; i++ {
 		go func() {
-			defer wg.Done()
+			defer wgWorker.Done()
 			for task := range tasksCh {
 				resCh <- task()
 			}
@@ -28,10 +28,11 @@ func Run(tasks []func() error, N int, M int) error {
 	}
 
 	//Send tasks to tasksCh and check results
+	wgProducer.Add(1)
+	var res error
 	go func() {
 		var suc, err int
 		var done bool
-		var res error
 
 		//Send first N tasks in to tasksCh
 		for i := 0; i < N; i++ {
@@ -64,12 +65,14 @@ func Run(tasks []func() error, N int, M int) error {
 				addTaskIndex++
 			}
 		}
-		returnCh <- res
+		wgProducer.Done()
 	}()
 
 	//Check all Goroutines done work
-	wg.Wait()
+	wgWorker.Wait()
 	close(resCh)
 
-	return <-returnCh
+	//Wait for producer finish, and result ready
+	wgProducer.Wait()
+	return res
 }
