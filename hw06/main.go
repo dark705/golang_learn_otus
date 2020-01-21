@@ -30,7 +30,7 @@ func init() {
 func main() {
 	err := copy.Copy(f, t, l, o)
 	if err != nil {
-		fmt.Println(err)
+		_, _ = fmt.Fprintf(os.Stderr, "%v\n", err)
 		return
 	}
 }
