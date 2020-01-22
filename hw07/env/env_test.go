@@ -63,3 +63,22 @@ func TestRunCmdWithArgs(t *testing.T) {
 		t.Error(`Run test command: "echo 123" not output 123`)
 	}
 }
+
+func TestRunCmdWithEnv(t *testing.T) {
+	rescueStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	exitCode := RunCmd([]string{"env"}, map[string]string{"ENV1": "VAL1", "ENV2": "VAL2"})
+	if exitCode != 0 {
+		t.Error("RunCmd not return success exit code")
+	}
+
+	_ = w.Close()
+	out, _ := ioutil.ReadAll(r)
+	os.Stdout = rescueStdout
+
+	if string(out) != "ENV1=VAL1\nENV2=VAL2\n" {
+		t.Error(`Run test command: "env" with custom env, not output what respect`)
+	}
+}
