@@ -30,6 +30,7 @@ func RunCmd(cmd []string, env map[string]string) int {
 	}
 
 	c := exec.Command(cmd[0])
+	c.Stdin = os.Stdin
 	c.Stdout = os.Stdout
 	c.Stderr = os.Stderr
 	c.Args = cmd[:]
