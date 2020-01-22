@@ -32,11 +32,10 @@ func RunCmd(cmd []string, env map[string]string) int {
 	c := exec.Command(cmd[0])
 	c.Stdout = os.Stdout
 	c.Stderr = os.Stderr
-	if len(cmd) >= 1 {
-		c.Args = append(c.Args, cmd[1:]...)
-	}
+	c.Args = cmd[:]
 
 	if len(env) >= 1 {
+		c.Env = make([]string, 0, len(env))
 		for e, v := range env {
 			c.Env = append(c.Env, e+"="+v)
 		}
