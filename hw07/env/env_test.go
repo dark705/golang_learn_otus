@@ -8,8 +8,8 @@ import (
 
 const (
 	testEnvDir = "./test_env_dir/"
-	env1       = "ENV1"
-	env2       = "ENV2"
+	envFile1   = "ENV1"
+	envFile2   = "ENV2"
 	val1       = "val1"
 	val2       = "123"
 )
@@ -25,12 +25,12 @@ func TestReadDirEnv(t *testing.T) {
 		t.Error("Can't create dir for test")
 	}
 
-	err = ioutil.WriteFile(testEnvDir+env1, []byte(val1), 0644)
+	err = ioutil.WriteFile(testEnvDir+envFile1, []byte(val1), 0644)
 	if err != nil {
 		t.Error("Can't write file for test")
 	}
 
-	err = ioutil.WriteFile(testEnvDir+env2, []byte(val2), 0644)
+	err = ioutil.WriteFile(testEnvDir+envFile2, []byte(val2), 0644)
 	if err != nil {
 		t.Error("Can't write file for test")
 	}
@@ -40,7 +40,26 @@ func TestReadDirEnv(t *testing.T) {
 		t.Error("Can't read dir", err)
 	}
 
-	if environment[env1] != val1 || environment[env2] != val2 {
+	if environment[envFile1] != val1 || environment[envFile2] != val2 {
 		t.Error("Wrong environment for dir")
+	}
+}
+
+func TestRunCmdWithArgs(t *testing.T) {
+	rescueStdout := os.Stdout
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	exitCode := RunCmd([]string{"echo", "123"}, map[string]string{})
+	if exitCode != 0 {
+		t.Error("RunCmd not return success exit code")
+	}
+
+	_ = w.Close()
+	out, _ := ioutil.ReadAll(r)
+	os.Stdout = rescueStdout
+
+	if string(out) != "123\n" {
+		t.Error(`Run test command: "echo 123" not output 123`)
 	}
 }
