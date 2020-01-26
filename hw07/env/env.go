@@ -1,6 +1,7 @@
 package env
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -8,6 +9,15 @@ import (
 )
 
 func ReadDir(dir string) (map[string]string, error) {
+	fi, err := os.Stat(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	if !fi.Mode().IsDir() {
+		return nil, errors.New(fmt.Sprintf("%s is not dirrectory", dir))
+	}
+
 	filesInfo, err := ioutil.ReadDir(dir)
 	if err != nil {
 		return nil, err
@@ -33,7 +43,7 @@ func RunCmd(cmd []string, env map[string]string) int {
 	c.Stdin = os.Stdin
 	c.Stdout = os.Stdout
 	c.Stderr = os.Stderr
-	c.Args = cmd[:]
+	c.Args = cmd
 
 	if len(env) >= 1 {
 		c.Env = make([]string, 0, len(env))

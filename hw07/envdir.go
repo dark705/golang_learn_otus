@@ -2,13 +2,10 @@ package main
 
 import (
 	"fmt"
-	"hw07/env"
 	"os"
+
+	"github.com/dark705/otus/hw07/env"
 )
-
-func init() {
-
-}
 
 func main() {
 	if len(os.Args) < 3 {
