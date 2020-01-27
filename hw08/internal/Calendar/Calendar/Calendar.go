@@ -13,7 +13,19 @@ type Calendar struct {
 	Logger  logrus.Logger
 }
 
-func (c Calendar) AddEvent(e Event.Event) int {
-	c.Logger.Debug("Add Event", e)
-	return c.Storage.Add(e)
+func (c Calendar) AddEvent(e Event.Event) error {
+	c.Logger.Debug("Try add Event to storage", e)
+	intervalIsBusy := c.Storage.CheckIntervalIsBusy(e)
+	if intervalIsBusy {
+		c.Logger.Debug("Interval for Event is busy", e)
+		return ErrDateBusy("")
+	} else {
+		err := c.Storage.Add(e)
+		if err != nil {
+			c.Logger.Debug("Fail to add Event in storage", e)
+			return err
+		}
+	}
+	c.Logger.Info("Event add in storage success", e)
+	return nil
 }
