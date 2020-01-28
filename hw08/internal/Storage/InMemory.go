@@ -13,14 +13,27 @@ func (s *InMemory) Add(e Event.Event) error {
 	return nil
 }
 
-func (s *InMemory) CheckIntervalIsBusy(e Event.Event) bool {
-	for _, v := range s.Events {
-		if e.StartTime.After(v.StartTime) && e.StartTime.Before(v.EndTime) {
+func (s *InMemory) CheckIntervalIsBusy(newEvent Event.Event) bool {
+	for _, existEvent := range s.Events {
+		/*
+			if newEvent.StartTime.After(existEvent.StartTime) && newEvent.EndTime.Before(existEvent.EndTime){
+				return true
+			}
+		*/
+
+		//NewEvent include existEvent
+		if newEvent.StartTime.Before(existEvent.StartTime) && newEvent.EndTime.After(existEvent.EndTime) {
 			return true
 		}
-		if e.EndTime.Before(v.EndTime) && e.EndTime.After(v.StartTime) {
+		//EndTime of newEvent inside existEvent
+		if newEvent.EndTime.After(existEvent.StartTime) && newEvent.EndTime.Before(existEvent.EndTime) {
 			return true
 		}
+		//StartTime of newEvent inside existEvent
+		if newEvent.StartTime.After(existEvent.StartTime) && newEvent.StartTime.Before(existEvent.EndTime) {
+			return true
+		}
+
 	}
 	return false
 }

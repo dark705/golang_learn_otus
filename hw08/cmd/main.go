@@ -32,8 +32,8 @@ func main() {
 	timeEnd2, _ := time.Parse(time.RFC3339, "2006-01-02T17:00:00Z")
 	event2 := Event.Event{timeStart2, timeEnd2, "Event 2", "Some Desc2"}
 
-	timeStart3, _ := time.Parse(time.RFC3339, "2006-01-02T16:01:00Z")
-	timeEnd3, _ := time.Parse(time.RFC3339, "2006-01-02T18:00:00Z")
+	timeStart3, _ := time.Parse(time.RFC3339, "2006-01-01T16:01:00Z")
+	timeEnd3, _ := time.Parse(time.RFC3339, "2006-01-03T18:00:00Z")
 	event3 := Event.Event{timeStart3, timeEnd3, "Event 3", "Some Desc3"}
 
 	calendar.AddEvent(event1)
