@@ -14,18 +14,29 @@ type Calendar struct {
 }
 
 func (c Calendar) AddEvent(e Event.Event) error {
-	c.Logger.Debug("Try add Event to storage", e)
+	c.Logger.Debug("Try add to storage, Event:", e)
 	intervalIsBusy := c.Storage.CheckIntervalIsBusy(e)
 	if intervalIsBusy {
-		c.Logger.Debug("Interval for Event is busy", e)
+		c.Logger.Debug("Interval is busy for Event:", e)
 		return ErrDateBusy("")
 	} else {
 		err := c.Storage.Add(e)
 		if err != nil {
-			c.Logger.Debug("Fail to add Event in storage", e)
+			c.Logger.Debug("Fail add to storage, Event:", e)
 			return err
 		}
 	}
-	c.Logger.Info("Event add in storage success", e)
+	c.Logger.Info("Success add to storage, Event:", e)
+	return nil
+}
+
+func (c Calendar) DelEvent(id int) error {
+	c.Logger.Debug("Try del form storage Event, with Id:", id)
+	err := c.Storage.Del(id)
+	if err != nil {
+		c.Logger.Debug("Fail del from storage Event, with Id:", id)
+		return err
+	}
+	c.Logger.Info("Success del from storage Event, with Id:", id)
 	return nil
 }

@@ -1,6 +1,9 @@
 package Storage
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/dark705/otus/hw08/internal/Calendar/Event"
 )
 
@@ -30,4 +33,14 @@ func (s *InMemory) CheckIntervalIsBusy(newEvent Event.Event) bool {
 
 	}
 	return false
+}
+
+func (s *InMemory) Del(id int) error {
+	if id >= len(s.Events) {
+		return errors.New(fmt.Sprintf("Event with id: %d not found", id))
+	}
+	//fast, but change order
+	s.Events[id] = s.Events[len(s.Events)-1]
+	s.Events = s.Events[:len(s.Events)-1]
+	return nil
 }
