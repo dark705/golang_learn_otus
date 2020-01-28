@@ -31,6 +31,6 @@ func main() {
 	calendar.AddEvent(event2)
 	calendar.AddEvent(event3)
 	fmt.Println(inMemory)
-	calendar.DelEvent(1)
+	calendar.DelEvent(2)
 	fmt.Println(inMemory)
 }
