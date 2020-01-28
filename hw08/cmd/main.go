@@ -33,4 +33,6 @@ func main() {
 	fmt.Println(inMemory)
 	calendar.DelEvent(2)
 	fmt.Println(inMemory)
+	event, _ := calendar.GetEvent(2)
+	fmt.Println(event)
 }

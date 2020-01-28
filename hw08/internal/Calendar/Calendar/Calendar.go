@@ -34,3 +34,14 @@ func (c Calendar) DelEvent(id int) error {
 	c.Logger.Info("Success del from storage Event, with Id:", id)
 	return nil
 }
+
+func (c Calendar) GetEvent(id int) (Event.Event, error) {
+	c.Logger.Debug("Try get Event form storage, with Id:", id)
+	event, err := c.Storage.Get(id)
+	if err != nil {
+		c.Logger.Debug("Fail get Event from storage", " Error:", err)
+		return event, err
+	}
+	c.Logger.Info("Success get from storage Event, with Id:", id)
+	return event, nil
+}

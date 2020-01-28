@@ -26,6 +26,13 @@ func (s *InMemory) Del(id int) error {
 	return nil
 }
 
+func (s *InMemory) Get(id int) (Event.Event, error) {
+	if id >= len(s.Events) {
+		return Event.Event{}, ErrNotFoundWithId(id)
+	}
+	return s.Events[id], nil
+}
+
 func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
 	for _, existEvent := range s.Events {
 		//NewEvent include existEvent
