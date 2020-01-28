@@ -15,12 +15,6 @@ func (s *InMemory) Add(e Event.Event) error {
 
 func (s *InMemory) CheckIntervalIsBusy(newEvent Event.Event) bool {
 	for _, existEvent := range s.Events {
-		/*
-			if newEvent.StartTime.After(existEvent.StartTime) && newEvent.EndTime.Before(existEvent.EndTime){
-				return true
-			}
-		*/
-
 		//NewEvent include existEvent
 		if newEvent.StartTime.Before(existEvent.StartTime) && newEvent.EndTime.After(existEvent.EndTime) {
 			return true

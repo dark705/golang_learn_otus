@@ -8,3 +8,24 @@ type Event struct {
 	Title       string
 	Description string
 }
+
+func GetEvent(startTime, endTime, title, description string) (Event, error) {
+	e := Event{}
+
+	sTime, err := time.Parse(time.RFC3339, startTime)
+	if err != nil {
+		return e, err
+	}
+	e.StartTime = sTime
+
+	eTime, err := time.Parse(time.RFC3339, endTime)
+	if err != nil {
+		return e, err
+	}
+	e.EndTime = eTime
+
+	e.Title = title
+	e.Description = description
+
+	return e, nil
+}
