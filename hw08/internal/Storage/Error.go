@@ -1,25 +1,14 @@
 package Storage
 
 import (
+	"errors"
 	"fmt"
 )
 
-type ErrDateBusy struct{ s string }
-
-func (e *ErrDateBusy) Error() string {
-	return e.s
+func ErrDateBusy() error {
+	return errors.New("date interval already busy by another event")
 }
 
-func NewErrDateBusy() error {
-	return &ErrDateBusy{"Date interval already busy by another event"}
-}
-
-type ErrNotFoundWithId struct{ s string }
-
-func (e *ErrNotFoundWithId) Error() string {
-	return e.s
-}
-
-func NewErrNotFoundWithId(id int) error {
-	return &ErrNotFoundWithId{fmt.Sprintf("Event with id:%d not found", id)}
+func ErrNotFoundWithId(id int) error {
+	return errors.New(fmt.Sprintf("Event with id:%d not found", id))
 }

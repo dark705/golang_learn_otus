@@ -10,7 +10,7 @@ type InMemory struct {
 
 func (s *InMemory) Add(e Event.Event) error {
 	if s.intervalIsBusy(e) {
-		return NewErrDateBusy()
+		return ErrDateBusy()
 	}
 	s.Events = append(s.Events, e)
 	return nil
@@ -18,7 +18,7 @@ func (s *InMemory) Add(e Event.Event) error {
 
 func (s *InMemory) Del(id int) error {
 	if id >= len(s.Events) {
-		return NewErrNotFoundWithId(id)
+		return ErrNotFoundWithId(id)
 	}
 	//fast, but change order
 	s.Events[id] = s.Events[len(s.Events)-1]
