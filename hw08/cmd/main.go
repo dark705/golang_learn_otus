@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/dark705/otus/hw08/internal/Calendar/Calendar"
 	"github.com/dark705/otus/hw08/internal/Calendar/Event"
@@ -26,14 +27,15 @@ func main() {
 
 	event1, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	event2, _ := Event.GetEvent("2006-01-02T16:00:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
-	event3, _ := Event.GetEvent("2006-01-01T16:01:00Z", "2006-01-03T18:00:00Z", "Event 3", "Some Desc3")
+	event3, _ := Event.GetEvent("2006-01-02T17:00:00Z", "2006-01-02T18:00:00Z", "Event 3", "Some Desc3")
 
 	calendar.AddEvent(event1)
 	calendar.AddEvent(event2)
 	calendar.AddEvent(event3)
+	event2s, _ := calendar.GetEvent(1)
+	event2s.EndTime, _ = time.Parse(time.RFC3339, "2006-01-02T17:01:00Z")
 	fmt.Println(inMemory)
-	calendar.DelEvent(0)
+	calendar.EditEvent(1, event2s)
 	fmt.Println(inMemory)
-	event, _ := calendar.GetEvent(2)
-	fmt.Println(event)
+
 }

@@ -13,6 +13,7 @@ func (s *InMemory) Init() {
 }
 
 func (s *InMemory) Add(e Event.Event) error {
+	e.Id = len(s.Events)
 	if s.intervalIsBusy(e) {
 		return ErrDateBusy()
 	}
@@ -37,8 +38,24 @@ func (s *InMemory) Get(id int) (Event.Event, error) {
 	return event, nil
 }
 
+func (s *InMemory) Edit(id int, e Event.Event) error {
+	_, exist := s.Events[id]
+	if !exist {
+		return ErrNotFoundWithId(id)
+	}
+	if s.intervalIsBusy(e) {
+		return ErrDateBusy()
+	}
+	s.Events[id] = e
+	return nil
+}
+
 func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
-	for _, existEvent := range s.Events {
+
+	for id, existEvent := range s.Events {
+		if newEvent.Id == id {
+			continue
+		}
 		//NewEvent include existEvent
 		if newEvent.StartTime.Before(existEvent.StartTime) && newEvent.EndTime.After(existEvent.EndTime) {
 			return true

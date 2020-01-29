@@ -3,6 +3,7 @@ package Event
 import "time"
 
 type Event struct {
+	Id          int
 	StartTime   time.Time
 	EndTime     time.Time
 	Title       string
