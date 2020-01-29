@@ -38,6 +38,17 @@ func (s *InMemory) Get(id int) (Event.Event, error) {
 	return event, nil
 }
 
+func (s *InMemory) GetAll() ([]Event.Event, error) {
+	if len(s.Events) == 0 {
+		return []Event.Event{}, ErrNoEventsInStorage()
+	}
+	events := make([]Event.Event, 0, len(s.Events))
+	for _, event := range s.Events {
+		events = append(events, event)
+	}
+	return events, nil
+}
+
 func (s *InMemory) Edit(id int, e Event.Event) error {
 	_, exist := s.Events[id]
 	if !exist {

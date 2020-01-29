@@ -46,6 +46,17 @@ func (c Calendar) GetEvent(id int) (Event.Event, error) {
 	return event, nil
 }
 
+func (c Calendar) GetAllEvents() ([]Event.Event, error) {
+	c.Logger.Debug("Try get all Events form storage")
+	events, err := c.Storage.GetAll()
+	if err != nil {
+		c.Logger.Debug("Fail get Events from storage:", err)
+		return events, err
+	}
+	c.Logger.Info("Success get from storage Events", len(events))
+	return events, nil
+}
+
 func (c Calendar) EditEvent(id int, e Event.Event) error {
 	c.Logger.Debug("Try edit Event in storage, with Id:", id)
 	err := c.Storage.Edit(id, e)

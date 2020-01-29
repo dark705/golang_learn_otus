@@ -12,3 +12,7 @@ func ErrDateBusy() error {
 func ErrNotFoundWithId(id int) error {
 	return errors.New(fmt.Sprintf("Event with id:%d not found", id))
 }
+
+func ErrNoEventsInStorage() error {
+	return errors.New("No events in storage")
+}

@@ -24,6 +24,8 @@ func main() {
 	inMemory := Storage.InMemory{}
 	inMemory.Init()
 	calendar := Calendar.Calendar{Config: config, Storage: &inMemory, Logger: logger}
+	ev, _ := calendar.GetAllEvents()
+	fmt.Println(ev)
 
 	event1, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	event2, _ := Event.GetEvent("2006-01-02T16:00:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
@@ -36,6 +38,7 @@ func main() {
 	event2s.EndTime, _ = time.Parse(time.RFC3339, "2006-01-02T17:01:00Z")
 	fmt.Println(inMemory)
 	calendar.EditEvent(1, event2s)
-	fmt.Println(inMemory)
+	ev2, _ := calendar.GetAllEvents()
+	fmt.Println(ev2)
 
 }
