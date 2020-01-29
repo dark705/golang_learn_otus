@@ -35,9 +35,9 @@ func main() {
 	calendar.AddEvent(event2)
 	calendar.AddEvent(event3)
 	event2s, _ := calendar.GetEvent(1)
-	event2s.EndTime, _ = time.Parse(time.RFC3339, "2006-01-02T17:01:00Z")
+	event2s.EndTime, _ = time.Parse(time.RFC3339, "2006-01-02T16:30:00Z")
 	fmt.Println(inMemory)
-	calendar.EditEvent(1, event2s)
+	calendar.EditEvent(event2s)
 	ev2, _ := calendar.GetAllEvents()
 	fmt.Println(ev2)
 

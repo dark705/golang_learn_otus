@@ -49,20 +49,19 @@ func (s *InMemory) GetAll() ([]Event.Event, error) {
 	return events, nil
 }
 
-func (s *InMemory) Edit(id int, e Event.Event) error {
-	_, exist := s.Events[id]
+func (s *InMemory) Edit(e Event.Event) error {
+	_, exist := s.Events[e.Id]
 	if !exist {
-		return ErrNotFoundWithId(id)
+		return ErrNotFoundWithId(e.Id)
 	}
 	if s.intervalIsBusy(e) {
 		return ErrDateBusy()
 	}
-	s.Events[id] = e
+	s.Events[e.Id] = e
 	return nil
 }
 
 func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
-
 	for id, existEvent := range s.Events {
 		if newEvent.Id == id {
 			continue

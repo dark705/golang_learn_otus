@@ -7,5 +7,5 @@ type Storage interface {
 	Del(id int) error
 	Get(id int) (Event.Event, error)
 	GetAll() ([]Event.Event, error)
-	Edit(id int, e Event.Event) error
+	Edit(Event.Event) error
 }

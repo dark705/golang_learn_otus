@@ -57,13 +57,13 @@ func (c Calendar) GetAllEvents() ([]Event.Event, error) {
 	return events, nil
 }
 
-func (c Calendar) EditEvent(id int, e Event.Event) error {
-	c.Logger.Debug("Try edit Event in storage, with Id:", id)
-	err := c.Storage.Edit(id, e)
+func (c Calendar) EditEvent(e Event.Event) error {
+	c.Logger.Debug("Try edit Event in storage, with Id:", e.Id)
+	err := c.Storage.Edit(e)
 	if err != nil {
 		c.Logger.Debug("Fail edit Event in storage:", err)
 		return err
 	}
-	c.Logger.Info("Success edit Event in storage with Id:", id)
+	c.Logger.Info("Success edit Event in storage with Id:", e.Id)
 	return nil
 }
