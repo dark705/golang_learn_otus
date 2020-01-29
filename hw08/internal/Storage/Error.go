@@ -6,7 +6,7 @@ import (
 )
 
 func ErrDateBusy() error {
-	return errors.New("date interval already busy by another event")
+	return errors.New("Date interval already busy by another event")
 }
 
 func ErrNotFoundWithId(id int) error {

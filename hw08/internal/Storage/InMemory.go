@@ -17,9 +17,10 @@ func (s *InMemory) Add(e Event.Event) error {
 }
 
 func (s *InMemory) Del(id int) error {
-	if id >= len(s.Events) {
+	if !s.idIsExist(id) {
 		return ErrNotFoundWithId(id)
 	}
+
 	//fast, but change order
 	s.Events[id] = s.Events[len(s.Events)-1]
 	s.Events = s.Events[:len(s.Events)-1]
@@ -27,7 +28,7 @@ func (s *InMemory) Del(id int) error {
 }
 
 func (s *InMemory) Get(id int) (Event.Event, error) {
-	if id >= len(s.Events) {
+	if !s.idIsExist(id) {
 		return Event.Event{}, ErrNotFoundWithId(id)
 	}
 	return s.Events[id], nil
@@ -50,4 +51,8 @@ func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
 
 	}
 	return false
+}
+
+func (s *InMemory) idIsExist(id int) bool {
+	return id < len(s.Events)
 }
