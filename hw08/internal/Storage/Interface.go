@@ -2,7 +2,7 @@ package Storage
 
 import "github.com/dark705/otus/hw08/internal/Calendar/Event"
 
-type Storage interface {
+type Interface interface {
 	Add(e Event.Event) error
 	Del(id int) error
 	Get(id int) (Event.Event, error)

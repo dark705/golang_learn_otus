@@ -9,7 +9,7 @@ import (
 
 type Calendar struct {
 	Config  Config.Config
-	Storage Storage.Storage
+	Storage Storage.Interface
 	Logger  logrus.Logger
 }
 
