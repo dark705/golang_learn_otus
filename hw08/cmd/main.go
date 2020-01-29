@@ -21,6 +21,7 @@ func main() {
 	logger := Logger.GetLogger(config)
 
 	inMemory := Storage.InMemory{}
+	inMemory.Init()
 	calendar := Calendar.Calendar{Config: config, Storage: &inMemory, Logger: logger}
 
 	event1, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
@@ -31,7 +32,7 @@ func main() {
 	calendar.AddEvent(event2)
 	calendar.AddEvent(event3)
 	fmt.Println(inMemory)
-	calendar.DelEvent(2)
+	calendar.DelEvent(0)
 	fmt.Println(inMemory)
 	event, _ := calendar.GetEvent(2)
 	fmt.Println(event)

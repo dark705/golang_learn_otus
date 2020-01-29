@@ -5,33 +5,36 @@ import (
 )
 
 type InMemory struct {
-	Events []Event.Event
+	Events map[int]Event.Event
+}
+
+func (s *InMemory) Init() {
+	s.Events = make(map[int]Event.Event)
 }
 
 func (s *InMemory) Add(e Event.Event) error {
 	if s.intervalIsBusy(e) {
 		return ErrDateBusy()
 	}
-	s.Events = append(s.Events, e)
+	s.Events[len(s.Events)] = e
 	return nil
 }
 
 func (s *InMemory) Del(id int) error {
-	if !s.idIsExist(id) {
+	_, exist := s.Events[id]
+	if !exist {
 		return ErrNotFoundWithId(id)
 	}
-
-	//fast, but change order
-	s.Events[id] = s.Events[len(s.Events)-1]
-	s.Events = s.Events[:len(s.Events)-1]
+	delete(s.Events, id)
 	return nil
 }
 
 func (s *InMemory) Get(id int) (Event.Event, error) {
-	if !s.idIsExist(id) {
+	event, exist := s.Events[id]
+	if !exist {
 		return Event.Event{}, ErrNotFoundWithId(id)
 	}
-	return s.Events[id], nil
+	return event, nil
 }
 
 func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
@@ -51,8 +54,4 @@ func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
 
 	}
 	return false
-}
-
-func (s *InMemory) idIsExist(id int) bool {
-	return id < len(s.Events)
 }
