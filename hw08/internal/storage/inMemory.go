@@ -1,18 +1,18 @@
-package Storage
+package storage
 
 import (
-	"github.com/dark705/otus/hw08/internal/Calendar/Event"
+	"github.com/dark705/otus/hw08/internal/calendar/event"
 )
 
 type InMemory struct {
-	Events map[int]Event.Event
+	Events map[int]event.Event
 }
 
 func (s *InMemory) Init() {
-	s.Events = make(map[int]Event.Event)
+	s.Events = make(map[int]event.Event)
 }
 
-func (s *InMemory) Add(e Event.Event) error {
+func (s *InMemory) Add(e event.Event) error {
 	e.Id = len(s.Events)
 	if s.intervalIsBusy(e) {
 		return ErrDateBusy()
@@ -30,26 +30,26 @@ func (s *InMemory) Del(id int) error {
 	return nil
 }
 
-func (s *InMemory) Get(id int) (Event.Event, error) {
+func (s *InMemory) Get(id int) (event.Event, error) {
 	event, exist := s.Events[id]
 	if !exist {
-		return Event.Event{}, ErrNotFoundWithId(id)
+		return event, ErrNotFoundWithId(id)
 	}
 	return event, nil
 }
 
-func (s *InMemory) GetAll() ([]Event.Event, error) {
+func (s *InMemory) GetAll() ([]event.Event, error) {
 	if len(s.Events) == 0 {
-		return []Event.Event{}, ErrNoEventsInStorage()
+		return []event.Event{}, ErrNoEventsInStorage()
 	}
-	events := make([]Event.Event, 0, len(s.Events))
+	events := make([]event.Event, 0, len(s.Events))
 	for _, event := range s.Events {
 		events = append(events, event)
 	}
 	return events, nil
 }
 
-func (s *InMemory) Edit(e Event.Event) error {
+func (s *InMemory) Edit(e event.Event) error {
 	_, exist := s.Events[e.Id]
 	if !exist {
 		return ErrNotFoundWithId(e.Id)
@@ -61,7 +61,7 @@ func (s *InMemory) Edit(e Event.Event) error {
 	return nil
 }
 
-func (s *InMemory) intervalIsBusy(newEvent Event.Event) bool {
+func (s *InMemory) intervalIsBusy(newEvent event.Event) bool {
 	for id, existEvent := range s.Events {
 		if newEvent.Id == id {
 			continue

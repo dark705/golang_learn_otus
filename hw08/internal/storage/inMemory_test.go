@@ -1,10 +1,10 @@
-package Storage
+package storage
 
 import (
 	"testing"
 	"time"
 
-	"github.com/dark705/otus/hw08/internal/Calendar/Event"
+	"github.com/dark705/otus/hw08/internal/calendar/event"
 )
 
 func TestNewStorageHaveNoEvents(t *testing.T) {
@@ -20,7 +20,7 @@ func TestAddEventSuccess(t *testing.T) {
 	inMemory := InMemory{}
 	inMemory.Init()
 
-	event, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	err := inMemory.Add(event)
 	if err != nil {
 		t.Error("Can't add event to storage")
@@ -36,7 +36,7 @@ func TestDelEventSuccess(t *testing.T) {
 	inMemory := InMemory{}
 	inMemory.Init()
 
-	event, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	_ = inMemory.Add(event)
 	err := inMemory.Del(0)
 	if err != nil {
@@ -54,9 +54,9 @@ func TestAddDateIntervalBusy(t *testing.T) {
 	inMemory := InMemory{}
 	inMemory.Init()
 
-	event1, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
-	event2, _ := Event.GetEvent("2006-01-02T16:00:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
-	event3, _ := Event.GetEvent("2006-01-02T18:00:00Z", "2006-01-02T19:00:00Z", "Event 3", "Some Desc3")
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T16:00:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
+	event3, _ := event.CreateEvent("2006-01-02T18:00:00Z", "2006-01-02T19:00:00Z", "Event 3", "Some Desc3")
 	err = inMemory.Add(event1)
 	err = inMemory.Add(event2)
 	err = inMemory.Add(event3)
@@ -64,19 +64,19 @@ func TestAddDateIntervalBusy(t *testing.T) {
 		t.Error("Error on add not intersection events")
 	}
 
-	event4, _ := Event.GetEvent("2006-01-02T16:10:00Z", "2006-01-02T16:20:00Z", "Event 4", "Some Desc4")
+	event4, _ := event.CreateEvent("2006-01-02T16:10:00Z", "2006-01-02T16:20:00Z", "Event 4", "Some Desc4")
 	err = inMemory.Add(event4)
 	if err == nil {
 		t.Error("Add not return error for busy interval")
 	}
 
-	event5, _ := Event.GetEvent("2006-01-02T10:10:00Z", "2006-01-02T22:00:00Z", "Event 5", "Some Desc5")
+	event5, _ := event.CreateEvent("2006-01-02T10:10:00Z", "2006-01-02T22:00:00Z", "Event 5", "Some Desc5")
 	err = inMemory.Add(event5)
 	if err == nil {
 		t.Error("Add not return error for busy interval")
 	}
 
-	event6, _ := Event.GetEvent("2006-01-02T17:10:00Z", "2006-01-02T18:10:00Z", "Event 6", "Some Desc6")
+	event6, _ := event.CreateEvent("2006-01-02T17:10:00Z", "2006-01-02T18:10:00Z", "Event 6", "Some Desc6")
 	err = inMemory.Add(event6)
 	if err == nil {
 		t.Error("Add not return error for busy interval")
@@ -87,7 +87,7 @@ func TestGetEvent(t *testing.T) {
 	inMemory := InMemory{}
 	inMemory.Init()
 
-	event, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	_ = inMemory.Add(event)
 
 	_, err := inMemory.Get(1)
@@ -111,7 +111,7 @@ func TestEditEvent(t *testing.T) {
 	inMemory := InMemory{}
 	inMemory.Init()
 
-	event, _ := Event.GetEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
 	_ = inMemory.Add(event)
 
 	editEvent, _ := inMemory.Get(0)

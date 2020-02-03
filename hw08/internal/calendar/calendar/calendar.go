@@ -1,19 +1,19 @@
-package Calendar
+package calendar
 
 import (
-	"github.com/dark705/otus/hw08/internal/Calendar/Event"
-	"github.com/dark705/otus/hw08/internal/Config"
-	"github.com/dark705/otus/hw08/internal/Storage"
+	"github.com/dark705/otus/hw08/internal/calendar/event"
+	"github.com/dark705/otus/hw08/internal/config"
+	"github.com/dark705/otus/hw08/internal/storage"
 	"github.com/sirupsen/logrus"
 )
 
 type Calendar struct {
-	Config  Config.Config
-	Storage Storage.Interface
+	Config  config.Config
+	Storage storage.Interface
 	Logger  logrus.Logger
 }
 
-func (c Calendar) AddEvent(e Event.Event) error {
+func (c Calendar) AddEvent(e event.Event) error {
 	c.Logger.Debug("Try add to storage, Event:", e)
 	err := c.Storage.Add(e)
 	if err != nil {
@@ -35,7 +35,7 @@ func (c Calendar) DelEvent(id int) error {
 	return nil
 }
 
-func (c Calendar) GetEvent(id int) (Event.Event, error) {
+func (c Calendar) GetEvent(id int) (event.Event, error) {
 	c.Logger.Debug("Try get Event form storage, with Id:", id)
 	event, err := c.Storage.Get(id)
 	if err != nil {
@@ -46,7 +46,7 @@ func (c Calendar) GetEvent(id int) (Event.Event, error) {
 	return event, nil
 }
 
-func (c Calendar) GetAllEvents() ([]Event.Event, error) {
+func (c Calendar) GetAllEvents() ([]event.Event, error) {
 	c.Logger.Debug("Try get all Events form storage")
 	events, err := c.Storage.GetAll()
 	if err != nil {
@@ -57,7 +57,7 @@ func (c Calendar) GetAllEvents() ([]Event.Event, error) {
 	return events, nil
 }
 
-func (c Calendar) EditEvent(e Event.Event) error {
+func (c Calendar) EditEvent(e event.Event) error {
 	c.Logger.Debug("Try edit Event in storage, with Id:", e.Id)
 	err := c.Storage.Edit(e)
 	if err != nil {

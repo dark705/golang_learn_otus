@@ -1,13 +1,13 @@
-package Logger
+package logger
 
 import (
 	"os"
 
-	"github.com/dark705/otus/hw08/internal/Config"
+	"github.com/dark705/otus/hw08/internal/config"
 	"github.com/sirupsen/logrus"
 )
 
-func GetLogger(c Config.Config) logrus.Logger {
+func GetLogger(c config.Config) logrus.Logger {
 	logger := logrus.Logger{}
 
 	switch c.LogLevel {

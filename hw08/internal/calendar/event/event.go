@@ -1,4 +1,4 @@
-package Event
+package event
 
 import "time"
 
@@ -10,7 +10,7 @@ type Event struct {
 	Description string
 }
 
-func GetEvent(startTime, endTime, title, description string) (Event, error) {
+func CreateEvent(startTime, endTime, title, description string) (Event, error) {
 	e := Event{}
 
 	sTime, err := time.Parse(time.RFC3339, startTime)

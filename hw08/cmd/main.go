@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/dark705/otus/hw08/internal/Calendar/Calendar"
-	"github.com/dark705/otus/hw08/internal/Config"
-	"github.com/dark705/otus/hw08/internal/Logger"
-	"github.com/dark705/otus/hw08/internal/Storage"
+	"github.com/dark705/otus/hw08/internal/calendar/calendar"
+	"github.com/dark705/otus/hw08/internal/config"
+	"github.com/dark705/otus/hw08/internal/logger"
+	"github.com/dark705/otus/hw08/internal/storage"
 )
 
 func main() {
 
-	config, err := Config.ReadFromFile("config/config.yaml")
+	config, err := config.ReadFromFile("config/config.yaml")
 	if err != nil {
 		_, _ = fmt.Fprint(os.Stderr, err)
 		os.Exit(2)
 	}
-	logger := Logger.GetLogger(config)
+	logger := logger.GetLogger(config)
 
-	inMemory := Storage.InMemory{}
+	inMemory := storage.InMemory{}
 	inMemory.Init()
-	_ = Calendar.Calendar{Config: config, Storage: &inMemory, Logger: logger}
+	_ = calendar.Calendar{Config: config, Storage: &inMemory, Logger: logger}
 }
