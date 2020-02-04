@@ -15,7 +15,16 @@ type Calendar struct {
 
 func (c Calendar) AddEvent(e event.Event) error {
 	c.Logger.Debug("Try add to storage, Event:", e)
-	err := c.Storage.Add(e)
+	isBusy, err := c.Storage.IntervalIsBusy(e)
+	if err != nil {
+		c.Logger.Debug("Fail to check interval for Event, Error:", err)
+		return err
+	}
+	if isBusy {
+		c.Logger.Debug("Interval is busy for Event:", e)
+		return ErrDateBusy
+	}
+	err = c.Storage.Add(e)
 	if err != nil {
 		c.Logger.Debug("Fail add Event to storage:", err)
 		return err
@@ -37,13 +46,13 @@ func (c Calendar) DelEvent(id int) error {
 
 func (c Calendar) GetEvent(id int) (event.Event, error) {
 	c.Logger.Debug("Try get Event form storage, with Id:", id)
-	event, err := c.Storage.Get(id)
+	e, err := c.Storage.Get(id)
 	if err != nil {
 		c.Logger.Debug("Fail get Event from storage:", err)
-		return event, err
+		return e, err
 	}
 	c.Logger.Info("Success get from storage Event, with Id:", id)
-	return event, nil
+	return e, nil
 }
 
 func (c Calendar) GetAllEvents() ([]event.Event, error) {
@@ -53,13 +62,26 @@ func (c Calendar) GetAllEvents() ([]event.Event, error) {
 		c.Logger.Debug("Fail get Events from storage:", err)
 		return events, err
 	}
+	if len(events) == 0 {
+		c.Logger.Debug("No events in storage")
+		return events, ErrNoEventsInStorage
+	}
 	c.Logger.Info("Success get from storage Events", len(events))
 	return events, nil
 }
 
 func (c Calendar) EditEvent(e event.Event) error {
-	c.Logger.Debug("Try edit Event in storage, with Id:", e.Id)
-	err := c.Storage.Edit(e)
+	c.Logger.Debug("Try edit Event in storage")
+	isBusy, err := c.Storage.IntervalIsBusy(e)
+	if err != nil {
+		c.Logger.Debug("Fail to check interval for Event, Error:", err)
+		return err
+	}
+	if isBusy {
+		c.Logger.Debug("Interval is busy for Event:", e)
+		return ErrDateBusy
+	}
+	err = c.Storage.Edit(e)
 	if err != nil {
 		c.Logger.Debug("Fail edit Event in storage:", err)
 		return err

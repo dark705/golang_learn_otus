@@ -10,4 +10,5 @@ type Interface interface {
 	Get(id int) (event.Event, error)
 	GetAll() ([]event.Event, error)
 	Edit(event.Event) error
+	IntervalIsBusy(event.Event) (bool, error)
 }
