@@ -1,6 +1,8 @@
 package logger
 
 import (
+	"fmt"
+	"io"
 	"os"
 
 	"github.com/dark705/otus/hw08/internal/config"
@@ -25,6 +27,14 @@ func GetLogger(c config.Config) logrus.Logger {
 
 	formatter := logrus.JSONFormatter{}
 	logger.SetFormatter(&formatter)
-	logger.SetOutput(os.Stdout)
+
+	file, err := os.OpenFile(c.LogFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		_, _ = fmt.Fprint(os.Stderr, err)
+		os.Exit(2)
+	}
+
+	mw := io.MultiWriter(os.Stdout, file)
+	logger.SetOutput(mw)
 	return logger
 }

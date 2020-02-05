@@ -14,14 +14,14 @@ type Config struct {
 
 func ReadFromFile(file string) (Config, error) {
 	c := Config{}
-	r, e := ioutil.ReadFile(file)
-	if e != nil {
-		return c, e
+	r, err := ioutil.ReadFile(file)
+	if err != nil {
+		return c, err
 	}
 
-	e = yaml.Unmarshal(r, &c)
-	if e != nil {
-		return c, e
+	err = yaml.Unmarshal(r, &c)
+	if err != nil {
+		return c, err
 	}
 
 	return c, nil
