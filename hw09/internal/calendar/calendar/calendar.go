@@ -1,6 +1,8 @@
 package calendar
 
 import (
+	"sync"
+
 	"github.com/dark705/otus/hw08/internal/calendar/event"
 	"github.com/dark705/otus/hw08/internal/config"
 	"github.com/dark705/otus/hw08/internal/storage"
@@ -9,12 +11,15 @@ import (
 
 type Calendar struct {
 	Config  config.Config
+	mu      sync.Mutex
 	Storage storage.Interface
 	Logger  logrus.Logger
 }
 
 func (c Calendar) AddEvent(e event.Event) error {
 	c.Logger.Debug("Try add to storage, Event:", e)
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	isBusy, err := c.Storage.IntervalIsBusy(e)
 	if err != nil {
 		c.Logger.Debug("Fail to check interval for Event, Error:", err)
@@ -72,6 +77,8 @@ func (c Calendar) GetAllEvents() ([]event.Event, error) {
 
 func (c Calendar) EditEvent(e event.Event) error {
 	c.Logger.Debug("Try edit Event in storage")
+	c.mu.Lock()
+	defer c.mu.Unlock()
 	isBusy, err := c.Storage.IntervalIsBusy(e)
 	if err != nil {
 		c.Logger.Debug("Fail to check interval for Event, Error:", err)
