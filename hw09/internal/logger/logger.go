@@ -9,6 +9,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var file *os.File
+
 func GetLogger(c config.Config) logrus.Logger {
 	logger := logrus.Logger{}
 	switch c.LogLevel {
@@ -27,8 +29,8 @@ func GetLogger(c config.Config) logrus.Logger {
 
 	formatter := logrus.JSONFormatter{}
 	logger.SetFormatter(&formatter)
-
-	file, err := os.OpenFile(c.LogFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	var err error
+	file, err = os.OpenFile(c.LogFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		_, _ = fmt.Fprint(os.Stderr, err)
 		os.Exit(2)
@@ -37,4 +39,11 @@ func GetLogger(c config.Config) logrus.Logger {
 	mw := io.MultiWriter(os.Stdout, file)
 	logger.SetOutput(mw)
 	return logger
+}
+
+func CloseLogFile() {
+	err := file.Close()
+	if err != nil {
+		_, _ = fmt.Fprint(os.Stderr, err)
+	}
 }

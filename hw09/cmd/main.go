@@ -30,6 +30,7 @@ func main() {
 	}
 
 	log := logger.GetLogger(conf)
+	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
