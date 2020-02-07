@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/dark705/otus/hw08/internal/calendar/event"
+	"github.com/dark705/otus/hw09/internal/calendar/event"
 )
 
 type Interface interface {

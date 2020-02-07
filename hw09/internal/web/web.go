@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/dark705/otus/hw08/internal/config"
+	"github.com/dark705/otus/hw09/internal/config"
 	"github.com/sirupsen/logrus"
 )
 
