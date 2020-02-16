@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+service Calendar {
+    rpc GetEvent (Id) returns (Event) {
+    }
+}
+
+message Event {
+    int32 id = 1;
+    string startTime = 2;
+    string endTime = 3;
+    reserved 4;
+    reserved "duration";
+    string title = 5;
+    string description = 6;
+}
+
+message Id {
+    int32 id = 1;
+}
