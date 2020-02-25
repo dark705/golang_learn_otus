@@ -1,4 +1,4 @@
-package client
+package main
 
 import (
 	"flag"
@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/dark705/otus/hw11/internal/calendar/calendar"
+	"github.com/dark705/otus/hw11/internal/calendar/grpc"
 	"github.com/dark705/otus/hw11/internal/config"
 	"github.com/dark705/otus/hw11/internal/logger"
 	"github.com/dark705/otus/hw11/internal/storage"
@@ -40,6 +41,7 @@ func main() {
 	_ = calendar.Calendar{Config: conf, Storage: &inMemory, Logger: &log}
 
 	go web.RunServer(conf, &log)
+	go grpc.RunServer(&conf, &log)
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
 }

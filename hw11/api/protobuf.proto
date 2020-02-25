@@ -3,6 +3,8 @@ syntax = "proto3";
 service Calendar {
     rpc GetEvent (Id) returns (Event) {
     }
+    rpc AddEvent (Event) returns (Event) {
+    }
 }
 
 message Event {
