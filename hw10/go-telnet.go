@@ -24,9 +24,7 @@ func main() {
 	var timeout int
 	flag.IntVar(&timeout, "timeout", 10, "time out in seconds")
 	flag.Parse()
-
-	dialer := net.Dialer{Timeout: time.Second * time.Duration(timeout)}
-	connect, err := dialer.Dial("tcp", net.JoinHostPort(host, port))
+	connect, err := net.DialTimeout("tcp", net.JoinHostPort(host, port), time.Second*time.Duration(timeout))
 	failOnError("Can't connect to remote host", err)
 	ctx, chancel := context.WithCancel(context.Background())
 
@@ -42,6 +40,7 @@ func waitForNeedShutdown(conn net.Conn, chancel context.CancelFunc, ch chan stru
 		chancel()
 		err := conn.Close()
 		failOnError("Fail on close connection", err)
+		close(ch)
 		fmt.Println("Exit.")
 	}()
 
