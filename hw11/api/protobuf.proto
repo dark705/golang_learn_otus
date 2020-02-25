@@ -1,16 +1,18 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 service Calendar {
     rpc GetEvent (Id) returns (Event) {
     }
-    rpc AddEvent (Event) returns (Event) {
+    rpc AddEvent (Event) returns (google.protobuf.Empty) {
     }
 }
 
 message Event {
     int32 id = 1;
-    string startTime = 2;
-    string endTime = 3;
+    int64 startTime = 2;
+    int64 endTime = 3;
     reserved 4;
     reserved "duration";
     string title = 5;
