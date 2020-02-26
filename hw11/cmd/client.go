@@ -7,7 +7,7 @@ import (
 
 	"github.com/dark705/otus/hw11/internal/config"
 	"github.com/dark705/otus/hw11/internal/logger"
-	"github.com/dark705/otus/hw11/internal/protobuf"
+	"github.com/dark705/otus/hw11/pkg/calendar/protobuf"
 	"github.com/golang/protobuf/ptypes/empty"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -43,35 +43,15 @@ func main() {
 	ctx := context.TODO()
 
 	//Event0
-	_, err = client.AddEvent(ctx,
-		&protobuf.Event{
-			StartTime:   1000,
-			EndTime:     2000,
-			Title:       "title1",
-			Description: "description1",
-		},
-	)
+	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 1000, EndTime: 2000, Title: "title1", Description: "description1"})
+	fmt.Println(err)
 
 	//Event1
-	_, err = client.AddEvent(ctx,
-		&protobuf.Event{
-			StartTime:   3000,
-			EndTime:     4000,
-			Title:       "title2",
-			Description: "description2",
-		},
-	)
+	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 2000, EndTime: 3000, Title: "title2", Description: "description2"})
+	fmt.Println(err)
 
 	//Event2
-	_, err = client.AddEvent(ctx,
-		&protobuf.Event{
-			StartTime:   5000,
-			EndTime:     6000,
-			Title:       "title3",
-			Description: "description3",
-		},
-	)
-
+	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 1000, EndTime: 4000, Title: "title3", Description: "description3"})
 	fmt.Println(err)
 
 	grpcEvent, err := client.GetEvent(ctx, &protobuf.Id{Id: 0})

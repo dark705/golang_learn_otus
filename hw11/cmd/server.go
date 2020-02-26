@@ -39,9 +39,11 @@ func main() {
 	inMemory := storage.InMemory{}
 	inMemory.Init()
 	cal := calendar.Calendar{Config: conf, Storage: &inMemory, Logger: &log}
+	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
 
 	go web.RunServer(conf, &log)
-	go grpc.RunServer(conf, &log, &cal)
+	go grpcServer.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
+	grpcServer.Shutdown()
 }

@@ -1,1 +1,1 @@
-protoc  --proto_path=../api ../api/protobuf.proto --go_out=plugins=grpc:../internal/protobuf
+protoc  --proto_path=/api /api/protobuf.proto --go_out=plugins=grpc:pkg/calendar/protobuf
