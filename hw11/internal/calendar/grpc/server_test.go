@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/dark705/otus/hw11/internal/calendar/calendar"
 	"github.com/dark705/otus/hw11/internal/config"
@@ -20,6 +21,7 @@ func TestAddEventGetEvent(t *testing.T) {
 	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
+	time.Sleep(time.Second) // wait for grpc server run
 	defer grpcServer.Shutdown()
 
 	conn, err := grpc.Dial("127.0.0.1:53001", []grpc.DialOption{grpc.WithInsecure()}...)
@@ -56,6 +58,7 @@ func TestDelGetAllEvents(t *testing.T) {
 	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
+	time.Sleep(time.Second) // wait for grpc server run
 	defer grpcServer.Shutdown()
 
 	conn, err := grpc.Dial("127.0.0.1:53001", []grpc.DialOption{grpc.WithInsecure()}...)
