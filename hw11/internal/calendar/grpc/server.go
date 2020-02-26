@@ -12,12 +12,10 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
-	"google.golang.org/grpc/status"
 )
 
-func RunServer(conf *config.Config, log *logrus.Logger, calendar *calendar.Calendar) {
+func RunServer(conf config.Config, log *logrus.Logger, calendar *calendar.Calendar) {
 	log.Info("Start GRPC server:", conf.GrpcListen)
 
 	listener, err := net.Listen("tcp", conf.GrpcListen)
@@ -43,20 +41,68 @@ type CalendarServerGrpc struct {
 	calendar *calendar.Calendar
 }
 
-func (s *CalendarServerGrpc) GetEvent(ctx context.Context, id *protobuf.Id) (*protobuf.Event, error) {
-	s.log.Debug("Income gRPC GetEvent() id:", id)
-
-	//TODO!!!!
-	return nil, status.Errorf(codes.Unimplemented, "method GetEvent not implemented")
-}
-func (s *CalendarServerGrpc) AddEvent(ctx context.Context, ev *protobuf.Event) (*empty.Empty, error) {
-	s.log.Debug("Income gRPC AddEvent() event: ", ev)
+func (s *CalendarServerGrpc) AddEvent(ctx context.Context, grpcE *protobuf.Event) (*empty.Empty, error) {
+	s.log.Debug("Income gRPC AddEvent() event: ", grpcE)
 	err := s.calendar.AddEvent(event.Event{
-		StartTime:   time.Unix(ev.StartTime, 0),
-		EndTime:     time.Unix(ev.EndTime, 0),
-		Title:       ev.Title,
-		Description: ev.Description,
+		StartTime:   time.Unix(grpcE.StartTime, 0),
+		EndTime:     time.Unix(grpcE.EndTime, 0),
+		Title:       grpcE.Title,
+		Description: grpcE.Description,
 	})
 
 	return &empty.Empty{}, err
+}
+
+func (s *CalendarServerGrpc) GetEvent(ctx context.Context, grpcId *protobuf.Id) (*protobuf.Event, error) {
+	s.log.Debug("Income gRPC GetEvent() id:", grpcId)
+	calendarEvent, err := s.calendar.GetEvent(int(grpcId.Id))
+
+	return &protobuf.Event{
+		Id:          int32(calendarEvent.Id),
+		StartTime:   calendarEvent.StartTime.Unix(),
+		EndTime:     calendarEvent.EndTime.Unix(),
+		Title:       calendarEvent.Title,
+		Description: calendarEvent.Description,
+	}, err
+}
+
+func (s *CalendarServerGrpc) DelEvent(ctx context.Context, grpcId *protobuf.Id) (*empty.Empty, error) {
+	s.log.Debug("Income gRPC DelEvent() id:", grpcId)
+
+	return &empty.Empty{}, s.calendar.DelEvent(int(grpcId.Id))
+}
+
+func (s *CalendarServerGrpc) EditEvent(ctx context.Context, grpcE *protobuf.Event) (*empty.Empty, error) {
+	s.log.Debug("Income gRPC EditEvent() event:", grpcE)
+
+	s.log.Debug("Income gRPC AddEvent() event: ", grpcE)
+	err := s.calendar.EditEvent(event.Event{
+		StartTime:   time.Unix(grpcE.StartTime, 0),
+		EndTime:     time.Unix(grpcE.EndTime, 0),
+		Title:       grpcE.Title,
+		Description: grpcE.Description,
+	})
+
+	return &empty.Empty{}, err
+}
+
+func (s *CalendarServerGrpc) GetAllEvents(ctx context.Context, ev *empty.Empty) (*protobuf.Events, error) {
+	s.log.Debug("Income gRPC GetAllEvents()")
+	calendarEvents, err := s.calendar.GetAllEvents()
+	l := len(calendarEvents)
+
+	protobufEvents := make([]*protobuf.Event, 0, l)
+
+	for _, calendarEvent := range calendarEvents {
+		protobufEvent := protobuf.Event{
+			Id:          int32(calendarEvent.Id),
+			StartTime:   calendarEvent.StartTime.Unix(),
+			EndTime:     calendarEvent.EndTime.Unix(),
+			Title:       calendarEvent.Title,
+			Description: calendarEvent.Description,
+		}
+		protobufEvents = append(protobufEvents, &protobufEvent)
+	}
+
+	return &protobuf.Events{Events: protobufEvents}, err
 }

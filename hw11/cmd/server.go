@@ -41,7 +41,7 @@ func main() {
 	cal := calendar.Calendar{Config: conf, Storage: &inMemory, Logger: &log}
 
 	go web.RunServer(conf, &log)
-	go grpc.RunServer(&conf, &log, &cal)
+	go grpc.RunServer(conf, &log, &cal)
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
 }
