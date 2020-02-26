@@ -26,7 +26,7 @@ func (c *Calendar) AddEvent(e event.Event) error {
 		return err
 	}
 	if isBusy {
-		c.Logger.Debug("Interval is busy for Event:", e)
+		c.Logger.Warn("Interval is busy for Event:", e)
 		return ErrDateBusy
 	}
 	err = c.Storage.Add(e)
@@ -68,7 +68,7 @@ func (c *Calendar) GetAllEvents() ([]event.Event, error) {
 		return events, err
 	}
 	if len(events) == 0 {
-		c.Logger.Debug("No events in storage")
+		c.Logger.Warn("No events in storage")
 		return events, ErrNoEventsInStorage
 	}
 	c.Logger.Info("Success get from storage Events", len(events))
@@ -85,7 +85,7 @@ func (c *Calendar) EditEvent(e event.Event) error {
 		return err
 	}
 	if isBusy {
-		c.Logger.Debug("Interval is busy for Event:", e)
+		c.Logger.Warn("Interval is busy for Event:", e)
 		return ErrDateBusy
 	}
 	err = c.Storage.Edit(e)

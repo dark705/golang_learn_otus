@@ -42,6 +42,7 @@ func main() {
 	client := protobuf.NewCalendarClient(conn)
 	ctx := context.TODO()
 
+	//Event0
 	_, err = client.AddEvent(ctx,
 		&protobuf.Event{
 			StartTime:   1000,
@@ -50,6 +51,8 @@ func main() {
 			Description: "description1",
 		},
 	)
+
+	//Event1
 	_, err = client.AddEvent(ctx,
 		&protobuf.Event{
 			StartTime:   3000,
@@ -59,14 +62,27 @@ func main() {
 		},
 	)
 
+	//Event2
+	_, err = client.AddEvent(ctx,
+		&protobuf.Event{
+			StartTime:   5000,
+			EndTime:     6000,
+			Title:       "title3",
+			Description: "description3",
+		},
+	)
+
 	fmt.Println(err)
-	grpcEvent, err := client.GetEvent(ctx, &protobuf.Id{
-		Id: 0,
-	})
+
+	grpcEvent, err := client.GetEvent(ctx, &protobuf.Id{Id: 0})
 	fmt.Println(grpcEvent, err)
 
 	grpcEvents, err := client.GetAllEvents(ctx, &empty.Empty{})
-
 	fmt.Println(grpcEvents, err)
+
+	_, _ = client.DelEvent(ctx, &protobuf.Id{Id: 0})
+
+	grpcEvents2, err := client.GetAllEvents(ctx, &empty.Empty{})
+	fmt.Println(grpcEvents2, err)
 
 }
