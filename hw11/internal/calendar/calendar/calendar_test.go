@@ -55,7 +55,87 @@ func TestDelEventSuccess(t *testing.T) {
 	}
 }
 
-func TestAddDateIntervalBusy(t *testing.T) {
+func TestAddDateIntervalBusyAtSameTime(t *testing.T) {
+	var err error
+	inMemory := storage.InMemory{}
+	inMemory.Init()
+	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
+
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 2", "Some Desc2")
+	err = calendar.AddEvent(event1)
+	err = calendar.AddEvent(event2)
+
+	if err != ErrDateBusy {
+		t.Error("Add not return error for busy interval")
+	}
+}
+
+func TestAddDateIntervalStartTimeInExistInterval(t *testing.T) {
+	var err error
+	inMemory := storage.InMemory{}
+	inMemory.Init()
+	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
+
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T15:30:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
+	err = calendar.AddEvent(event1)
+	err = calendar.AddEvent(event2)
+
+	if err != ErrDateBusy {
+		t.Error("Add not return error for busy interval")
+	}
+}
+
+func TestAddDateIntervalEndTimeInExistInterval(t *testing.T) {
+	var err error
+	inMemory := storage.InMemory{}
+	inMemory.Init()
+	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
+
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T14:00:00Z", "2006-01-02T15:30:00Z", "Event 2", "Some Desc2")
+	err = calendar.AddEvent(event1)
+	err = calendar.AddEvent(event2)
+
+	if err != ErrDateBusy {
+		t.Error("Add not return error for busy interval")
+	}
+}
+
+func TestAddDateIntervalInsideExistInterval(t *testing.T) {
+	var err error
+	inMemory := storage.InMemory{}
+	inMemory.Init()
+	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
+
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T15:10:00Z", "2006-01-02T15:50:00Z", "Event 2", "Some Desc2")
+	err = calendar.AddEvent(event1)
+	err = calendar.AddEvent(event2)
+
+	if err != ErrDateBusy {
+		t.Error("Add not return error for busy interval")
+	}
+}
+
+func TestAddDateIntervalIncludeExistInterval(t *testing.T) {
+	var err error
+	inMemory := storage.InMemory{}
+	inMemory.Init()
+	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
+
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00Z", "2006-01-02T16:00:00Z", "Event 1", "Some Desc1")
+	event2, _ := event.CreateEvent("2006-01-02T14:00:00Z", "2006-01-02T17:00:00Z", "Event 2", "Some Desc2")
+	err = calendar.AddEvent(event1)
+	err = calendar.AddEvent(event2)
+
+	if err != ErrDateBusy {
+		t.Error("Add not return error for busy interval")
+	}
+}
+
+func TestAddDateIntervalBusyMultiple(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
 	inMemory.Init()

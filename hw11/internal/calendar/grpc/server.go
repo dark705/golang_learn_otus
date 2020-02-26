@@ -44,17 +44,19 @@ type CalendarServerGrpc struct {
 }
 
 func (s *CalendarServerGrpc) GetEvent(ctx context.Context, id *protobuf.Id) (*protobuf.Event, error) {
+	s.log.Debug("Income gRPC GetEvent() id:", id)
+
 	//TODO!!!!
-	s.log.Info("Income GerEvent")
 	return nil, status.Errorf(codes.Unimplemented, "method GetEvent not implemented")
 }
 func (s *CalendarServerGrpc) AddEvent(ctx context.Context, ev *protobuf.Event) (*empty.Empty, error) {
-	s.log.Debug("Income gRPC: AddEvent:", ev)
+	s.log.Debug("Income gRPC AddEvent() event: ", ev)
 	err := s.calendar.AddEvent(event.Event{
 		StartTime:   time.Unix(ev.StartTime, 0),
 		EndTime:     time.Unix(ev.EndTime, 0),
 		Title:       ev.Title,
 		Description: ev.Description,
 	})
+
 	return &empty.Empty{}, err
 }

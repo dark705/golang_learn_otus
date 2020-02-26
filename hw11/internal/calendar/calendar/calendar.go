@@ -16,11 +16,11 @@ type Calendar struct {
 	Logger  *logrus.Logger
 }
 
-func (c Calendar) AddEvent(e event.Event) error {
+func (c *Calendar) AddEvent(e event.Event) error {
 	c.Logger.Debug("Try add to storage, Event:", e)
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	isBusy, err := c.Storage.IntervalIsBusy(e)
+	isBusy, err := c.Storage.IntervalIsBusy(e, true)
 	if err != nil {
 		c.Logger.Debug("Fail to check interval for Event, Error:", err)
 		return err
@@ -38,7 +38,7 @@ func (c Calendar) AddEvent(e event.Event) error {
 	return nil
 }
 
-func (c Calendar) DelEvent(id int) error {
+func (c *Calendar) DelEvent(id int) error {
 	c.Logger.Debug("Try del form storage Event, with Id:", id)
 	err := c.Storage.Del(id)
 	if err != nil {
@@ -49,7 +49,7 @@ func (c Calendar) DelEvent(id int) error {
 	return nil
 }
 
-func (c Calendar) GetEvent(id int) (event.Event, error) {
+func (c *Calendar) GetEvent(id int) (event.Event, error) {
 	c.Logger.Debug("Try get Event form storage, with Id:", id)
 	e, err := c.Storage.Get(id)
 	if err != nil {
@@ -60,7 +60,7 @@ func (c Calendar) GetEvent(id int) (event.Event, error) {
 	return e, nil
 }
 
-func (c Calendar) GetAllEvents() ([]event.Event, error) {
+func (c *Calendar) GetAllEvents() ([]event.Event, error) {
 	c.Logger.Debug("Try get all Events form storage")
 	events, err := c.Storage.GetAll()
 	if err != nil {
@@ -75,11 +75,11 @@ func (c Calendar) GetAllEvents() ([]event.Event, error) {
 	return events, nil
 }
 
-func (c Calendar) EditEvent(e event.Event) error {
+func (c *Calendar) EditEvent(e event.Event) error {
 	c.Logger.Debug("Try edit Event in storage")
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	isBusy, err := c.Storage.IntervalIsBusy(e)
+	isBusy, err := c.Storage.IntervalIsBusy(e, false)
 	if err != nil {
 		c.Logger.Debug("Fail to check interval for Event, Error:", err)
 		return err

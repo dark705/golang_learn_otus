@@ -9,6 +9,7 @@ import (
 
 type InMemory struct {
 	Events map[int]event.Event
+	LastId int
 }
 
 func (s *InMemory) Init() {
@@ -51,9 +52,9 @@ func (s *InMemory) Edit(e event.Event) error {
 	return nil
 }
 
-func (s *InMemory) IntervalIsBusy(newEvent event.Event) (bool, error) {
+func (s *InMemory) IntervalIsBusy(newEvent event.Event, new bool) (bool, error) {
 	for id, existEvent := range s.Events {
-		if newEvent.Id == id {
+		if newEvent.Id == id && new == false {
 			continue
 		}
 		//NewEvent include existEvent
@@ -62,10 +63,15 @@ func (s *InMemory) IntervalIsBusy(newEvent event.Event) (bool, error) {
 		}
 		//EndTime of newEvent inside existEvent
 		if newEvent.EndTime.After(existEvent.StartTime) && newEvent.EndTime.Before(existEvent.EndTime) {
+
 			return true, nil
 		}
 		//StartTime of newEvent inside existEvent
 		if newEvent.StartTime.After(existEvent.StartTime) && newEvent.StartTime.Before(existEvent.EndTime) {
+			return true, nil
+		}
+		// Same start or end time
+		if newEvent.StartTime == existEvent.StartTime || newEvent.EndTime == existEvent.EndTime {
 			return true, nil
 		}
 

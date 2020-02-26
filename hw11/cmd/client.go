@@ -42,7 +42,7 @@ func main() {
 	}
 	client := protobuf.NewCalendarClient(conn)
 
-	some, err := client.AddEvent(context.Background(),
+	_, err = client.AddEvent(context.Background(),
 		&protobuf.Event{
 			StartTime:   1000,
 			EndTime:     2000,
@@ -50,9 +50,9 @@ func main() {
 			Description: "description",
 		},
 	)
-	fmt.Println(some, err)
+	fmt.Println(err)
 
-	some2, err2 := client.AddEvent(context.Background(),
+	_, err2 := client.AddEvent(context.Background(),
 		&protobuf.Event{
 			StartTime:   1000,
 			EndTime:     2000,
@@ -60,6 +60,6 @@ func main() {
 			Description: "description2",
 		},
 	)
-	fmt.Println(some2, err2)
+	fmt.Println(err2)
 
 }
