@@ -8,8 +8,8 @@ import (
 	"syscall"
 
 	"github.com/dark705/otus/hw11/internal/calendar/calendar"
-	"github.com/dark705/otus/hw11/internal/calendar/grpc"
 	"github.com/dark705/otus/hw11/internal/config"
+	"github.com/dark705/otus/hw11/internal/grpc"
 	"github.com/dark705/otus/hw11/internal/logger"
 	"github.com/dark705/otus/hw11/internal/storage"
 	"github.com/dark705/otus/hw11/internal/web"
