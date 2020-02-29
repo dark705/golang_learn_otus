@@ -57,24 +57,9 @@ func (s *InMemory) IntervalIsBusy(newEvent event.Event, new bool) (bool, error) 
 		if newEvent.Id == id && new == false {
 			continue
 		}
-		//NewEvent include existEvent
-		if newEvent.StartTime.Before(existEvent.StartTime) && newEvent.EndTime.After(existEvent.EndTime) {
+		if existEvent.StartTime.Before(newEvent.EndTime) && existEvent.EndTime.After(newEvent.StartTime) {
 			return true, nil
 		}
-		//EndTime of newEvent inside existEvent
-		if newEvent.EndTime.After(existEvent.StartTime) && newEvent.EndTime.Before(existEvent.EndTime) {
-
-			return true, nil
-		}
-		//StartTime of newEvent inside existEvent
-		if newEvent.StartTime.After(existEvent.StartTime) && newEvent.StartTime.Before(existEvent.EndTime) {
-			return true, nil
-		}
-		// Same start or end time
-		if newEvent.StartTime == existEvent.StartTime || newEvent.EndTime == existEvent.EndTime {
-			return true, nil
-		}
-
 	}
 	return false, nil
 }
