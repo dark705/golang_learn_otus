@@ -3,9 +3,9 @@ package calendar
 import (
 	"sync"
 
-	"github.com/dark705/otus/hw11/internal/calendar/event"
-	"github.com/dark705/otus/hw11/internal/config"
-	"github.com/dark705/otus/hw11/internal/storage"
+	"github.com/dark705/otus/hw12/internal/calendar/event"
+	"github.com/dark705/otus/hw12/internal/config"
+	"github.com/dark705/otus/hw12/internal/storage"
 	"github.com/sirupsen/logrus"
 )
 

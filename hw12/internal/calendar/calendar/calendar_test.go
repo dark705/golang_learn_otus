@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dark705/otus/hw11/internal/calendar/event"
-	"github.com/dark705/otus/hw11/internal/storage"
+	"github.com/dark705/otus/hw12/internal/calendar/event"
+	"github.com/dark705/otus/hw12/internal/storage"
 	"github.com/sirupsen/logrus"
 )
 

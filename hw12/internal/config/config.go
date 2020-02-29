@@ -11,6 +11,10 @@ type Config struct {
 	GrpcListen string `yaml:"grpc_listen"`
 	LogFile    string `yaml:"log_file"`
 	LogLevel   string `yaml:"log_level"`
+	DbHostPort string `yaml:"db_host_port"`
+	DbUser     string `yaml:"db_user"`
+	DbPass     string `yaml:"db_pass"`
+	DbDatabase string `yaml:"db_database"`
 }
 
 func ReadFromFile(file string) (Config, error) {

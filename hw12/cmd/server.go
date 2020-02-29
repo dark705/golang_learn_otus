@@ -7,12 +7,12 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/dark705/otus/hw11/internal/calendar/calendar"
-	"github.com/dark705/otus/hw11/internal/config"
-	"github.com/dark705/otus/hw11/internal/grpc"
-	"github.com/dark705/otus/hw11/internal/logger"
-	"github.com/dark705/otus/hw11/internal/storage"
-	"github.com/dark705/otus/hw11/internal/web"
+	"github.com/dark705/otus/hw12/internal/calendar/calendar"
+	"github.com/dark705/otus/hw12/internal/config"
+	"github.com/dark705/otus/hw12/internal/grpc"
+	"github.com/dark705/otus/hw12/internal/logger"
+	"github.com/dark705/otus/hw12/internal/storage"
+	"github.com/dark705/otus/hw12/internal/web"
 )
 
 func main() {

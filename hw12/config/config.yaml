@@ -2,3 +2,8 @@ http_listen: "0.0.0.0:8081"
 grpc_listen: "0.0.0.0:5300"
 log_file: "logs/log.txt"
 log_level: "debug"
+db_host_port: "127.0.0.1:5444"
+db_user: "tmp"
+db_pass: "tmp"
+db_database: "calendar"
+

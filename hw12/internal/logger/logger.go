@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/dark705/otus/hw11/internal/config"
+	"github.com/dark705/otus/hw12/internal/config"
 	"github.com/sirupsen/logrus"
 )
 

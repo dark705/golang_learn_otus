@@ -1,4 +1,4 @@
-module github.com/dark705/otus/hw11
+module github.com/dark705/otus/hw12
 
 go 1.12
 
