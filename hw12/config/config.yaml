@@ -1,0 +1,4 @@
+http_listen: "0.0.0.0:8081"
+grpc_listen: "0.0.0.0:5300"
+log_file: "logs/log.txt"
+log_level: "debug"
