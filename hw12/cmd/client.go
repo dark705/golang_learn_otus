@@ -1,12 +1,18 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
+	_ "github.com/jackc/pgx/stdlib"
+
+	"github.com/dark705/otus/hw12/internal/calendar/event"
 	"github.com/dark705/otus/hw12/internal/config"
 	"github.com/dark705/otus/hw12/internal/logger"
+	"github.com/jmoiron/sqlx"
 )
 
 func main() {
@@ -27,7 +33,31 @@ func main() {
 	log := logger.GetLogger(conf)
 	defer logger.CloseLogFile()
 	_ = log
-	fmt.Println(conf)
+
+	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(conf.PgTimeoutConnect))
+	db, err := sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", conf.PgUser, conf.PgPass, conf.PgHostPort, conf.PgDatabase))
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	ctxExec, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(conf.PgTimeoutExecute))
+	rows, err := db.QueryxContext(ctxExec, "select * from events")
+	if err != nil {
+		log.Errorln("Fail on db quiery:")
+	} else {
+		for rows.Next() {
+			var e event.Event
+			if err := rows.StructScan(&e); err != nil {
+				//TODO
+			}
+			fmt.Println(e)
+		}
+	}
+	fmt.Println("************")
+	events := []event.Event{}
+	err = db.Select(&events, "select * from events")
+	fmt.Println(events, err)
+
 	/*
 		opts := []grpc.DialOption{grpc.WithInsecure()}
 

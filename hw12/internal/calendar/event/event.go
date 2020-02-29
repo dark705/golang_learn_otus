@@ -3,11 +3,11 @@ package event
 import "time"
 
 type Event struct {
-	Id          int
-	StartTime   time.Time
-	EndTime     time.Time
-	Title       string
-	Description string
+	Id          int       `db:"id"`
+	StartTime   time.Time `db:"start_time"`
+	EndTime     time.Time `db:"end_time"`
+	Title       string    `db:"title"`
+	Description string    `db:"description"`
 }
 
 func CreateEvent(startTime, endTime, title, description string) (Event, error) {

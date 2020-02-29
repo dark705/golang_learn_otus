@@ -7,6 +7,6 @@ services:
     ports:
       - "5444:5432"
     environment:
-      POSTGRES_USER: tmp
-      POSTGRES_PASSWORD: tmp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: calendar

@@ -7,14 +7,16 @@ import (
 )
 
 type Config struct {
-	HttpListen string `yaml:"http_listen"`
-	GrpcListen string `yaml:"grpc_listen"`
-	LogFile    string `yaml:"log_file"`
-	LogLevel   string `yaml:"log_level"`
-	DbHostPort string `yaml:"db_host_port"`
-	DbUser     string `yaml:"db_user"`
-	DbPass     string `yaml:"db_pass"`
-	DbDatabase string `yaml:"db_database"`
+	HttpListen       string `yaml:"http_listen"`
+	GrpcListen       string `yaml:"grpc_listen"`
+	LogFile          string `yaml:"log_file"`
+	LogLevel         string `yaml:"log_level"`
+	PgHostPort       string `yaml:"db_host_port"`
+	PgUser           string `yaml:"db_user"`
+	PgPass           string `yaml:"db_pass"`
+	PgDatabase       string `yaml:"db_database"`
+	PgTimeoutConnect int    `yaml:"db_timeout_connect"`
+	PgTimeoutExecute int    `yaml:"db_timeout_execute"`
 }
 
 func ReadFromFile(file string) (Config, error) {
