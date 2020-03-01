@@ -70,8 +70,6 @@ func (s *Postgres) Get(id int) (e event.Event, err error) {
 	if err := rows.StructScan(&e); err != nil {
 		return e, err
 	}
-	e.StartTime = e.StartTime.UTC()
-	e.EndTime = e.EndTime.UTC()
 
 	return e, err
 }
@@ -88,8 +86,6 @@ func (s *Postgres) GetAll() (events []event.Event, err error) {
 		if err = rows.StructScan(&e); err != nil {
 			return events, err
 		}
-		e.StartTime = e.StartTime.UTC()
-		e.EndTime = e.EndTime.UTC()
 		events = append(events, e)
 	}
 
