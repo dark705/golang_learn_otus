@@ -23,6 +23,7 @@ func TestAddGetAllGetDel(t *testing.T) {
 	if err != nil {
 		t.Error("Fail to init PG")
 	}
+	defer pg.Shutdown()
 
 	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T15:00:00+03:00", "Event 1", "Some Desc1")
 
@@ -51,7 +52,7 @@ func TestAddGetAllGetDel(t *testing.T) {
 	}
 
 	//del
-	//err = pg.Del(lastId)
+	err = pg.Del(lastId)
 	if err != nil {
 		t.Error("Fail to del test event in storage")
 	}
@@ -63,6 +64,7 @@ func TestIntervalIsBusy(t *testing.T) {
 	if err != nil {
 		t.Error("Fail to init PG")
 	}
+	defer pg.Shutdown()
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
 	event2, _ := event.CreateEvent("2006-01-02T16:00:00+03:00", "2006-01-02T17:00:00+03:00", "Event 2", "Some Desc2")
@@ -115,6 +117,7 @@ func TestEditEvent(t *testing.T) {
 	if err != nil {
 		t.Error("Fail to init PG")
 	}
+	defer pg.Shutdown()
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
 	eventEdited, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "EditedEvent1", "EditedEvent1")
