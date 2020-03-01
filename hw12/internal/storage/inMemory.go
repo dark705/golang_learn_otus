@@ -12,8 +12,9 @@ type InMemory struct {
 	LastId int
 }
 
-func (s *InMemory) Init() {
+func (s *InMemory) Init() error {
 	s.Events = make(map[int]event.Event)
+	return nil
 }
 
 func (s *InMemory) Add(e event.Event) error {
