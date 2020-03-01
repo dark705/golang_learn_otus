@@ -14,14 +14,14 @@ import (
 )
 
 type Postgres struct {
-	conf    config.Config
+	Conf    config.Config
 	db      *sqlx.DB
 	ctxExec context.Context
 }
 
 func (s *Postgres) Init() (err error) {
-	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(s.conf.PgTimeoutConnect))
-	s.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", s.conf.PgUser, s.conf.PgPass, s.conf.PgHostPort, s.conf.PgDatabase))
+	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(s.Conf.PgTimeoutConnect))
+	s.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", s.Conf.PgUser, s.Conf.PgPass, s.Conf.PgHostPort, s.Conf.PgDatabase))
 	if err != nil {
 		return err
 	}
@@ -70,6 +70,8 @@ func (s *Postgres) Get(id int) (e event.Event, err error) {
 	if err := rows.StructScan(&e); err != nil {
 		return e, err
 	}
+	e.StartTime = e.StartTime.UTC()
+	e.EndTime = e.EndTime.UTC()
 
 	return e, err
 }
@@ -86,6 +88,8 @@ func (s *Postgres) GetAll() (events []event.Event, err error) {
 		if err = rows.StructScan(&e); err != nil {
 			return events, err
 		}
+		e.StartTime = e.StartTime.UTC()
+		e.EndTime = e.EndTime.UTC()
 		events = append(events, e)
 	}
 
