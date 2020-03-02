@@ -1,4 +1,12 @@
-    test:
+    test: docker_up go_test docker_down
+
+    go_test:
 	go  test -v github.com/dark705/otus/hw12/internal/calendar/calendar \
 	github.com/dark705/otus/hw12/internal/grpc \
     github.com/dark705/otus/hw12/internal/storage
+
+    docker_up:
+	./build/docker.up.sh
+
+    docker_down:
+	./build/docker.down.sh
