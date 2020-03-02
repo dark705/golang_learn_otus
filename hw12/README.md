@@ -1,15 +1,35 @@
-## Запуск
+# Календарь
 
-Запуск сервера /cmd/server.go (там же есть и client.go - клиент, использовал для тестирования)
+## Работа с БД
+SQL файл для инициализации БД:
+    ./build/sql/init.sql
+    
+### Тесты
+Для эмуляции взаимодействия с БД необходима реальная БД Postgres 11.
+В комплекте идёт docker-compose файл разворачивающий ей:
 
+    ./build/docker.up.sh
 
-## Тесты
+После этого становятся доступны интеграционный тесты
+    
+    go test -v github.com/dark705/otus/hw12/internal/storage
 
-##### API и Protobuf спеки
--/api
+## GRPC
+### Запуск сервера
+    go run ./cmd/server.go
+  
+### Запуск тестового клиента
+    go run ./cmd/client.go
+    
+### API cпецификация Protobuf
+    ./api/protobuf.proto
+    
+### Скрипт по генерации grpc под Linux (Windows)
+    ./build/protobuf.grpc.sh (bat)
+Выходная дирректория по умолчанию для сгенерированного кода:
+_-/pkg/calendar/protobuf_
 
-
-Скрипт генерации - /build/protobuf.grpc.sh (bat), тестировал на Linux и Windows
-Сгенирированный код по спекам для клиент сервера - /pkg/calendar/protobuf
-Директория с реализацией  кода GRPC сервера (там же тест поднимающий сервер и эмитирующий работу клиента) - /internal/grpc 
+### Тесты
+    go test -v github.com/dark705/otus/hw12/internal/grpc
+Тест поднимает grpc  сервер и эмулирует работу клиента
 

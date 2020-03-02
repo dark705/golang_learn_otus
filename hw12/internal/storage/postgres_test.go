@@ -10,7 +10,7 @@ import (
 )
 
 var conf = config.Config{
-	PgHostPort:       "192.168.23.2",
+	PgHostPort:       "127.0.0.1:54441",
 	PgUser:           "postgres",
 	PgPass:           "postgres",
 	PgDatabase:       "calendar",
