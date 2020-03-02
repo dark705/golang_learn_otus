@@ -7,6 +7,7 @@ import (
 	"time"
 
 	_ "github.com/jackc/pgx/stdlib"
+	"github.com/sirupsen/logrus"
 
 	"github.com/dark705/otus/hw12/internal/calendar/event"
 	"github.com/dark705/otus/hw12/internal/config"
@@ -14,14 +15,15 @@ import (
 )
 
 type Postgres struct {
-	Conf    config.Config
+	Config  config.Config
+	Logger  *logrus.Logger
 	db      *sqlx.DB
 	ctxExec context.Context
 }
 
 func (s *Postgres) Init() (err error) {
-	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(s.Conf.PgTimeoutConnect))
-	s.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", s.Conf.PgUser, s.Conf.PgPass, s.Conf.PgHostPort, s.Conf.PgDatabase))
+	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(s.Config.PgTimeoutConnect))
+	s.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", s.Config.PgUser, s.Config.PgPass, s.Config.PgHostPort, s.Config.PgDatabase))
 	if err != nil {
 		return err
 	}
@@ -30,6 +32,7 @@ func (s *Postgres) Init() (err error) {
 }
 
 func (s *Postgres) Shutdown() error {
+	s.Logger.Infoln("Close mysql connection...")
 	return s.db.Close()
 }
 

@@ -36,8 +36,11 @@ func main() {
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
-	inMemory := storage.InMemory{}
-	inMemory.Init()
+	inMemory := storage.Postgres{Config: conf, Logger: &log}
+	err = inMemory.Init()
+	if err != nil {
+		log.Fatalln("Can't init storage")
+	}
 	cal := calendar.Calendar{Config: conf, Storage: &inMemory, Logger: &log}
 	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
 
@@ -46,4 +49,6 @@ func main() {
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
 	grpcServer.Shutdown()
+	inMemory.Shutdown()
+
 }

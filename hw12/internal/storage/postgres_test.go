@@ -18,7 +18,7 @@ var conf = config.Config{
 }
 
 func TestAddGetAllGetDel(t *testing.T) {
-	pg := Postgres{Conf: conf}
+	pg := Postgres{Config: conf}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
@@ -59,7 +59,7 @@ func TestAddGetAllGetDel(t *testing.T) {
 }
 
 func TestIntervalIsBusy(t *testing.T) {
-	pg := Postgres{Conf: conf}
+	pg := Postgres{Config: conf}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
@@ -112,7 +112,7 @@ func TestIntervalIsBusy(t *testing.T) {
 }
 
 func TestEditEvent(t *testing.T) {
-	pg := Postgres{Conf: conf}
+	pg := Postgres{Config: conf}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
