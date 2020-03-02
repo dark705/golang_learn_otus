@@ -7,6 +7,7 @@ import (
 
 	"github.com/dark705/otus/hw12/internal/calendar/event"
 	"github.com/dark705/otus/hw12/internal/config"
+	"github.com/sirupsen/logrus"
 )
 
 var conf = config.Config{
@@ -18,7 +19,7 @@ var conf = config.Config{
 }
 
 func TestAddGetAllGetDel(t *testing.T) {
-	pg := Postgres{Config: conf}
+	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
@@ -59,7 +60,7 @@ func TestAddGetAllGetDel(t *testing.T) {
 }
 
 func TestIntervalIsBusy(t *testing.T) {
-	pg := Postgres{Config: conf}
+	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
@@ -112,7 +113,7 @@ func TestIntervalIsBusy(t *testing.T) {
 }
 
 func TestEditEvent(t *testing.T) {
-	pg := Postgres{Config: conf}
+	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
 	err := pg.Init()
 	if err != nil {
 		t.Error("Fail to init PG")
