@@ -1,3 +1,12 @@
+    run_server:
+	go run ./cmd/server.go
+
+    run_client:
+	go run ./cmd/client.go
+
+    build_grpc:
+	./build/protobuf.grpc.sh
+
     test: docker_up go_test docker_down
 
     go_test:
@@ -10,3 +19,4 @@
 
     docker_down:
 	./build/docker.down.sh
+
