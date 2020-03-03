@@ -5,9 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/golang/protobuf/ptypes/empty"
-
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
 	"github.com/dark705/otus/hw12/internal/config"
@@ -32,30 +33,50 @@ func main() {
 
 	log := logger.GetLogger(conf)
 	defer logger.CloseLogFile()
-	_ = log
 
-	opts := []grpc.DialOption{grpc.WithInsecure()}
-
-	conn, err := grpc.Dial(conf.GrpcListen, opts...)
+	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*2)
+	conn, err := grpc.DialContext(ctxConn, conf.GrpcListen, []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
 	if err != nil {
-		_, _ = fmt.Fprint(os.Stderr, err)
-		os.Exit(2)
+		log.Fatalln("Can't connect to grpc server, error: ", err)
 	}
+
 	client := protobuf.NewCalendarClient(conn)
 	ctx := context.TODO()
 
-	//Event0
+	//Event
 	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 1000, EndTime: 2000, Title: "title1", Description: "description1"})
-	fmt.Println(err)
+	LogOnError(log, "Fail on add Event", err)
 
-	//Event1
+	//Event
 	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 2000, EndTime: 3000, Title: "title2", Description: "description2"})
-	fmt.Println(err)
+	LogOnError(log, "Fail on add Event", err)
 
-	//Event2
+	//Event
 	_, err = client.AddEvent(ctx, &protobuf.Event{StartTime: 3000, EndTime: 4000, Title: "title3", Description: "description3"})
-	fmt.Println(err)
+	LogOnError(log, "Fail on add Event", err)
 
+	//getAllEvents
 	grpcEvents, err := client.GetAllEvents(ctx, &empty.Empty{})
-	fmt.Println(grpcEvents, err)
+	LogOnError(log, "Fail on get all Event's", err)
+	if err == nil {
+		fmt.Println(grpcEvents)
+		lastId := grpcEvents.Events[len(grpcEvents.Events)-1].Id
+
+		_, err = client.DelEvent(ctx, &protobuf.Id{Id: lastId})
+		LogOnError(log, "Fail on del Event's", err)
+
+		_, err = client.DelEvent(ctx, &protobuf.Id{Id: lastId - 1})
+
+		LogOnError(log, "Fail on del Event's", err)
+
+		_, err = client.DelEvent(ctx, &protobuf.Id{Id: lastId - 2})
+		LogOnError(log, "Fail on del Event's", err)
+	}
+
+}
+
+func LogOnError(log logrus.Logger, mes string, err error) {
+	if err != nil {
+		log.Errorln(fmt.Sprintf("%s, error: %v", mes, err))
+	}
 }
