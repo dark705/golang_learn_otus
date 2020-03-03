@@ -10,8 +10,9 @@
     test: docker_up go_test docker_down
 
     go_test:
-	go  test -v github.com/dark705/otus/hw12/internal/calendar/calendar \
-    github.com/dark705/otus/hw12/internal/storage
+	go  test -v --count=1 github.com/dark705/otus/hw12/internal/calendar/calendar && \
+    go  test -v --count=1 github.com/dark705/otus/hw12/internal/storage && \
+    go  test -v --count=1 github.com/dark705/otus/hw12/internal/grpc
 
     docker_up:
 	./build/docker.up.sh && sleep 5
