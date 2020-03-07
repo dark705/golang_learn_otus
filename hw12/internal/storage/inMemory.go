@@ -18,8 +18,8 @@ func (s *InMemory) Init() error {
 }
 
 func (s *InMemory) Add(e event.Event) error {
-	e.Id = len(s.Events)
-	s.Events[len(s.Events)] = e
+	e.Id = len(s.Events) + 1
+	s.Events[len(s.Events)+1] = e
 	return nil
 }
 
@@ -29,11 +29,11 @@ func (s *InMemory) Del(id int) error {
 }
 
 func (s *InMemory) Get(id int) (event.Event, error) {
-	event, exist := s.Events[id]
+	ev, exist := s.Events[id]
 	if !exist {
-		return event, errors.New(fmt.Sprintf("Event with id: %d not found", id))
+		return ev, errors.New(fmt.Sprintf("Event with id: %d not found", id))
 	}
-	return event, nil
+	return ev, nil
 }
 
 func (s *InMemory) GetAll() ([]event.Event, error) {
@@ -53,12 +53,9 @@ func (s *InMemory) Edit(e event.Event) error {
 	return nil
 }
 
-func (s *InMemory) IntervalIsBusy(newEvent event.Event, new bool) (bool, error) {
-	for id, existEvent := range s.Events {
-		if newEvent.Id == id && new == false {
-			continue
-		}
-		if existEvent.StartTime.Before(newEvent.EndTime) && existEvent.EndTime.After(newEvent.StartTime) {
+func (s *InMemory) IntervalIsBusy(checkedEvent event.Event, new bool) (bool, error) {
+	for _, existEvent := range s.Events {
+		if existEvent.StartTime.Before(checkedEvent.EndTime) && existEvent.EndTime.After(checkedEvent.StartTime) && checkedEvent.Id != existEvent.Id {
 			return true, nil
 		}
 	}

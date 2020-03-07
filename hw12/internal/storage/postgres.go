@@ -28,12 +28,16 @@ func (s *Postgres) Init() (err error) {
 		return err
 	}
 	s.ctxExec, _ = context.WithCancel(context.Background())
-	return nil
+	return err
 }
 
-func (s *Postgres) Shutdown() error {
-	s.Logger.Infoln("Close mysql connection...")
-	return s.db.Close()
+func (s *Postgres) Shutdown() {
+	s.Logger.Infoln("Close Postgres connection...")
+	err := s.db.Close()
+	if err != nil {
+		s.Logger.Infoln("Success close Postgres connection.")
+	}
+	s.Logger.Infoln("Fail to close Postgres connection.")
 }
 
 func (s *Postgres) Add(e event.Event) (err error) {
@@ -112,14 +116,13 @@ func (s *Postgres) Edit(editEvent event.Event) (err error) {
 	return nil
 }
 
-func (s *Postgres) IntervalIsBusy(newEvent event.Event, new bool) (exist bool, err error) {
+func (s *Postgres) IntervalIsBusy(checkedEvent event.Event, isNewEvent bool) (exist bool, err error) {
 	var rows *sqlx.Rows
-	//SELECT * FROM events WHERE start_time < 'new_end_time' and end_time > 'new_start_time'
-	if new == true {
-		rows, err = s.db.NamedQueryContext(s.ctxExec, "SELECT true FROM events WHERE start_time < :end_time AND end_time > :start_time;", newEvent)
-	} else {
-		rows, err = s.db.NamedQueryContext(s.ctxExec, "SELECT true FROM events WHERE start_time < :end_time AND end_time > :start_time and id != :id;", newEvent)
-	}
+	//SELECT * FROM events WHERE start_time < 'checkedEvent_end_time' and end_time > 'checkedEvent_start_time and id != checkedEvent_id'
+	//if add new event id = 0, in PG serial start from 1
+	sql := "SELECT true FROM events WHERE start_time < :end_time AND end_time > :start_time and id != :id;"
+	rows, err = s.db.NamedQueryContext(s.ctxExec, sql, checkedEvent)
+
 	if err != nil {
 		return exist, err
 	}

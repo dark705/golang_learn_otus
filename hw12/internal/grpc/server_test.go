@@ -9,6 +9,7 @@ import (
 	"github.com/dark705/otus/hw12/internal/config"
 	"github.com/dark705/otus/hw12/internal/storage"
 	"github.com/dark705/otus/hw12/pkg/calendar/protobuf"
+	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
@@ -16,7 +17,10 @@ import (
 
 func TestAddEventGetEvent(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
@@ -31,29 +35,27 @@ func TestAddEventGetEvent(t *testing.T) {
 
 	client := protobuf.NewCalendarClient(conn)
 
-	sendGrpcEvent := protobuf.Event{StartTime: 1000, EndTime: 2000, Title: "title1", Description: "description1"}
+	sendGrpcEvent := protobuf.Event{Id: 1, StartTime: 1000, EndTime: 2000, Title: "title1", Description: "description1"}
 	_, err = client.AddEvent(ctx, &sendGrpcEvent)
 	if err != nil {
 		t.Error("Fail AddEvent")
 	}
 
-	getGrpcEvent, err := client.GetEvent(ctx, &protobuf.Id{Id: 0})
+	getGrpcEvent, err := client.GetEvent(ctx, &protobuf.Id{Id: 1})
 	if err != nil {
-		t.Error("Fail GetEvent() with id=0")
+		t.Error("Fail GetEvent() with id=1")
 	}
-
-	if sendGrpcEvent.Id != getGrpcEvent.Id ||
-		sendGrpcEvent.StartTime != getGrpcEvent.StartTime ||
-		sendGrpcEvent.EndTime != getGrpcEvent.EndTime ||
-		sendGrpcEvent.Title != getGrpcEvent.Title ||
-		sendGrpcEvent.Description != getGrpcEvent.Description {
+	if !proto.Equal(&sendGrpcEvent, getGrpcEvent) {
 		t.Error("Add and Get Event's not same")
 	}
 }
 
 func TestDelGetAllEvents(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
@@ -76,9 +78,9 @@ func TestDelGetAllEvents(t *testing.T) {
 		t.Error("Fail AddEvent 4 Events")
 	}
 
-	_, err = client.DelEvent(ctx, &protobuf.Id{Id: 0})
+	_, err = client.DelEvent(ctx, &protobuf.Id{Id: 1})
 	if err != nil {
-		t.Error("Fail DelEvent() with id=0")
+		t.Error("Fail DelEvent() with id=1")
 	}
 
 	_, err = client.DelEvent(ctx, &protobuf.Id{Id: 2})

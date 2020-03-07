@@ -11,7 +11,10 @@ import (
 
 func TestNewCalendarHaveNoEvents(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	events, err := calendar.GetAllEvents()
@@ -22,11 +25,14 @@ func TestNewCalendarHaveNoEvents(t *testing.T) {
 
 func TestAddEventSuccess(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
-	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
-	err := calendar.AddEvent(event)
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
+	err = calendar.AddEvent(event1)
 	if err != nil {
 		t.Error("Can't add event to storage")
 	}
@@ -39,12 +45,15 @@ func TestAddEventSuccess(t *testing.T) {
 
 func TestDelEventSuccess(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
-	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
-	_ = calendar.AddEvent(event)
-	err := calendar.DelEvent(0)
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
+	_ = calendar.AddEvent(event1)
+	err = calendar.DelEvent(1)
 	if err != nil {
 		t.Error("Can't del event from storage")
 	}
@@ -58,7 +67,10 @@ func TestDelEventSuccess(t *testing.T) {
 func TestAddDateIntervalBusyAtSameTime(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -74,7 +86,10 @@ func TestAddDateIntervalBusyAtSameTime(t *testing.T) {
 func TestAddDateIntervalStartTimeInExistInterval(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -90,7 +105,10 @@ func TestAddDateIntervalStartTimeInExistInterval(t *testing.T) {
 func TestAddDateIntervalEndTimeInExistInterval(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -106,7 +124,10 @@ func TestAddDateIntervalEndTimeInExistInterval(t *testing.T) {
 func TestAddDateIntervalInsideExistInterval(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -122,7 +143,10 @@ func TestAddDateIntervalInsideExistInterval(t *testing.T) {
 func TestAddDateIntervalIncludeExistInterval(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -138,7 +162,10 @@ func TestAddDateIntervalIncludeExistInterval(t *testing.T) {
 func TestAddDateIntervalBusyMultiple(t *testing.T) {
 	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err = inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -171,52 +198,58 @@ func TestAddDateIntervalBusyMultiple(t *testing.T) {
 }
 
 func TestGetEvent(t *testing.T) {
-	var err error
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
-	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
-	_ = calendar.AddEvent(event)
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
+	event1.Id = 1
+	_ = calendar.AddEvent(event1)
 
-	_, err = calendar.GetEvent(1)
+	_, err = calendar.GetEvent(100)
 
 	if err == nil {
 		t.Error("Not get error, for not exist event")
 	}
-	getEvent, err := calendar.GetEvent(0)
+	getEvent, err := calendar.GetEvent(1)
 	if err != nil {
 		t.Error("Get error, for exist event")
 	}
 
-	if getEvent.StartTime != event.StartTime ||
-		getEvent.EndTime != event.EndTime ||
-		getEvent.Title != event.Title ||
-		getEvent.Description != event.Description {
+	if getEvent != event1 {
 		t.Error("Event in storage not ident")
 	}
 }
 
 func TestEditEvent(t *testing.T) {
 	inMemory := storage.InMemory{}
-	inMemory.Init()
+	err := inMemory.Init()
+	if err != nil {
+		t.Error("Can't init storage")
+	}
 	calendar := Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
 
-	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
-	_ = calendar.AddEvent(event)
+	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
+	err = calendar.AddEvent(event1)
+	if err != nil {
+		t.Error("Got not expected error on add event")
+	}
 
-	editEvent, _ := calendar.GetEvent(0)
+	editEvent, _ := calendar.GetEvent(1)
 	editEvent.StartTime, _ = time.Parse(time.RFC3339, "2006-01-02T15:10:00+03:00")
 	editEvent.EndTime, _ = time.Parse(time.RFC3339, "2006-01-02T15:20:00+03:00")
 	editEvent.Title = "newTitle"
 	editEvent.Description = "newDescription"
 
-	err := calendar.EditEvent(editEvent)
+	err = calendar.EditEvent(editEvent)
 	if err != nil {
-		t.Error("Got not expected error on edit")
+		t.Error("Got not expected error on edit", err)
 	}
 
-	eventFromStorageAfterEdit, _ := calendar.GetEvent(0)
+	eventFromStorageAfterEdit, _ := calendar.GetEvent(1)
 	if eventFromStorageAfterEdit != editEvent {
 		t.Error("Edit Event not ident Event in storage after edit")
 	}
