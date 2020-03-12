@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  postgres:
+    image: hw13_calendar:latest
+    ports:
+      - "54441:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: calendar

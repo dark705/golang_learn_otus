@@ -4,7 +4,8 @@ github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cockroachdb/apd v1.1.0 h1:3LFP3629v+1aKXU5Q37mxmRxX/pIu1nijXydLShEq5I=
 github.com/cockroachdb/apd v1.1.0/go.mod h1:8Sl8LxpKi29FqWXR16WEFZRNSz3SoPzUzeMeY4+DwBQ=
-github.com/dark705/otus v0.0.0-20200307233210-6e827f4407f9 h1:CBiNGxLvKj3vNor2DELbam3LHbf2iT2v6eoU97MYlxU=
+github.com/dark705/otus v0.0.0-20200226223306-ab93cf666270 h1:nf/+Mewj/yO4EnLR0Y4KMvjZIwiO6tDgpe3nhui6Lyk=
+github.com/dark705/otus v0.0.0-20200303132933-7b277e0e1a1e h1:TPzyVDmWzLhcbUj4cNpeVvM9FQ5gAHtzBt8D4qJ/KIA=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=

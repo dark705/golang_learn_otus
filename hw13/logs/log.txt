@@ -1,0 +1,238 @@
+{"level":"fatal","msg":"sql: unknown driver \"pgx\" (forgotten import?)","time":"2020-02-29T18:24:16+03:00"}
+{"level":"fatal","msg":"sql: unknown driver \"pgx\" (forgotten import?)","time":"2020-02-29T18:26:53+03:00"}
+{"level":"fatal","msg":"dial tcp 192.168.23.1:5432: connectex: No connection could be made because the target machine actively refused it.","time":"2020-02-29T19:07:37+03:00"}
+{"level":"fatal","msg":"dial tcp 192.168.23.1:5432: connectex: No connection could be made because the target machine actively refused it.","time":"2020-02-29T19:08:39+03:00"}
+{"level":"fatal","msg":"dial tcp 192.168.23.1:5432: connectex: No connection could be made because the target machine actively refused it.","time":"2020-02-29T19:08:48+03:00"}
+{"level":"fatal","msg":"FATAL: password authentication failed for user \"tmp\" (SQLSTATE 28P01)","time":"2020-02-29T19:19:58+03:00"}
+{"level":"fatal","msg":"FATAL: password authentication failed for user \"postres\" (SQLSTATE 28P01)","time":"2020-02-29T19:20:17+03:00"}
+{"level":"error","msg":"Fail on db quiery:","time":"2020-02-29T19:41:26+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T21:46:29+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T21:47:15+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: date/time field value out of range: \"2019-00-00\" (SQLSTATE 22008)","time":"2020-02-29T21:49:36+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:50:29+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:51:22+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:52:01+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:54:32+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:55:11+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"\" (SQLSTATE 22007)","time":"2020-02-29T21:55:45+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:56:02+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 87","time":"2020-02-29T21:58:27+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: column \"start_time\" of relation \"events\" does not exist (SQLSTATE 42703)","time":"2020-02-29T22:10:29+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: syntax error at or near \"end\" (SQLSTATE 42601)","time":"2020-02-29T22:10:52+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: syntax error at or near \"`\" (SQLSTATE 42601)","time":"2020-02-29T22:11:13+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T22:15:09+03:00"}
+{"level":"fatal","msg":"FATAL: database \"calendar\u0026charset=utf8\" does not exist (SQLSTATE 3D000)","time":"2020-02-29T22:16:14+03:00"}
+{"level":"fatal","msg":"FATAL: database \"calendar\u0026/charset=utf8\" does not exist (SQLSTATE 3D000)","time":"2020-02-29T22:16:23+03:00"}
+{"level":"fatal","msg":"FATAL: database \"calendar/\u0026charset=utf8\" does not exist (SQLSTATE 3D000)","time":"2020-02-29T22:16:28+03:00"}
+{"level":"fatal","msg":"FATAL: database \"calendar\u0026charset=utf8\" does not exist (SQLSTATE 3D000)","time":"2020-02-29T22:16:37+03:00"}
+{"level":"fatal","msg":"FATAL: unrecognized configuration parameter \"charset\" (SQLSTATE 42704)","time":"2020-02-29T22:16:55+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T22:18:07+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T22:20:23+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: invalid input syntax for type timestamp with time zone: \"$1\" (SQLSTATE 22007)","time":"2020-02-29T22:21:46+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: syntax error at or near \"%\" (SQLSTATE 42601)","time":"2020-02-29T22:24:32+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: syntax error at or near \":\" (SQLSTATE 42601)","time":"2020-02-29T22:25:12+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 86","time":"2020-02-29T22:25:31+03:00"}
+{"level":"error","msg":"Fail on add event to PG unexpected `:` while reading named param at 86","time":"2020-02-29T22:28:15+03:00"}
+{"level":"error","msg":"Fail on add event to PG could not find name start in struct { Start time.Time \"db:\\\"start2\\\"\"; End time.Time \"db:\\\"end\\\"\" }{Start:time.Time{wall:0xbf8ecd3929fa8ccc, ext:18948501, loc:(*time.Location)(0xa78a60)}, End:time.Time{wall:0xbf8ecd3929fa8ccc, ext:18948501, loc:(*time.Location)(0xa78a60)}}","time":"2020-02-29T22:37:08+03:00"}
+{"level":"error","msg":"Fail on add event to PG could not find name start in struct { Start time.Time \"db:\\\"start_time\\\"\"; End time.Time \"db:\\\"end_time\\\"\" }{Start:time.Time{wall:0xbf8ecd50abd13578, ext:40913801, loc:(*time.Location)(0xa78a60)}, End:time.Time{wall:0xbf8ecd50abd13578, ext:40913801, loc:(*time.Location)(0xa78a60)}}","time":"2020-02-29T22:38:42+03:00"}
+{"level":"error","msg":"Fail on add event to PG could not find name start in struct { Start time.Time \"db:\\\"start_time\\\"\"; End time.Time \"db:\\\"end_time\\\"\" }{Start:time.Time{wall:0xbf8ecd6d2173a750, ext:17952301, loc:(*time.Location)(0xa78a60)}, End:time.Time{wall:0xbf8ecd6d2173a750, ext:17952301, loc:(*time.Location)(0xa78a60)}}","time":"2020-02-29T22:40:36+03:00"}
+{"level":"error","msg":"Fail on add event to PG ERROR: column \"start_time\" of relation \"events\" does not exist (SQLSTATE 42703)","time":"2020-02-29T22:41:00+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2006-01-02T15:00:00Z07:00\": extra text: 07:00","time":"2020-02-29T23:02:09+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2006-01-02T15:04:05Z07:00\": extra text: 07:00","time":"2020-02-29T23:02:45+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2006-01-02T15:04:05Z00:00\": extra text: 00:00","time":"2020-02-29T23:02:54+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2006-01-02T15:04:05Z07:00\": extra text: 07:00","time":"2020-02-29T23:03:43+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:22:17+03:00"}
+{"level":"error","msg":"Fail on get event from PG must pass a pointer, not a value, to StructScan destination","time":"2020-02-29T23:22:17+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:22:40+03:00"}
+{"level":"error","msg":"Fail on get event from PG must pass a pointer, not a value, to StructScan destination","time":"2020-02-29T23:22:40+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:23:20+03:00"}
+{"level":"error","msg":"Fail on get event from PG must pass a pointer, not a value, to StructScan destination","time":"2020-02-29T23:23:20+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:45:47+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:47:12+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:47:21+03:00"}
+{"level":"error","msg":"Fail on get event from PG must pass a pointer, not a value, to StructScan destination","time":"2020-02-29T23:47:21+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:48:16+03:00"}
+{"level":"error","msg":"Fail on get event from PG must pass a pointer, not a value, to StructScan destination","time":"2020-02-29T23:48:16+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:49:24+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:50:38+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:50:48+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:52:39+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:54:08+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:54:53+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:55:30+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:56:00+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:56:17+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:56:39+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: syntax error at or near \")\" (SQLSTATE 42601)","time":"2020-02-29T23:57:13+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T00:07:42+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T00:09:18+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T00:09:24+03:00"}
+{"level":"error","msg":"Fail on add event to PG \u003cnil\u003e","time":"2020-03-01T00:18:56+03:00"}
+{"level":"error","msg":"Fail on add event to PG \u003cnil\u003e","time":"2020-03-01T00:19:24+03:00"}
+{"level":"error","msg":"Fail on del event in PG","time":"2020-03-01T00:20:22+03:00"}
+{"level":"error","msg":"Fail on del event in PG \u003cnil\u003e","time":"2020-03-01T00:20:35+03:00"}
+{"level":"error","msg":"Fail on del event in PG","time":"2020-03-01T00:20:48+03:00"}
+{"level":"error","msg":"Fail on del event in PG","time":"2020-03-01T00:26:04+03:00"}
+{"level":"error","msg":"Fail on del event in PG","time":"2020-03-01T00:26:32+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T01:28:53+03:00"}
+{"level":"error","msg":"Fail on get event from PG ERROR: invalid input syntax for type timestamp with time zone: \"new_end_time\" (SQLSTATE 22007)","time":"2020-03-01T01:28:54+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T02:53:04+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: invalid input syntax for type timestamp with time zone: \"new_end_time\" (SQLSTATE 22007)","time":"2020-03-01T02:53:04+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T02:55:35+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T02:55:35+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T02:56:45+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T02:56:45+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T02:58:34+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T02:58:34+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:10:00\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"\" as \"Z07:00\"","time":"2020-03-01T02:59:17+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T02:59:17+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29 16:00:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \" 16:00:00Z\" as \"T\"","time":"2020-03-01T02:59:50+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T02:59:50+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29 16:00:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \" 16:00:00Z\" as \"T\"","time":"2020-03-01T03:01:06+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:01:06+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:01:46+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:02:07+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:02:23+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:02:41+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:07:11+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:07:24+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2021-02-29T16:00:00Z\": day out of range","time":"2020-03-01T03:07:31+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:07:31+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name id in *struct { b bool }","time":"2020-03-01T03:18:54+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name id in *struct { b bool }","time":"2020-03-01T03:19:48+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name id in *struct { Bool bool }","time":"2020-03-01T03:20:46+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name id in *struct { Bool bool \"db:\\\"bool\\\"\" }","time":"2020-03-01T03:21:31+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:22:57+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:23:27+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:23:42+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name bool in *struct { flag bool }","time":"2020-03-01T03:23:49+03:00"}
+{"level":"error","msg":"Fail on get event from PG missing destination name flag in *struct { flag bool }","time":"2020-03-01T03:24:18+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:25:16+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:26:33+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:27:33+03:00"}
+{"level":"error","msg":"Fail on get event from PG sql: Rows are closed","time":"2020-03-01T03:30:04+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T03:32:41+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T03:33:19+03:00"}
+{"level":"error","msg":"Fail on check is busy interval ERROR: syntax error at or near \";\" (SQLSTATE 42601)","time":"2020-03-01T03:34:59+03:00"}
+{"level":"error","msg":"Cant parse parsing time \"2020-02-29T18:000:00Z\" as \"2006-01-02T15:04:05Z07:00\": cannot parse \"0:00Z\" as \":\"","time":"2020-03-01T03:42:26+03:00"}
+{"level":"error","msg":"Fail on edit event in PG","time":"2020-03-01T12:56:16+03:00"}
+{"level":"error","msg":"Fail on edit event in PG2","time":"2020-03-01T12:57:09+03:00"}
+{"level":"error","msg":"Fail on edit event in PG2 \u003cnil\u003e","time":"2020-03-01T12:58:38+03:00"}
+{"level":"error","msg":"Fail on edit event in PG2 \u003cnil\u003e","time":"2020-03-01T12:59:04+03:00"}
+{"level":"info","msg":"Start HTTP server: 0.0.0.0:8081","time":"2020-03-01T14:25:04+03:00"}
+{"level":"info","msg":"Start GRPC server:0.0.0.0:5300","time":"2020-03-01T14:25:04+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:2000 title:\"title1\" description:\"description1\" ","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:2000 endTime:3000 title:\"title2\" description:\"description2\" ","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:4000 title:\"title3\" description:\"description3\" ","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"warning","msg":"Interval is busy for Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC GetEvent() id:","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try get Event form storage, with Id:0","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success get from storage Event, with Id:0","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success get from storage Events2","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC DelEvent() id:","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try del form storage Event, with Id:0","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success del from storage Event, with Id:0","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:15+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:25:15+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:2000 title:\"title1\" description:\"description1\" ","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:2000 endTime:3000 title:\"title2\" description:\"description2\" ","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:4000 title:\"title3\" description:\"description3\" ","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"warning","msg":"Interval is busy for Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC GetEvent() id:","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try get Event form storage, with Id:0","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Fail get Event from storage:Event with id: 0 not found","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:33+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC DelEvent() id:","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try del form storage Event, with Id:0","time":"2020-03-01T14:25:33+03:00"}
+{"level":"info","msg":"Success del from storage Event, with Id:0","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:33+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:25:33+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:2000 title:\"title1\" description:\"description1\" ","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:2000 endTime:3000 title:\"title2\" description:\"description2\" ","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:4000 title:\"title3\" description:\"description3\" ","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"warning","msg":"Interval is busy for Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC GetEvent() id:","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try get Event form storage, with Id:0","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Fail get Event from storage:Event with id: 0 not found","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC DelEvent() id:","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try del form storage Event, with Id:0","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Success del from storage Event, with Id:0","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:25:47+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:25:47+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-01T14:26:39+03:00"}
+{"level":"info","msg":"Graceful shutdown GRPC server...","time":"2020-03-01T14:26:39+03:00"}
+{"level":"info","msg":"Start GRPC server:0.0.0.0:5300","time":"2020-03-01T14:26:42+03:00"}
+{"level":"info","msg":"Start HTTP server: 0.0.0.0:8081","time":"2020-03-01T14:26:42+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:2000 title:\"title1\" description:\"description1\" ","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:2000 endTime:3000 title:\"title2\" description:\"description2\" ","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:4000 title:\"title3\" description:\"description3\" ","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"warning","msg":"Interval is busy for Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC GetEvent() id:","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try get Event form storage, with Id:0","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success get from storage Event, with Id:0","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success get from storage Events2","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC DelEvent() id:","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try del form storage Event, with Id:0","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success del from storage Event, with Id:0","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:26:50+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Success get from storage Events1","time":"2020-03-01T14:26:50+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-01T14:28:08+03:00"}
+{"level":"info","msg":"Graceful shutdown GRPC server...","time":"2020-03-01T14:28:08+03:00"}
+{"level":"info","msg":"Start GRPC server:0.0.0.0:5300","time":"2020-03-01T14:33:51+03:00"}
+{"level":"info","msg":"Start HTTP server: 0.0.0.0:8081","time":"2020-03-01T14:33:51+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:2000 title:\"title1\" description:\"description1\" ","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 03:33:20 +0300 MSK title1 description1}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:2000 endTime:3000 title:\"title2\" description:\"description2\" ","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"info","msg":"Success add to storage, Event:{0 1970-01-01 03:33:20 +0300 MSK 1970-01-01 03:50:00 +0300 MSK title2 description2}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC AddEvent() event: startTime:1000 endTime:4000 title:\"title3\" description:\"description3\" ","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try add to storage, Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"warning","msg":"Interval is busy for Event:{0 1970-01-01 03:16:40 +0300 MSK 1970-01-01 04:06:40 +0300 MSK title3 description3}","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC GetEvent() id:","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try get Event form storage, with Id:0","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Fail get Event from storage:sql: Rows are closed","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:34:16+03:00"}
+{"level":"info","msg":"Success get from storage Events7","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC DelEvent() id:","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try del form storage Event, with Id:0","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Fail del Event from storage:Fail to del, no event with 0:","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Income gRPC GetAllEvents()","time":"2020-03-01T14:34:16+03:00"}
+{"level":"debug","msg":"Try get all Events form storage","time":"2020-03-01T14:34:16+03:00"}
+{"level":"info","msg":"Success get from storage Events7","time":"2020-03-01T14:34:16+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-01T14:35:21+03:00"}
+{"level":"info","msg":"Graceful shutdown GRPC server...","time":"2020-03-01T14:35:21+03:00"}
