@@ -236,3 +236,149 @@
 {"level":"info","msg":"Success get from storage Events7","time":"2020-03-01T14:34:16+03:00"}
 {"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-01T14:35:21+03:00"}
 {"level":"info","msg":"Graceful shutdown GRPC server...","time":"2020-03-01T14:35:21+03:00"}
+{"level":"fatal","msg":"Can't init storage","time":"2020-03-13T18:34:50+03:00"}
+{"level":"fatal","msg":"Can't init storage dial tcp 127.0.0.1:54441: connect: connection refused","time":"2020-03-13T18:35:31+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T18:43:21+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:43:21+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:43:21+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T18:44:27+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:44:27+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:44:27+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T18:44:37+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:44:37+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:44:37+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T18:50:36+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:50:36+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:50:36+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T18:50:44+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:50:44+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:50:44+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T18:51:44+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T18:51:44+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:03:06+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T19:03:06+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:07:59+03:00"}
+{"level":"info","msg":"Fail to close Postgres connection.","time":"2020-03-13T19:07:59+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:08:40+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:08:40+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T19:35:36+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:35:36+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:35:36+03:00"}
+{"level":"info","msg":"Success send to RMQ message:  Local","time":"2020-03-13T19:39:33+03:00"}
+{"level":"info","msg":"Success send to RMQ message:  Local","time":"2020-03-13T19:39:38+03:00"}
+{"level":"info","msg":"Success send to RMQ message:  Local","time":"2020-03-13T19:39:43+03:00"}
+{"level":"info","msg":"Success send to RMQ message:  Local","time":"2020-03-13T19:39:48+03:00"}
+{"level":"info","msg":"Success send to RMQ message:  Local","time":"2020-03-13T19:39:53+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T19:39:54+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:39:54+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:39:54+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:55:35+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:55:40+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:55:45+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:55:50+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:55:55+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:56:00+03:00"}
+{"level":"info","msg":"Success send to RMQ message: Local","time":"2020-03-13T19:56:05+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T19:56:09+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:56:09+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:56:09+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:21.760804075 +0300 MSK m=+1.008842373","time":"2020-03-13T19:56:21+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:22.76091694 +0300 MSK m=+2.008955393","time":"2020-03-13T19:56:22+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:23.760865123 +0300 MSK m=+3.008903511","time":"2020-03-13T19:56:23+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:24.760952003 +0300 MSK m=+4.008990388","time":"2020-03-13T19:56:24+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:25.760915086 +0300 MSK m=+5.008953503","time":"2020-03-13T19:56:25+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:26.760945412 +0300 MSK m=+6.008983797","time":"2020-03-13T19:56:26+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:27.760939407 +0300 MSK m=+7.008977835","time":"2020-03-13T19:56:27+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:28.760950672 +0300 MSK m=+8.008989093","time":"2020-03-13T19:56:28+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:29.760962312 +0300 MSK m=+9.009000733","time":"2020-03-13T19:56:29+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:30.760868905 +0300 MSK m=+10.008907216","time":"2020-03-13T19:56:30+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13 19:56:31.760883556 +0300 MSK m=+11.008921886","time":"2020-03-13T19:56:31+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T19:56:31+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:56:31+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:56:31+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:01+03:00","time":"2020-03-13T19:57:01+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:02+03:00","time":"2020-03-13T19:57:02+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:03+03:00","time":"2020-03-13T19:57:03+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:04+03:00","time":"2020-03-13T19:57:04+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:05+03:00","time":"2020-03-13T19:57:05+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:06+03:00","time":"2020-03-13T19:57:06+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:07+03:00","time":"2020-03-13T19:57:07+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:08+03:00","time":"2020-03-13T19:57:08+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:09+03:00","time":"2020-03-13T19:57:09+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:10+03:00","time":"2020-03-13T19:57:10+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:11+03:00","time":"2020-03-13T19:57:11+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:12+03:00","time":"2020-03-13T19:57:12+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:13+03:00","time":"2020-03-13T19:57:13+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:14+03:00","time":"2020-03-13T19:57:14+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T19:57:15+03:00","time":"2020-03-13T19:57:15+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T19:57:15+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T19:57:15+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T19:57:15+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:32+03:00","time":"2020-03-13T20:07:32+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:33+03:00","time":"2020-03-13T20:07:33+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:34+03:00","time":"2020-03-13T20:07:34+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:35+03:00","time":"2020-03-13T20:07:35+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T20:07:36+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:36+03:00","time":"2020-03-13T20:07:36+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:37+03:00","time":"2020-03-13T20:07:37+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:38+03:00","time":"2020-03-13T20:07:38+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:39+03:00","time":"2020-03-13T20:07:39+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:40+03:00","time":"2020-03-13T20:07:40+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:41+03:00","time":"2020-03-13T20:07:41+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:42+03:00","time":"2020-03-13T20:07:42+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:43+03:00","time":"2020-03-13T20:07:43+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:44+03:00","time":"2020-03-13T20:07:44+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:45+03:00","time":"2020-03-13T20:07:45+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:46+03:00","time":"2020-03-13T20:07:46+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:47+03:00","time":"2020-03-13T20:07:47+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:48+03:00","time":"2020-03-13T20:07:48+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:49+03:00","time":"2020-03-13T20:07:49+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:50+03:00","time":"2020-03-13T20:07:50+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:51+03:00","time":"2020-03-13T20:07:51+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:52+03:00","time":"2020-03-13T20:07:52+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:53+03:00","time":"2020-03-13T20:07:53+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:54+03:00","time":"2020-03-13T20:07:54+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:55+03:00","time":"2020-03-13T20:07:55+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:56+03:00","time":"2020-03-13T20:07:56+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:57+03:00","time":"2020-03-13T20:07:57+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:58+03:00","time":"2020-03-13T20:07:58+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:07:59+03:00","time":"2020-03-13T20:07:59+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:00+03:00","time":"2020-03-13T20:08:00+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:01+03:00","time":"2020-03-13T20:08:01+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:02+03:00","time":"2020-03-13T20:08:02+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:03+03:00","time":"2020-03-13T20:08:03+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:44+03:00","time":"2020-03-13T20:08:44+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:08:45+03:00","time":"2020-03-13T20:08:45+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T20:08:45+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T20:08:45+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:11:23+03:00","time":"2020-03-13T20:11:23+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T20:11:24+03:00","time":"2020-03-13T20:11:24+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T20:11:25+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T20:11:25+03:00"}
+{"level":"info","msg":"Shutdown RMQ","time":"2020-03-13T20:11:25+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:12:41+03:00","time":"2020-03-13T21:12:41+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:12:42+03:00","time":"2020-03-13T21:12:42+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:12:43+03:00","time":"2020-03-13T21:12:43+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:12:44+03:00","time":"2020-03-13T21:12:44+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T21:12:45+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T21:12:45+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:13:46+03:00","time":"2020-03-13T21:13:46+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:13:47+03:00","time":"2020-03-13T21:13:47+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:13:48+03:00","time":"2020-03-13T21:13:48+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T21:13:48+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T21:13:48+03:00"}
+{"level":"info","msg":"Shutdown RMQ","time":"2020-03-13T21:13:48+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:18:15+03:00","time":"2020-03-13T21:18:15+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:18:16+03:00","time":"2020-03-13T21:18:16+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:18:17+03:00","time":"2020-03-13T21:18:17+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T21:18:18+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T21:18:18+03:00"}
+{"level":"info","msg":"Shutdown RMQ","time":"2020-03-13T21:18:18+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T21:18:18+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:19:30+03:00","time":"2020-03-13T21:19:30+03:00"}
+{"level":"info","msg":"Success send to RMQ message: 2020-03-13T21:19:31+03:00","time":"2020-03-13T21:19:31+03:00"}
+{"level":"info","msg":"Got signal from OS: interrupt. Exit.","time":"2020-03-13T21:19:32+03:00"}
+{"level":"info","msg":"Close Postgres connection...","time":"2020-03-13T21:19:32+03:00"}
+{"level":"info","msg":"Shutdown RMQ","time":"2020-03-13T21:19:32+03:00"}
+{"level":"info","msg":"Shutdown Message sender","time":"2020-03-13T21:19:32+03:00"}
+{"level":"info","msg":"Success close Postgres connection.","time":"2020-03-13T21:19:32+03:00"}

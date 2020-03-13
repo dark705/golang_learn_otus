@@ -9,4 +9,5 @@ require (
 	golang.org/x/tools v0.0.0-20200221224223-e1da425f72fd // indirect
 	google.golang.org/grpc v1.27.1
 	gopkg.in/yaml.v2 v2.2.8
+	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )

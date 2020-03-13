@@ -44,6 +44,16 @@ func (s *InMemory) GetAll() ([]event.Event, error) {
 	return events, nil
 }
 
+func (s *InMemory) GetAllNotScheduled() ([]event.Event, error) {
+	events := make([]event.Event, 0, len(s.Events))
+	for _, e := range s.Events {
+		if !e.IsScheduled {
+			events = append(events, e)
+		}
+	}
+	return events, nil
+}
+
 func (s *InMemory) Edit(e event.Event) error {
 	_, exist := s.Events[e.Id]
 	if !exist {

@@ -35,9 +35,9 @@ func (s *Postgres) Shutdown() {
 	s.Logger.Infoln("Close Postgres connection...")
 	err := s.db.Close()
 	if err != nil {
-		s.Logger.Infoln("Success close Postgres connection.")
+		s.Logger.Infoln("Fail to close Postgres connection.")
 	}
-	s.Logger.Infoln("Fail to close Postgres connection.")
+	s.Logger.Infoln("Success close Postgres connection.")
 }
 
 func (s *Postgres) Add(e event.Event) (err error) {
@@ -83,6 +83,24 @@ func (s *Postgres) Get(id int) (e event.Event, err error) {
 
 func (s *Postgres) GetAll() (events []event.Event, err error) {
 	sql := "SELECT * FROM events;" // :id from `db:"id"`
+	rows, err := s.db.QueryxContext(s.ctxExec, sql)
+	if err != nil {
+		return events, err
+	}
+
+	for rows.Next() {
+		var e event.Event
+		if err = rows.StructScan(&e); err != nil {
+			return events, err
+		}
+		events = append(events, e)
+	}
+
+	return events, err
+}
+
+func (s *Postgres) GetAllNotScheduled() (events []event.Event, err error) {
+	sql := "SELECT * FROM events WHERE is_scheduled is false;"
 	rows, err := s.db.QueryxContext(s.ctxExec, sql)
 	if err != nil {
 		return events, err

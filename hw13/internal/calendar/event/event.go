@@ -8,6 +8,7 @@ type Event struct {
 	EndTime     time.Time `db:"end_time"`
 	Title       string    `db:"title"`
 	Description string    `db:"description"`
+	IsScheduled bool      `db:"is_scheduled"`
 }
 
 func CreateEvent(startTime, endTime, title, description string) (Event, error) {
