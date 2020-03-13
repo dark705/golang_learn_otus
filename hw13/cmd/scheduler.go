@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"net"
 	"os"
 	"os/signal"
 	"sync"
@@ -14,9 +13,9 @@ import (
 
 	"github.com/dark705/otus/hw13/internal/config"
 	"github.com/dark705/otus/hw13/internal/logger"
+	"github.com/dark705/otus/hw13/internal/rabbitmq"
 	"github.com/dark705/otus/hw13/internal/storage"
 	"github.com/sirupsen/logrus"
-	"github.com/streadway/amqp"
 )
 
 func main() {
@@ -40,19 +39,21 @@ func main() {
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
-	mesCh := make(chan string)
+	mesCh := make(chan []byte)
 	done := make(chan struct{}, 1)
 
 	wg := sync.WaitGroup{}
 
 	//DB
-	go func(mesCh chan string, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
+	stor := storage.Postgres{Config: conf, Logger: &log}
+	err = stor.Init()
+
+	//RMQ
+	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
+	failOnError(err, "RMQ fail")
+
+	go func(mesCh chan []byte, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
 		//connect to DB
-		stor := storage.Postgres{Config: conf, Logger: &log}
-		err = stor.Init()
-		if err != nil {
-			log.Fatalln("Can't init storage", err)
-		}
 		defer stor.Shutdown()
 		wg.Add(1)
 		defer wg.Done()
@@ -69,7 +70,7 @@ func main() {
 					for _, event := range events {
 						message, err := json.Marshal(event)
 						if err == nil {
-							mesCh <- string(message)
+							mesCh <- message
 						}
 					}
 				} else {
@@ -85,29 +86,13 @@ func main() {
 	}(mesCh, done, wg, log)
 
 	//RMQ
-	go func(mesCh chan string, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
+	go func(mesCh chan []byte, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
 		wg.Add(1)
 		defer wg.Done()
-		conn, err := amqp.DialConfig(fmt.Sprintf("amqp://%s:%s@%s/", conf.RmqUser, conf.RmqPass, conf.RmqHostPort),
-			amqp.Config{Dial: func(network, addr string) (net.Conn, error) {
-				return net.DialTimeout(network, addr, time.Second*time.Duration(conf.RmqTimeoutConnect))
-			}})
-		failOnError(err, "Failed to connect to RabbitMQ")
-		defer conn.Close()
-		ch, err := conn.Channel()
-		failOnError(err, "Failed to open a channel")
-		defer ch.Close()
-		q, err := ch.QueueDeclare(conf.RmqQueue, true, false, false, false, nil)
-		failOnError(err, "Failed to declare a queue")
-
 		for {
 			select {
 			case m := <-mesCh:
-				err = ch.Publish("", q.Name, false, false,
-					amqp.Publishing{
-						ContentType: "text/plain",
-						Body:        []byte(m),
-					})
+				err := rmq.Send(m)
 				if err != nil {
 					log.Errorln("Fail send to RMQ message:", m)
 					//TODO Recconect?

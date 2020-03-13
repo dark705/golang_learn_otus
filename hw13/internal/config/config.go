@@ -7,21 +7,23 @@ import (
 )
 
 type Config struct {
-	HttpListen        string `yaml:"http_listen"`
-	GrpcListen        string `yaml:"grpc_listen"`
-	LogFile           string `yaml:"log_file"`
-	LogLevel          string `yaml:"log_level"`
-	PgHostPort        string `yaml:"db_host_port"`
-	PgUser            string `yaml:"db_user"`
-	PgPass            string `yaml:"db_pass"`
-	PgDatabase        string `yaml:"db_database"`
-	PgTimeoutConnect  int    `yaml:"db_timeout_connect"`
-	PgTimeoutExecute  int    `yaml:"db_timeout_execute"`
-	RmqHostPort       string `yaml:"rmq_host_port"`
-	RmqTimeoutConnect int    `yaml:"rmq_timeout_connect"`
-	RmqUser           string `yaml:"rmq_user"`
-	RmqPass           string `yaml:"rmq_pass"`
-	RmqQueue          string `yaml:"rmq_queue"`
+	HttpListen       string `yaml:"http_listen"`
+	GrpcListen       string `yaml:"grpc_listen"`
+	LogFile          string `yaml:"log_file"`
+	LogLevel         string `yaml:"log_level"`
+	PgHostPort       string `yaml:"db_host_port"`
+	PgUser           string `yaml:"db_user"`
+	PgPass           string `yaml:"db_pass"`
+	PgDatabase       string `yaml:"db_database"`
+	PgTimeoutConnect int    `yaml:"db_timeout_connect"`
+	PgTimeoutExecute int    `yaml:"db_timeout_execute"`
+	Rmq              struct {
+		User     string `yaml:"user"`
+		Pass     string `yaml:"pass"`
+		HostPort string `yaml:"host_port"`
+		Timeout  int    `yaml:"timeout_connect"`
+		Queue    string `yaml:"queue"`
+	} `yaml:"rmq"`
 }
 
 func ReadFromFile(file string) (Config, error) {
