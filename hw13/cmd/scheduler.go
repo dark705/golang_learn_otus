@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -39,37 +40,51 @@ func main() {
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
-	stor := storage.Postgres{Config: conf, Logger: &log}
-	err = stor.Init()
-	if err != nil {
-		log.Fatalln("Can't init storage", err)
-	}
-
-	events, err := stor.GetAllNotScheduled()
-	fmt.Println(events, err)
-	//RMQ
-
 	mesCh := make(chan string)
 	done := make(chan struct{}, 1)
 
 	wg := sync.WaitGroup{}
 
-	go func(mesCh chan string, doneCh chan struct{}, wg sync.WaitGroup) {
+	//DB
+	go func(mesCh chan string, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
+		//connect to DB
+		stor := storage.Postgres{Config: conf, Logger: &log}
+		err = stor.Init()
+		if err != nil {
+			log.Fatalln("Can't init storage", err)
+		}
+		defer stor.Shutdown()
 		wg.Add(1)
 		defer wg.Done()
 		ticker := time.NewTicker(time.Second * 1)
 		for {
 			select {
 			case <-ticker.C:
-				mesCh <- time.Now().Format(time.RFC3339)
+				events, err := stor.GetAllNotScheduled()
+				if err == nil {
+					if len(events) == 0 {
+						log.Debugln("No events need to be send")
+						continue
+					}
+					for _, event := range events {
+						message, err := json.Marshal(event)
+						if err == nil {
+							mesCh <- string(message)
+						}
+					}
+				} else {
+					log.Error("Err", err)
+				}
+
 			case <-doneCh:
 				log.Infoln("Shutdown Message sender")
 				return
 			}
 
 		}
-	}(mesCh, done, wg)
+	}(mesCh, done, wg, log)
 
+	//RMQ
 	go func(mesCh chan string, doneCh chan struct{}, wg sync.WaitGroup, log logrus.Logger) {
 		wg.Add(1)
 		defer wg.Done()
@@ -111,7 +126,7 @@ func main() {
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
 	close(done)
 	wg.Wait()
-	stor.Shutdown()
+
 }
 
 func failOnError(err error, msg string) {

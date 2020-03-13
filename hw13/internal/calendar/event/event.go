@@ -3,12 +3,12 @@ package event
 import "time"
 
 type Event struct {
-	Id          int       `db:"id"`
-	StartTime   time.Time `db:"start_time"`
-	EndTime     time.Time `db:"end_time"`
-	Title       string    `db:"title"`
-	Description string    `db:"description"`
-	IsScheduled bool      `db:"is_scheduled"`
+	Id          int       `db:"id" json:"id"`
+	StartTime   time.Time `db:"start_time" json:"startTime"`
+	EndTime     time.Time `db:"end_time" json:"endTime"`
+	Title       string    `db:"title" json:"title"`
+	Description string    `db:"description" json:"description"`
+	IsScheduled bool      `db:"is_scheduled" json:"isScheduled"`
 }
 
 func CreateEvent(startTime, endTime, title, description string) (Event, error) {
