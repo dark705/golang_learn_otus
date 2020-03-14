@@ -51,7 +51,7 @@ func NewRMQ(conf Config, logger *logrus.Logger) (r *RMQ, err error) {
 }
 
 func (r *RMQ) Reconnect() (err error) {
-	r.l.Warningln("Start try re connect to RMQ")
+	r.l.Warningln("Start try reconnect to RMQ")
 	r.conn, err = amqp.DialConfig(fmt.Sprintf("amqp://%s:%s@%s/", r.c.User, r.c.Pass, r.c.HostPort),
 		amqp.Config{Dial: func(network, addr string) (net.Conn, error) {
 			return net.DialTimeout(network, addr, time.Second*time.Duration(r.c.Timeout))
@@ -69,11 +69,11 @@ func (r *RMQ) Reconnect() (err error) {
 	if err != nil {
 		return err
 	}
-	r.l.Warningln("Success reconnected to RMQ")
+	r.l.Infoln("Success reconnected to RMQ")
 	return err
 }
 
-func (r *RMQ) CloseConnect() (err error) {
+func (r *RMQ) Shutdown() (err error) {
 	r.l.Infoln("Close RMQ connect...")
 	err = r.ch.Close()
 	if err != nil {
@@ -95,9 +95,6 @@ func (r *RMQ) Send(message []byte) error {
 			DeliveryMode: amqp.Persistent,
 			Body:         message,
 		})
-	if err == nil {
-		r.l.Infoln("Success send message to RMQ", message)
-	}
 
 	return err
 }

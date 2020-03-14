@@ -118,7 +118,8 @@ func (s *Postgres) GetAllNotScheduled() (events []event.Event, err error) {
 }
 
 func (s *Postgres) Edit(editEvent event.Event) (err error) {
-	sql := "UPDATE events SET (start_time, end_time, title, description) = (:start_time, :end_time, :title, :description) WHERE id = :id;" // :start_time from `db:"start_time"` and so on
+	// :start_time from `db:"start_time"` and so on
+	sql := "UPDATE events SET (start_time, end_time, title, description, is_scheduled) = (:start_time, :end_time, :title, :description, :is_scheduled) WHERE id = :id;"
 	res, err := s.db.NamedExecContext(s.ctxExec, sql, editEvent)
 	if err != nil {
 		return err

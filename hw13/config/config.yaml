@@ -8,6 +8,8 @@ db_pass: "postgres"
 db_database: "calendar"
 db_timeout_connect: 5
 db_timeout_execute: 10
+scheduler_check_in_seconds: 10
+scheduler_notify_in_seconds: 3600
 
 rmq:
   host_port: "127.0.0.1:56721"
