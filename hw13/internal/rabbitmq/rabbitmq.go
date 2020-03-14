@@ -98,3 +98,7 @@ func (r *RMQ) Send(message []byte) error {
 
 	return err
 }
+
+func (r *RMQ) GetMsgsCh() (msgsCh <-chan amqp.Delivery, err error) {
+	return r.ch.Consume(r.q.Name, "", false, false, false, false, nil)
+}

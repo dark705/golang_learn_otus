@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
-	"log"
+	"math/rand"
 	"os"
 	"os/signal"
 	"sync"
@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/dark705/otus/hw13/internal/config"
+	"github.com/dark705/otus/hw13/internal/helpers"
 	"github.com/dark705/otus/hw13/internal/logger"
 	"github.com/dark705/otus/hw13/internal/rabbitmq"
 	"github.com/dark705/otus/hw13/internal/storage"
@@ -40,7 +41,7 @@ func main() {
 
 	done := make(chan struct{}, 1)
 
-	scheduler := sync.WaitGroup{}
+	senders := sync.WaitGroup{}
 
 	//DB connect
 	stor := storage.Postgres{Config: conf, Logger: &log}
@@ -48,63 +49,55 @@ func main() {
 
 	//RMQ connect
 	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
-	failOnError(err, "RMQ fail")
+	helpers.FailOnError(err, "RMQ fail")
+	msgsCh, err := rmq.GetMsgsCh()
+	helpers.FailOnError(err, "RMQ fail to get msgs chan")
+	//msgsRetChan := make(chan amqp.Delivery)
 
-	//Scheduler
-	go func() {
-		//connect to DB
-		scheduler.Add(1)
-		defer scheduler.Done()
-		ticker := time.NewTicker(time.Second * time.Duration(conf.SchedulerCheckInSeconds))
-		for {
-			select {
-			case <-ticker.C:
-				events, err := stor.GetAllNotScheduled()
-				if err != nil {
-					log.Errorln("Err on get not scheduled events from db", err)
-					continue
-				}
-				if len(events) == 0 {
-					log.Debugln("No notify need to be send")
-					continue
-				}
-				for _, event := range events {
-					if time.Now().Add(time.Second * time.Duration(conf.SchedulerNotifyInSeconds)).Before(event.StartTime) {
-						log.Debugln("Too early send notice for event", event)
-						continue
-					}
-					message, _ := json.Marshal(event)
-					err = rmq.Send(message)
+	//Senders
+	for i := 0; i < conf.SenderNumOfSenders; i++ {
+		go func(i int) {
+			senders.Add(1)
+			defer senders.Done()
+			for {
+				select {
+				case message := <-msgsCh:
+					err := Send(message.Body, i)
 					if err != nil {
-						log.Errorln("Fail send notify to RMQ:", message)
-						_ = rmq.Reconnect()
-						continue
+						log.Errorln(err)
+						log.Errorln("Fail send")
+						message.Nack(false, true)
+						log.Errorln("Return to queue")
+
+					} else {
+						log.Infoln("Success send")
+						message.Ack(false)
+						log.Debugln("Send Ack")
 					}
-					log.Infoln("Success send notify to RMQ:", string(message))
-					event.IsScheduled = true
-					err = stor.Edit(event)
-					if err != nil {
-						log.Errorln("Fail mark event in db as scheduled", err)
-						continue
-					}
-					log.Infoln("Success mark event in db as scheduled", err)
+				case <-done:
+					return
 				}
-			case <-done:
-				log.Infoln("Shutdown scheduler")
-				return
 			}
-		}
-	}()
+		}(i)
+	}
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
 	close(done)
-	scheduler.Wait()
+	senders.Wait()
 	rmq.Shutdown()
 	stor.Shutdown()
 }
 
-func failOnError(err error, msg string) {
-	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
-	}
+func Send(msg []byte, i int) error {
+
+	rand.Seed(time.Now().UTC().UnixNano() + int64(i))
+	rnd := rand.Intn(2000) + 1000
+	time.Sleep(time.Millisecond * time.Duration(rnd)) //emulate delay on sender
+	fmt.Println(rnd)
+	fmt.Println("Sender:", i, "SendMessage:", string(msg))
+
+	//	if rnd < 1500 { //emulate error on send
+	//		return nil
+	//	}
+	return errors.New("Error on sender")
 }

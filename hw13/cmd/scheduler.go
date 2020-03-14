@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"sync"
@@ -12,6 +11,7 @@ import (
 	"time"
 
 	"github.com/dark705/otus/hw13/internal/config"
+	"github.com/dark705/otus/hw13/internal/helpers"
 	"github.com/dark705/otus/hw13/internal/logger"
 	"github.com/dark705/otus/hw13/internal/rabbitmq"
 	"github.com/dark705/otus/hw13/internal/storage"
@@ -48,7 +48,7 @@ func main() {
 
 	//RMQ connect
 	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
-	failOnError(err, "RMQ fail")
+	helpers.FailOnError(err, "RMQ fail")
 
 	//Scheduler
 	go func() {
@@ -101,10 +101,4 @@ func main() {
 	scheduler.Wait()
 	rmq.Shutdown()
 	stor.Shutdown()
-}
-
-func failOnError(err error, msg string) {
-	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
-	}
 }
