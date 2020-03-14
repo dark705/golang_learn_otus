@@ -1,8 +1,20 @@
-    run_server:
-	go run ./cmd/server.go
+    build_scheduler:
+	go build -o ./bin/sheduler ./cmd/scheduler.go
 
-    run_client:
-	go run ./cmd/client.go
+    build_sender:
+	go build -o ./bin/sender ./cmd/sender.go
+
+    run_scheduler:
+	go run ./cmd/scheduler.go
+
+    run_sender:
+	go run ./cmd/sender.go
+
+    run_api:
+	go run ./cmd/api.go
+
+    run_client_api:
+	go run ./cmd/api.client.go
 
     build_grpc:
 	./build/protobuf.grpc.sh
