@@ -57,23 +57,31 @@ func main() {
 	for i := 0; i < conf.SenderNumOfSenders; i++ {
 		go func(i int) {
 			senders.Add(1)
-			defer senders.Done()
+			defer func() {
+				log.Infoln("Sender:", i, "shutdown")
+				senders.Done()
+			}()
+			log.Infoln("Sender:", i, "waiting for notices")
 			for {
 				select {
 				case <-done:
 					return
 				default:
 					select {
-					case message := <-msgsCh:
+					case message, ok := <-msgsCh:
+						if !ok {
+							rmq.Reconnect()
+							continue
+						}
 						err := Send(message.Body, i)
 						if err != nil {
 							log.Errorln(err)
-							log.Errorln("Fail send")
+							log.Infoln("Sender:", i, "fail send")
 							message.Nack(false, true)
 							log.Errorln("Return to queue")
 
 						} else {
-							log.Infoln("Success send")
+							log.Infoln("Sender:", i, "success send")
 							message.Ack(false)
 							log.Debugln("Send Ack")
 						}
@@ -97,11 +105,9 @@ func Send(msg []byte, i int) error {
 	rand.Seed(time.Now().UTC().UnixNano() + int64(i))
 	rnd := rand.Intn(2000) + 1000
 	time.Sleep(time.Millisecond * time.Duration(rnd)) //emulate delay on sender
-	fmt.Println(rnd)
-	fmt.Println("Sender:", i, "SendMessage:", string(msg))
-
-	//	if rnd < 1500 { //emulate error on send
-	//		return nil
-	//	}
+	if rnd < 2000 {                                   //emulate error on send
+		fmt.Println("Sender:", i, "SendMessage:", string(msg))
+		return nil
+	}
 	return errors.New("Error on sender")
 }
