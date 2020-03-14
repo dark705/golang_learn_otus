@@ -52,7 +52,6 @@ func main() {
 	helpers.FailOnError(err, "RMQ fail")
 	msgsCh, err := rmq.GetMsgsCh()
 	helpers.FailOnError(err, "RMQ fail to get msgs chan")
-	//msgsRetChan := make(chan amqp.Delivery)
 
 	//Senders
 	for i := 0; i < conf.SenderNumOfSenders; i++ {
@@ -61,21 +60,26 @@ func main() {
 			defer senders.Done()
 			for {
 				select {
-				case message := <-msgsCh:
-					err := Send(message.Body, i)
-					if err != nil {
-						log.Errorln(err)
-						log.Errorln("Fail send")
-						message.Nack(false, true)
-						log.Errorln("Return to queue")
-
-					} else {
-						log.Infoln("Success send")
-						message.Ack(false)
-						log.Debugln("Send Ack")
-					}
 				case <-done:
 					return
+				default:
+					select {
+					case message := <-msgsCh:
+						err := Send(message.Body, i)
+						if err != nil {
+							log.Errorln(err)
+							log.Errorln("Fail send")
+							message.Nack(false, true)
+							log.Errorln("Return to queue")
+
+						} else {
+							log.Infoln("Success send")
+							message.Ack(false)
+							log.Debugln("Send Ack")
+						}
+					case <-done:
+						return
+					}
 				}
 			}
 		}(i)
