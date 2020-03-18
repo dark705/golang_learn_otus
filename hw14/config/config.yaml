@@ -1,0 +1,20 @@
+http_listen: "0.0.0.0:8081"
+grpc_listen: "0.0.0.0:5300"
+log_file: "logs/log.txt"
+log_level: "debug"
+db_host_port: "127.0.0.1:54441"
+db_user: "postgres"
+db_pass: "postgres"
+db_database: "calendar"
+db_timeout_connect: 5
+db_timeout_execute: 10
+scheduler_check_in_seconds: 10
+scheduler_notify_in_seconds: 3600
+sender_num_of_senders: 5
+
+rmq:
+  host_port: "127.0.0.1:56721"
+  timeout_connect: 10
+  user: "guest"
+  pass: "guest"
+  queue: "scheduler"
