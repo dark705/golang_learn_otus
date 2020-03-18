@@ -42,12 +42,17 @@ func main() {
 	helpers.FailOnError(err, "postgres fail")
 
 	cal := calendar.Calendar{Config: conf, Storage: &stor, Logger: &log}
-	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
 
-	go web.RunServer(conf, &log)
+	//web Server
+	ws := web.NewServer(conf, &log)
+	ws.RunServer()
+
+	//gRPC Server
+	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
 	go grpcServer.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
+	ws.Shutdown()
 	grpcServer.Shutdown()
 	stor.Shutdown()
 }

@@ -79,10 +79,12 @@ func (r *RMQ) Shutdown() {
 	if err != nil {
 		r.l.Infoln("Fail to close postgres RMQ channel")
 		_ = r.conn.Close()
+		return
 	}
 	err = r.conn.Close()
 	if err != nil {
 		r.l.Infoln("Fail to close postgres RMQ connection")
+		return
 	}
 	r.l.Infoln("Success close RMQ connect")
 }
