@@ -31,7 +31,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.GetLogger(conf)
+	log := logger.NewLogger(conf.Logger)
 	defer logger.CloseLogFile()
 
 	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*2)

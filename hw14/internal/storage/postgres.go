@@ -10,34 +10,45 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"github.com/dark705/otus/hw14/internal/calendar/event"
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/jmoiron/sqlx"
 )
 
+type PostgresConfig struct {
+	HostPort       string `yaml:"host_port"`
+	User           string `yaml:"user"`
+	Pass           string `yaml:"pass"`
+	Database       string `yaml:"database"`
+	TimeoutConnect int    `yaml:"timeout_connect"`
+	TimeoutExecute int    `yaml:"timeout_execute"`
+}
+
 type Postgres struct {
-	Config  config.Config
-	Logger  *logrus.Logger
+	logger  *logrus.Logger
 	db      *sqlx.DB
 	ctxExec context.Context
 }
 
-func (s *Postgres) Init() (err error) {
-	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(s.Config.PgTimeoutConnect))
-	s.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("postgres://%s:%s@%s/%s", s.Config.PgUser, s.Config.PgPass, s.Config.PgHostPort, s.Config.PgDatabase))
+func NewPG(conf PostgresConfig, logger *logrus.Logger) (pg Postgres, err error) {
+	pg = Postgres{logger: logger}
+	logger.Infoln("Start connect to Postgres")
+	ctxConnect, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(conf.TimeoutConnect))
+	pg.db, err = sqlx.ConnectContext(ctxConnect, "pgx", fmt.Sprintf("Postgres://%s:%s@%s/%s", conf.User, conf.Pass, conf.HostPort, conf.Database))
 	if err != nil {
-		return err
+		return pg, err
 	}
-	s.ctxExec, _ = context.WithCancel(context.Background())
-	return err
+	pg.ctxExec, _ = context.WithCancel(context.Background())
+	logger.Infoln("Success connected to Postgres")
+
+	return pg, err
 }
 
 func (s *Postgres) Shutdown() {
-	s.Logger.Infoln("Close Postgres connection...")
+	s.logger.Infoln("Close Postgres connection...")
 	err := s.db.Close()
 	if err != nil {
-		s.Logger.Infoln("Fail to close Postgres connection.")
+		s.logger.Infoln("Fail to close Postgres connection.")
 	}
-	s.Logger.Infoln("Success close Postgres connection.")
+	s.logger.Infoln("Success close Postgres connection.")
 }
 
 func (s *Postgres) Add(e event.Event) (err error) {

@@ -5,15 +5,19 @@ import (
 	"io"
 	"os"
 
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/sirupsen/logrus"
 )
 
+type Config struct {
+	File  string `yaml:"file"`
+	Level string `yaml:"level"`
+}
+
 var file *os.File
 
-func GetLogger(c config.Config) logrus.Logger {
+func NewLogger(c Config) logrus.Logger {
 	logger := logrus.Logger{}
-	switch c.LogLevel {
+	switch c.Level {
 	case "error":
 		logger.SetLevel(logrus.ErrorLevel)
 	case "warn":
@@ -30,7 +34,7 @@ func GetLogger(c config.Config) logrus.Logger {
 	formatter := logrus.JSONFormatter{}
 	logger.SetFormatter(&formatter)
 	var err error
-	file, err = os.OpenFile(c.LogFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err = os.OpenFile(c.File, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		_, _ = fmt.Fprint(os.Stderr, err)
 		os.Exit(2)

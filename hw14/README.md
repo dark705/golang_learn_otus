@@ -3,6 +3,9 @@
 
 _./config/config.yaml_
 
+### Компиляция
+        make build
+
 ## Scheduler сервер
 ### Запуск сервера
     go run ./cmd/sheduler.go

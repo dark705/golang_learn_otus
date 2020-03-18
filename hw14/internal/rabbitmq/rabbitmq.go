@@ -73,19 +73,18 @@ func (r *RMQ) Reconnect() (err error) {
 	return err
 }
 
-func (r *RMQ) Shutdown() (err error) {
+func (r *RMQ) Shutdown() {
 	r.l.Infoln("Close RMQ connect...")
-	err = r.ch.Close()
+	err := r.ch.Close()
 	if err != nil {
+		r.l.Infoln("Fail to close postgres RMQ channel")
 		_ = r.conn.Close()
-		return err
 	}
 	err = r.conn.Close()
-	if err == nil {
-		r.l.Infoln("Success close RMQ connect")
+	if err != nil {
+		r.l.Infoln("Fail to close postgres RMQ connection")
 	}
-
-	return err
+	r.l.Infoln("Success close RMQ connect")
 }
 
 func (r *RMQ) Send(message []byte) error {

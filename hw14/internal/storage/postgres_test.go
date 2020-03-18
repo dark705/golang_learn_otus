@@ -6,24 +6,22 @@ import (
 	"testing"
 
 	"github.com/dark705/otus/hw14/internal/calendar/event"
-	"github.com/dark705/otus/hw14/internal/config"
+
+	"github.com/dark705/otus/hw14/internal/helpers"
 	"github.com/sirupsen/logrus"
 )
 
-var conf = config.Config{
-	PgHostPort:       "127.0.0.1:54441",
-	PgUser:           "postgres",
-	PgPass:           "postgres",
-	PgDatabase:       "calendar",
-	PgTimeoutConnect: 10,
+var conf = PostgresConfig{
+	HostPort:       "127.0.0.1:54441",
+	User:           "postgres",
+	Pass:           "postgres",
+	Database:       "calendar",
+	TimeoutConnect: 10,
 }
 
 func TestAddGetAllGetDel(t *testing.T) {
-	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
-	err := pg.Init()
-	if err != nil {
-		t.Error("Fail to init PG")
-	}
+	pg, err := NewPG(conf, &logrus.Logger{})
+	helpers.FailOnError(err, "Postgres fail")
 	defer pg.Shutdown()
 
 	event, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T15:00:00+03:00", "Event 1", "Some Desc1")
@@ -60,11 +58,8 @@ func TestAddGetAllGetDel(t *testing.T) {
 }
 
 func TestIntervalIsBusy(t *testing.T) {
-	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
-	err := pg.Init()
-	if err != nil {
-		t.Error("Fail to init PG")
-	}
+	pg, err := NewPG(conf, &logrus.Logger{})
+	helpers.FailOnError(err, "Postgres fail")
 	defer pg.Shutdown()
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")
@@ -113,11 +108,8 @@ func TestIntervalIsBusy(t *testing.T) {
 }
 
 func TestEditEvent(t *testing.T) {
-	pg := Postgres{Config: conf, Logger: &logrus.Logger{}}
-	err := pg.Init()
-	if err != nil {
-		t.Error("Fail to init PG")
-	}
+	pg, err := NewPG(conf, &logrus.Logger{})
+	helpers.FailOnError(err, "Postgres fail")
 	defer pg.Shutdown()
 
 	event1, _ := event.CreateEvent("2006-01-02T15:00:00+03:00", "2006-01-02T16:00:00+03:00", "Event 1", "Some Desc1")

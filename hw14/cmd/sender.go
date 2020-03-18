@@ -15,7 +15,6 @@ import (
 	"github.com/dark705/otus/hw14/internal/helpers"
 	"github.com/dark705/otus/hw14/internal/logger"
 	"github.com/dark705/otus/hw14/internal/rabbitmq"
-	"github.com/dark705/otus/hw14/internal/storage"
 )
 
 func main() {
@@ -33,7 +32,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.GetLogger(conf)
+	log := logger.NewLogger(conf.Logger)
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
@@ -42,10 +41,6 @@ func main() {
 	done := make(chan struct{}, 1)
 
 	senders := sync.WaitGroup{}
-
-	//DB connect
-	stor := storage.Postgres{Config: conf, Logger: &log}
-	err = stor.Init()
 
 	//RMQ connect
 	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
@@ -97,7 +92,6 @@ func main() {
 	close(done)
 	senders.Wait()
 	rmq.Shutdown()
-	stor.Shutdown()
 }
 
 func Send(msg []byte, i int) error {

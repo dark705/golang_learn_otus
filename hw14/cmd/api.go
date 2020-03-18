@@ -10,6 +10,7 @@ import (
 	"github.com/dark705/otus/hw14/internal/calendar/calendar"
 	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/dark705/otus/hw14/internal/grpc"
+	"github.com/dark705/otus/hw14/internal/helpers"
 	"github.com/dark705/otus/hw14/internal/logger"
 	"github.com/dark705/otus/hw14/internal/storage"
 	"github.com/dark705/otus/hw14/internal/web"
@@ -30,17 +31,16 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.GetLogger(conf)
+	log := logger.NewLogger(conf.Logger)
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
-	stor := storage.Postgres{Config: conf, Logger: &log}
-	err = stor.Init()
-	if err != nil {
-		log.Fatalln("Can't init storage")
-	}
+	//PG
+	stor, err := storage.NewPG(conf.Pg, &log)
+	helpers.FailOnError(err, "postgres fail")
+
 	cal := calendar.Calendar{Config: conf, Storage: &stor, Logger: &log}
 	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
 

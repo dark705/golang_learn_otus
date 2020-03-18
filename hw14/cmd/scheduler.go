@@ -32,7 +32,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.GetLogger(conf)
+	log := logger.NewLogger(conf.Logger)
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
@@ -43,8 +43,8 @@ func main() {
 	scheduler := sync.WaitGroup{}
 
 	//DB connect
-	stor := storage.Postgres{Config: conf, Logger: &log}
-	err = stor.Init()
+	stor, err := storage.NewPG(conf.Pg, &log)
+	helpers.FailOnError(err, "postgres fail")
 
 	//RMQ connect
 	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
