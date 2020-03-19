@@ -1,9 +1,12 @@
 http_listen: "0.0.0.0:8081"
 grpc_listen: "0.0.0.0:5300"
 
-scheduler_check_in_seconds: 10
-scheduler_notify_in_seconds: 3600
-sender_num_of_senders: 5
+scheduler:
+  check_in_seconds: 10
+  notify_in_seconds: 3600
+
+sender:
+  num_of_senders: 5
 
 postgres:
   host_port: "127.0.0.1:54441"
@@ -16,6 +19,7 @@ postgres:
 log:
   file: "logs/log.txt"
   level: "debug"
+
 rmq:
   host_port: "127.0.0.1:56721"
   timeout_connect: 10

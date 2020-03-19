@@ -1,26 +1,30 @@
-package sheduler
+package scheduler
 
 import (
 	"encoding/json"
 	"sync"
 	"time"
 
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/dark705/otus/hw14/internal/rabbitmq"
 	"github.com/dark705/otus/hw14/internal/storage"
 	"github.com/sirupsen/logrus"
 )
 
+type Config struct {
+	CheckInSeconds  int `yaml:"check_in_seconds"`
+	NotifyInSeconds int `yaml:"notify_in_seconds"`
+}
+
 type Scheduler struct {
 	log  *logrus.Logger
-	conf config.Config
+	conf Config
 	stor storage.Interface
 	rmq  *rabbitmq.RMQ
 	done chan struct{}
 	wg   *sync.WaitGroup
 }
 
-func NewScheduler(c config.Config, l *logrus.Logger, s storage.Interface, r *rabbitmq.RMQ) *Scheduler {
+func NewScheduler(c Config, l *logrus.Logger, s storage.Interface, r *rabbitmq.RMQ) *Scheduler {
 	return &Scheduler{
 		log:  l,
 		conf: c,
@@ -41,7 +45,7 @@ func (s *Scheduler) Run() {
 		//connect to DB
 		s.wg.Add(1)
 		defer s.wg.Done()
-		ticker := time.NewTicker(time.Second * time.Duration(s.conf.SchedulerCheckInSeconds))
+		ticker := time.NewTicker(time.Second * time.Duration(s.conf.CheckInSeconds))
 		defer ticker.Stop()
 		s.log.Infoln("Started Scheduler")
 		for {
@@ -57,7 +61,7 @@ func (s *Scheduler) Run() {
 					continue
 				}
 				for _, event := range events {
-					if time.Now().Add(time.Second * time.Duration(s.conf.SchedulerNotifyInSeconds)).Before(event.StartTime) {
+					if time.Now().Add(time.Second * time.Duration(s.conf.NotifyInSeconds)).Before(event.StartTime) {
 						s.log.Debugln("Too early send notice for event", event)
 						continue
 					}
