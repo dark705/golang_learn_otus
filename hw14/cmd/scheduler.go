@@ -45,8 +45,7 @@ func main() {
 	helpers.FailOnError(err, "RMQ fail")
 
 	//Scheduler
-	sch := sheduler.NewScheduler(conf, &log, &stor, rmq)
-	sch.Run()
+	sch := sheduler.NewScheduler(conf.Scheduler, &log, &stor, rmq)
 	sch.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
