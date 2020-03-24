@@ -8,13 +8,9 @@ _./config/config.yaml_
 
 ## Scheduler сервер
 ### Запуск сервера
-    go run ./cmd/sheduler.go
-    либо    
     make run_sheduler
 
-### Запуск отправщиков
-    go run ./cmd/sender.go
-    либо    
+### Запуск отправщиков 
     make run_sender
 
 ### Компиляция сервера и отправщика
@@ -34,16 +30,12 @@ _./config/config.yaml_
 
 ## GRPC сервер
 ### Запуск сервера
-    go run ./cmd/api.go
-    либо    
     make run_api
 
 Следует учитывать что сервер использует реальную БД, к которой должен иметь доступ. 
 В комплекте идёт Docker с настроенной БД
   
 ### Запуск тестового клиента
-    go run ./cmd/api.client.go
-    либо
     make run_api_client
       
 ### API cпецификация Protobuf
