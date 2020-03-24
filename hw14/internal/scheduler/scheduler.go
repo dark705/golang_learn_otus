@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/dark705/otus/hw14/internal/calendar/event"
 	"github.com/dark705/otus/hw14/internal/rabbitmq"
-	"github.com/dark705/otus/hw14/internal/storage"
 	"github.com/sirupsen/logrus"
 )
 
@@ -15,16 +15,21 @@ type Config struct {
 	NotifyInSeconds int `yaml:"notify_in_seconds"`
 }
 
+type Storage interface {
+	GetAllNotScheduled() ([]event.Event, error)
+	Edit(event.Event) error
+}
+
 type Scheduler struct {
 	log  *logrus.Logger
 	conf Config
-	stor storage.Interface
+	stor Storage
 	rmq  *rabbitmq.RMQ
 	done chan struct{}
 	wg   *sync.WaitGroup
 }
 
-func NewScheduler(c Config, l *logrus.Logger, s storage.Interface, r *rabbitmq.RMQ) *Scheduler {
+func NewScheduler(c Config, l *logrus.Logger, s Storage, r *rabbitmq.RMQ) *Scheduler {
 	return &Scheduler{
 		log:  l,
 		conf: c,
