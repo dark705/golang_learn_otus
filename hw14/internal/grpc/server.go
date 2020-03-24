@@ -7,7 +7,6 @@ import (
 
 	"github.com/dark705/otus/hw14/internal/calendar/calendar"
 	"github.com/dark705/otus/hw14/internal/calendar/event"
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/dark705/otus/hw14/pkg/calendar/protobuf"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/sirupsen/logrus"
@@ -16,8 +15,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type Config struct {
+	GrpcListen string
+}
+
 type Server struct {
-	Config   config.Config
+	Config   Config
 	Logger   *logrus.Logger
 	Calendar *calendar.Calendar
 	server   *grpc.Server

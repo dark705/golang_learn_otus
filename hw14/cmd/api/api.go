@@ -31,24 +31,34 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.NewLogger(conf.Logger)
+	log := logger.NewLogger(logger.Config{
+		File:  conf.Logger.File,
+		Level: conf.Logger.Level,
+	})
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
 	//PG
-	stor, err := storage.NewPG(conf.Pg, &log)
+	stor, err := storage.NewPG(storage.PostgresConfig{
+		HostPort:       conf.Pg.HostPort,
+		User:           conf.Pg.User,
+		Pass:           conf.Pg.Pass,
+		Database:       conf.Pg.Database,
+		TimeoutConnect: conf.Pg.TimeoutConnect,
+		TimeoutExecute: conf.Pg.TimeoutExecute,
+	}, &log)
 	helpers.FailOnError(err, "postgres fail")
 
 	cal := calendar.Calendar{Config: conf, Storage: &stor, Logger: &log}
 
 	//web Server
-	ws := web.NewServer(conf, &log)
+	ws := web.NewServer(web.Config{HttpListen: conf.Api.HttpListen}, &log)
 	ws.RunServer()
 
 	//gRPC Server
-	grpcServer := grpc.Server{Config: conf, Logger: &log, Calendar: &cal}
+	grpcServer := grpc.Server{Config: grpc.Config{GrpcListen: conf.Api.GrpcListen}, Logger: &log, Calendar: &cal}
 	go grpcServer.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)

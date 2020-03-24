@@ -31,11 +31,14 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.NewLogger(conf.Logger)
+	log := logger.NewLogger(logger.Config{
+		File:  conf.Logger.File,
+		Level: conf.Logger.Level,
+	})
 	defer logger.CloseLogFile()
 
 	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*2)
-	conn, err := grpc.DialContext(ctxConn, conf.GrpcListen, []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
+	conn, err := grpc.DialContext(ctxConn, conf.Api.GrpcListen, []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
 	if err != nil {
 		log.Fatalln("Can't connect to grpc server, error: ", err)
 	}

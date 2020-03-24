@@ -10,7 +10,7 @@ import (
 )
 
 type Config struct {
-	NumOfSenders int `yaml:"num_of_senders"`
+	NumOfSenders int
 }
 
 type Senders struct {

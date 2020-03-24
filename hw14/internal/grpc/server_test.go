@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/dark705/otus/hw14/internal/calendar/calendar"
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/dark705/otus/hw14/internal/storage"
 	"github.com/dark705/otus/hw14/pkg/calendar/protobuf"
 	"github.com/golang/protobuf/proto"
@@ -22,7 +21,7 @@ func TestAddEventGetEvent(t *testing.T) {
 		t.Error("Can't init storage")
 	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
-	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
+	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
 	time.Sleep(time.Second) // wait for grpc server run
@@ -57,7 +56,7 @@ func TestDelGetAllEvents(t *testing.T) {
 		t.Error("Can't init storage")
 	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
-	grpcServer := Server{Config: config.Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
+	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
 	time.Sleep(time.Second) // wait for grpc server run

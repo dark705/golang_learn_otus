@@ -1,5 +1,6 @@
-http_listen: "0.0.0.0:8081"
-grpc_listen: "0.0.0.0:5300"
+api:
+  http_listen: "0.0.0.0:8081"
+  grpc_listen: "0.0.0.0:5300"
 
 scheduler:
   check_in_seconds: 10

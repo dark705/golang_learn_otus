@@ -10,11 +10,11 @@ import (
 )
 
 type Config struct {
-	User     string `yaml:"user"`
-	Pass     string `yaml:"pass"`
-	HostPort string `yaml:"host_port"`
-	Timeout  int    `yaml:"timeout_connect"`
-	Queue    string `yaml:"queue"`
+	User     string
+	Pass     string
+	HostPort string
+	Timeout  int
+	Queue    string
 }
 
 type RMQ struct {

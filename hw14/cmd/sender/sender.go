@@ -29,18 +29,27 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.NewLogger(conf.Logger)
+	log := logger.NewLogger(logger.Config{
+		File:  conf.Logger.File,
+		Level: conf.Logger.Level,
+	})
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
 	//RMQ connect
-	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
+	rmq, err := rabbitmq.NewRMQ(rabbitmq.Config{
+		User:     conf.Rmq.User,
+		Pass:     conf.Rmq.Pass,
+		HostPort: conf.Rmq.HostPort,
+		Timeout:  conf.Rmq.Timeout,
+		Queue:    conf.Rmq.Queue,
+	}, &log)
 	helpers.FailOnError(err, "RMQ fail")
 
 	//Senders
-	senders := sender.NewSenders(conf.Sender, &log, rmq, sender.SendToStdout)
+	senders := sender.NewSenders(sender.Config{NumOfSenders: conf.Sender.NumOfSenders}, &log, rmq, sender.SendToStdout)
 	senders.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)

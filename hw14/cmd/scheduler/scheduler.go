@@ -30,22 +30,41 @@ func main() {
 		os.Exit(2)
 	}
 
-	log := logger.NewLogger(conf.Logger)
+	log := logger.NewLogger(logger.Config{
+		File:  conf.Logger.File,
+		Level: conf.Logger.Level,
+	})
 	defer logger.CloseLogFile()
 
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 
 	//DB connect
-	stor, err := storage.NewPG(conf.Pg, &log)
+	stor, err := storage.NewPG(storage.PostgresConfig{
+		HostPort:       conf.Pg.HostPort,
+		User:           conf.Pg.User,
+		Pass:           conf.Pg.Pass,
+		Database:       conf.Pg.Database,
+		TimeoutConnect: conf.Pg.TimeoutConnect,
+		TimeoutExecute: conf.Pg.TimeoutExecute,
+	}, &log)
 	helpers.FailOnError(err, "postgres fail")
 
 	//RMQ connect
-	rmq, err := rabbitmq.NewRMQ(conf.Rmq, &log)
+	rmq, err := rabbitmq.NewRMQ(rabbitmq.Config{
+		User:     conf.Rmq.User,
+		Pass:     conf.Rmq.Pass,
+		HostPort: conf.Rmq.HostPort,
+		Timeout:  conf.Rmq.Timeout,
+		Queue:    conf.Rmq.Queue,
+	}, &log)
 	helpers.FailOnError(err, "RMQ fail")
 
 	//Scheduler
-	sch := sheduler.NewScheduler(conf.Scheduler, &log, &stor, rmq)
+	sch := sheduler.NewScheduler(sheduler.Config{
+		CheckInSeconds:  conf.Scheduler.CheckInSeconds,
+		NotifyInSeconds: conf.Scheduler.NotifyInSeconds,
+	}, &log, &stor, rmq)
 	sch.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)

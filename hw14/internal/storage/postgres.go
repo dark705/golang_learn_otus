@@ -14,12 +14,12 @@ import (
 )
 
 type PostgresConfig struct {
-	HostPort       string `yaml:"host_port"`
-	User           string `yaml:"user"`
-	Pass           string `yaml:"pass"`
-	Database       string `yaml:"database"`
-	TimeoutConnect int    `yaml:"timeout_connect"`
-	TimeoutExecute int    `yaml:"timeout_execute"`
+	HostPort       string
+	User           string
+	Pass           string
+	Database       string
+	TimeoutConnect int
+	TimeoutExecute int
 }
 
 type Postgres struct {

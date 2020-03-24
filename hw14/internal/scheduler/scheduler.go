@@ -11,8 +11,8 @@ import (
 )
 
 type Config struct {
-	CheckInSeconds  int `yaml:"check_in_seconds"`
-	NotifyInSeconds int `yaml:"notify_in_seconds"`
+	CheckInSeconds  int
+	NotifyInSeconds int
 }
 
 type Storage interface {

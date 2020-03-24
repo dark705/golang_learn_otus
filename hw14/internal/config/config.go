@@ -3,22 +3,40 @@ package config
 import (
 	"io/ioutil"
 
-	"github.com/dark705/otus/hw14/internal/logger"
-	"github.com/dark705/otus/hw14/internal/rabbitmq"
-	"github.com/dark705/otus/hw14/internal/scheduler"
-	"github.com/dark705/otus/hw14/internal/sender"
-	"github.com/dark705/otus/hw14/internal/storage"
 	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
-	HttpListen string                 `yaml:"http_listen"`
-	GrpcListen string                 `yaml:"grpc_listen"`
-	Sender     sender.Config          `yaml:"sender"`
-	Scheduler  scheduler.Config       `yaml:"scheduler"`
-	Pg         storage.PostgresConfig `yaml:"postgres"`
-	Logger     logger.Config          `yaml:"log"`
-	Rmq        rabbitmq.Config        `yaml:"rmq"`
+	Api struct {
+		HttpListen string `yaml:"http_listen"`
+		GrpcListen string `yaml:"grpc_listen"`
+	} `yaml:"api"`
+	Sender struct {
+		NumOfSenders int `yaml:"num_of_senders"`
+	} `yaml:"sender"`
+	Scheduler struct {
+		CheckInSeconds  int `yaml:"check_in_seconds"`
+		NotifyInSeconds int `yaml:"notify_in_seconds"`
+	} `yaml:"scheduler"`
+	Pg struct {
+		HostPort       string `yaml:"host_port"`
+		User           string `yaml:"user"`
+		Pass           string `yaml:"pass"`
+		Database       string `yaml:"database"`
+		TimeoutConnect int    `yaml:"timeout_connect"`
+		TimeoutExecute int    `yaml:"timeout_execute"`
+	} `yaml:"postgres"`
+	Logger struct {
+		File  string `yaml:"file"`
+		Level string `yaml:"level"`
+	} `yaml:"log"`
+	Rmq struct {
+		User     string `yaml:"user"`
+		Pass     string `yaml:"pass"`
+		HostPort string `yaml:"host_port"`
+		Timeout  int    `yaml:"timeout_connect"`
+		Queue    string `yaml:"queue"`
+	} `yaml:"rmq"`
 }
 
 func ReadFromFile(file string) (Config, error) {

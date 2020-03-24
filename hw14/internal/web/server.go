@@ -6,18 +6,21 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dark705/otus/hw14/internal/config"
 	"github.com/dark705/otus/hw14/internal/helpers"
 	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
-	c  config.Config
+	c  Config
 	l  *logrus.Logger
 	ws *http.Server
 }
 
-func NewServer(conf config.Config, log *logrus.Logger) Server {
+type Config struct {
+	HttpListen string
+}
+
+func NewServer(conf Config, log *logrus.Logger) Server {
 	return Server{
 		c:  conf,
 		l:  log,

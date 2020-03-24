@@ -9,8 +9,8 @@ import (
 )
 
 type Config struct {
-	File  string `yaml:"file"`
-	Level string `yaml:"level"`
+	File  string
+	Level string
 }
 
 var file *os.File
