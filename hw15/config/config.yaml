@@ -1,0 +1,29 @@
+api:
+  http_listen: "0.0.0.0:8081"
+  grpc_listen: "0.0.0.0:5300"
+
+scheduler:
+  check_in_seconds: 10
+  notify_in_seconds: 3600
+
+sender:
+  num_of_senders: 5
+
+postgres:
+  host_port: "127.0.0.1:54441"
+  user: "postgres"
+  pass: "postgres"
+  database: "calendar"
+  timeout_connect: 5
+  timeout_execute: 10
+
+log:
+  file: "logs/log.txt"
+  level: "debug"
+
+rmq:
+  host_port: "127.0.0.1:56721"
+  timeout_connect: 10
+  user: "guest"
+  pass: "guest"
+  queue: "scheduler"
