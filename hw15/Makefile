@@ -1,6 +1,6 @@
 build: build_scheduler build_sender build_api build_api_client
 
-test: docker_up go_test docker_down
+test: docker_up_environment go_test docker_down_environment
 
 build_scheduler:
 	go build -o ./bin/calendar_scheduler ./cmd/scheduler/scheduler.go
@@ -38,9 +38,21 @@ go_test:
     go  test -v --count=1 github.com/dark705/otus/hw15/internal/storage && \
     go  test -v --count=1 github.com/dark705/otus/hw15/internal/grpc
 
+
+docker_up_environment:
+	./build/docker.up.environment.sh && sleep 5
+
+docker_down_environment:
+	./build/docker.down.environment.sh
+
+docker_build:
+	./build/docker.build.sh
+
+docker_clean:
+	./build/docker.clean.sh
+
 docker_up:
-	./build/docker.up.sh && sleep 5
+	./build/docker.up.sh
 
 docker_down:
 	./build/docker.down.sh
-

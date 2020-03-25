@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  postgres:
+    image: hw15_postgres:latest
+    ports:
+      - "54441:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: calendar
+  rabbitmq:
+    image: hw15_rabbitmq:latest
+    ports:
+      - "56721:5672"
+      - "15677:15672"
+    environment:
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_DEFAULT_USER: guest
