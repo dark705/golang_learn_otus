@@ -9,4 +9,5 @@ WORKDIR /app
 RUN mkdir config bin logs
 COPY --from=builder /app/bin/api ./bin/api
 COPY  config/config.docker.yaml ./config/config.yaml
+EXPOSE 8081/tcp 5300/tcp
 CMD ["./bin/api"]
