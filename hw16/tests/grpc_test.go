@@ -1,4 +1,4 @@
-package main
+package tests
 
 import (
 	"context"
@@ -10,8 +10,10 @@ import (
 
 	"github.com/cucumber/godog"
 	"github.com/cucumber/godog/gherkin"
+	"github.com/dark705/otus/hw16/internal/helpers"
 	"github.com/dark705/otus/hw16/pkg/calendar/protobuf"
 	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
@@ -19,20 +21,14 @@ import (
 var grpcError error
 var client protobuf.CalendarClient
 var sendGrpcEvent protobuf.Event
+var lastEventID int32
 
-func iSendExecuteAddEventOnWithData(addr string, data *gherkin.DocString) error {
-	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*10)
-	conn, err := grpc.DialContext(ctxConn, addr, []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
-	if err != nil {
-		err = fmt.Errorf("can't connect to grpc server, error: %v", err)
-		return err
-	}
-	client = protobuf.NewCalendarClient(conn)
+func iSendExecuteAddEventWithData(data *gherkin.DocString) (err error) {
 
 	replacer := strings.NewReplacer("\n", "", "\t", "")
-	cleanJson := replacer.Replace(data.Content)
+	cleanJSON := replacer.Replace(data.Content)
 
-	err = json.Unmarshal([]byte(cleanJson), &sendGrpcEvent)
+	err = json.Unmarshal([]byte(cleanJSON), &sendGrpcEvent)
 	if err != nil {
 		err = fmt.Errorf("can't unmarshal, error: %v", err)
 		return err
@@ -50,10 +46,14 @@ func theResponseErrorCodeShouldBeNil() (err error) {
 }
 
 func theExecuteGetEventReturnSameEventWithNoErrorCode() error {
-	getGrpcEvent, err := client.GetEvent(context.TODO(), &protobuf.Id{Id: 1})
+	getGrpcEvents, err := client.GetAllEvents(context.TODO(), &empty.Empty{})
+	lastEventID = getGrpcEvents.Events[len(getGrpcEvents.Events)-1].Id
+
+	getGrpcEvent, err := client.GetEvent(context.TODO(), &protobuf.Id{Id: lastEventID})
 	if err != nil {
 		return err
 	}
+	sendGrpcEvent.Id = lastEventID
 
 	if !proto.Equal(&sendGrpcEvent, getGrpcEvent) {
 		return errors.New("add and Get Event's not same")
@@ -62,26 +62,19 @@ func theExecuteGetEventReturnSameEventWithNoErrorCode() error {
 }
 
 func afterExecuteDelEventReturnNoErrorCode() error {
-	_, err := client.DelEvent(context.TODO(), &protobuf.Id{Id: 1})
+	_, err := client.DelEvent(context.TODO(), &protobuf.Id{Id: lastEventID})
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func iSendExecuteAddEventOnTwoTimesWithData(addr string, data *gherkin.DocString) error {
-	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*10)
-	conn, err := grpc.DialContext(ctxConn, addr, []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
-	if err != nil {
-		err = fmt.Errorf("can't connect to grpc server, error: %v", err)
-		return err
-	}
-	client = protobuf.NewCalendarClient(conn)
+func iSendExecuteAddEventTwoTimesWithData(data *gherkin.DocString) (err error) {
 
 	replacer := strings.NewReplacer("\n", "", "\t", "")
-	cleanJson := replacer.Replace(data.Content)
+	cleanJSON := replacer.Replace(data.Content)
 
-	err = json.Unmarshal([]byte(cleanJson), &sendGrpcEvent)
+	err = json.Unmarshal([]byte(cleanJSON), &sendGrpcEvent)
 	if err != nil {
 		err = fmt.Errorf("can't unmarshal, error: %v", err)
 		return err
@@ -92,6 +85,10 @@ func iSendExecuteAddEventOnTwoTimesWithData(addr string, data *gherkin.DocString
 		return err
 	}
 	_, grpcError = client.AddEvent(context.TODO(), &sendGrpcEvent)
+
+	getGrpcEvents, err := client.GetAllEvents(context.TODO(), &empty.Empty{})
+	lastEventID = getGrpcEvents.Events[len(getGrpcEvents.Events)-1].Id
+
 	return nil
 }
 
@@ -106,11 +103,21 @@ func theResponseErrorDescShouldBe(desc string) error {
 	return nil
 }
 
+func initGRPCClient() {
+	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*10)
+	conn, err := grpc.DialContext(ctxConn, "localhost:8889", []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
+	helpers.FailOnError(err, "gRPC client fail")
+	client = protobuf.NewCalendarClient(conn)
+}
+
 func FeatureGrpcContext(s *godog.Suite) {
-	s.Step(`^I send execute AddEvent on "([^"]*)" with data:$`, iSendExecuteAddEventOnWithData)
+	initGRPCClient()
+
+	s.Step(`^I send execute AddEvent with data:$`, iSendExecuteAddEventWithData)
 	s.Step(`^The response error code should be nil$`, theResponseErrorCodeShouldBeNil)
 	s.Step(`^The execute GetEvent return same Event, with no error code$`, theExecuteGetEventReturnSameEventWithNoErrorCode)
 	s.Step(`^After Execute DelEvent, return no error code$`, afterExecuteDelEventReturnNoErrorCode)
-	s.Step(`^I send execute AddEvent on "([^"]*)" two times with data:$`, iSendExecuteAddEventOnTwoTimesWithData)
+	s.Step(`^I send execute AddEvent two times with data:$`, iSendExecuteAddEventTwoTimesWithData)
 	s.Step(`^The response error desc should be "([^"]*)"$`, theResponseErrorDescShouldBe)
+	s.Step(`^After Execute DelEvent, return no error code$`, afterExecuteDelEventReturnNoErrorCode)
 }
