@@ -6,6 +6,6 @@
 Feature: Web api
 
 	Scenario: Web api is available
-		When I send "GET" request to "http://localhost:8888/"
+		When I send "GET" request to "http://calendar_api:8081/"
 		Then The response code should be 200
 		And The response should match text "Hello world"

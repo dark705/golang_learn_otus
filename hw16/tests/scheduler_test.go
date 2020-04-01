@@ -120,7 +120,7 @@ func FeatureContext(s *godog.Suite) {
 func connectToPG() {
 	var err error
 	pg, err = storage.NewPG(storage.PostgresConfig{
-		HostPort:       "127.0.0.1:54441",
+		HostPort:       "postgres:5432",
 		User:           "postgres",
 		Pass:           "postgres",
 		Database:       "calendar",

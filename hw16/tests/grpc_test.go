@@ -105,7 +105,7 @@ func theResponseErrorDescShouldBe(desc string) error {
 
 func initGRPCClient() {
 	ctxConn, _ := context.WithTimeout(context.Background(), time.Second*10)
-	conn, err := grpc.DialContext(ctxConn, "localhost:8889", []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
+	conn, err := grpc.DialContext(ctxConn, "calendar_api:5300", []grpc.DialOption{grpc.WithInsecure(), grpc.WithBlock()}...)
 	helpers.FailOnError(err, "gRPC client fail")
 	client = protobuf.NewCalendarClient(conn)
 }
