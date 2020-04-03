@@ -6,52 +6,22 @@ _./config/config.yaml_
 ## Docker
 Все файлы относящиеся к Docker находятся в папке _./build/docker_
 
-### Создание образов
-    make docker_buld
+Подготовка окружения:
 
-### Запуск контейнеров из собраных образов
-    make docker_up
+    docker-compose -f ./build/docker/docker-compose-environment.yml up -d
+    
+Собрать и запустить приложение:
+    
+    docker-compose -f ./build/docker/docker-compose.yml up
+    
+Либо в одну команду:
 
-### Остановка контейнеров из собраных образов
-    make docker_down
-
-### Удаление образов
-    make docker_clean
+    ./build/run.sh
         
 ## Компиляция
-        make build
-
-## Scheduler сервер
-### Запуск сервера
-    make run_sheduler
-
-### Запуск отправщиков 
-    make run_sender
-
-### Компиляция сервера и отправщика
-    make build_scheduler
-    make build_sender
-
-Следует учитывать что сервер и отправщик используют реальную БД Postgres, а также реальный брокер RabbitMQ к которым должен иметь доступ. 
-В комплекте идёт Docker с настроенными компонентами, для их запуска и остановки достатовно выполнить:
-
-    ./build/docker.up.sh #(создание контейнера с тестовой бд)
-    либо
-    make docker_up
-    
-    ./build/docker.down.sh #(для удаления контейнеров и образов)
-    либо
-    make docker_down 
-
-## GRPC сервер
-### Запуск сервера
-    make run_api
-
-Следует учитывать что сервер использует реальную БД, к которой должен иметь доступ. 
-В комплекте идёт Docker с настроенной БД
-  
-### Запуск тестового клиента
-    make run_api_client
+    make build
+        
+При этом компилируются соответствующие файлы в ./bin
       
 ### API cпецификация Protobuf
     ./api/protobuf.proto
@@ -72,25 +42,15 @@ _/pkg/calendar/protobuf_
 ## Работа с БД Postgres
 SQL файл для инициализации БД:
 
-_./build/sql/init.sql_
-
-Пакет реализующий интерфейс хранилища:
-    
-_./internal/storage/postgres.go_
+_./migrations/init.sql_
 
 ### Тесты
 Для эмуляции взаимодействия с БД необходима реальная БД Postgres 11.
-В комплекте идут docker - скрипты:
+В комплекте идёт настроенное окружение:
 
-    ./build/docker.up.sh #(создание контейнера с тестовой бд)
-    либо
-    make docker_up
+    make docker_up_environment
     
-    ./build/docker.down.sh #(для удаления контейнеров и образов)
-    либо
-    make docker_down 
-
-В процессе развёртывания docker контейнера, начальное состояние автоматически загружается из _./build/sql/init.sql_.
+В процессе развёртывания docker контейнера, начальное состояние автоматически загружается из _./migrations/init.sql_.
 После этого становятся доступны интеграционный тесты с БД:
     
     go test -v github.com/dark705/otus/hw15/internal/storage
