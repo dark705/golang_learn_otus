@@ -14,9 +14,15 @@ _./config/config.yaml_
     
     docker-compose -f ./build/docker/docker-compose.yml up
     
-Либо в одну команду:
+Собрать и запустить интеграционные тесты:
+    
+    docker-compose -f ./build/docker/docker-compose-tests.yml up
 
-    ./build/run.sh
+При этом должно быть запущено окружение и сами микросервисы приложения.
+
+Последовательно запустить окружение, микрсервисы и выполнить интеграционные тесты:
+
+    make test
         
 ## Компиляция
     make build
