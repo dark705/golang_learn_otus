@@ -1,58 +1,44 @@
-build: build_scheduler build_sender build_api build_api_client
+.PHONY: build
+build:
+	go build -o ./bin/calendar_scheduler ./cmd/scheduler/scheduler.go
+	go build -o ./bin/calendar_sender ./cmd/sender/sender.go
+	go build -o ./bin/calendar_api ./cmd/api/api.go
+	go build -o ./bin/calendar_api_client ./cmd/api_client/api.client.go
+	chmod +x ./bin/calendar_api_client ./bin/calendar_api ./bin/calendar_sender ./bin/calendar_scheduler
 
 test: docker_up_environment go_test docker_down_environment
 
-build_scheduler:
-	go build -o ./bin/calendar_scheduler ./cmd/scheduler/scheduler.go
-	chmod +x ./bin/calendar_scheduler
-
-build_sender:
-	go build -o ./bin/calendar_sender ./cmd/sender/sender.go
-	chmod +x ./bin/calendar_sender
-
-build_api:
-	go build -o ./bin/calendar_api ./cmd/api/api.go
-	chmod +x ./bin/calendar_api
-
-build_api_client:
-	go build -o ./bin/calendar_api_client ./cmd/api_client/api.client.go
-	chmod +x ./bin/calendar_api_client
-
-run_scheduler:
-	go run ./cmd/scheduler/scheduler.go
-
-run_sender:
-	go run ./cmd/sender/sender.go
-
-run_api:
-	go run ./cmd/api/api.go
-
-run_client_api:
-	go run ./cmd/api_client/api.client.go
+test2: docker_up_environment sleep15 docker_up_app sleep5 docker_run_integration_tests
 
 build_grpc:
 	./build/protobuf.grpc.sh
 
 go_test:
-	go  test -v --count=1 github.com/dark705/otus/hw16/internal/calendar/calendar && \
-    go  test -v --count=1 github.com/dark705/otus/hw16/internal/storage && \
-    go  test -v --count=1 github.com/dark705/otus/hw16/internal/grpc
-
+	sleep 10 &&\
+	go  test -v --count=1 github.com/dark705/otus/hw15/internal/calendar/calendar && \
+    go  test -v --count=1 github.com/dark705/otus/hw15/internal/storage && \
+    go  test -v --count=1 github.com/dark705/otus/hw15/internal/grpc
 
 docker_up_environment:
-	./build/docker.up.environment.sh && sleep 5
+	docker-compose -f ./build/docker/docker-compose-environment.yml up -d
 
 docker_down_environment:
-	./build/docker.down.environment.sh
+	docker-compose -f ./build/docker/docker-compose-environment.yml down
 
-docker_build:
-	./build/docker.build.sh
+docker_up_app:
+	docker-compose -f ./build/docker/docker-compose.yml up -d
 
-docker_clean:
-	./build/docker.clean.sh
+docker_down_app:
+	docker-compose -f ./build/docker/docker-compose.yml down
 
-docker_up:
-	./build/docker.up.sh
+docker_run_integration_tests:
+	docker-compose -f ./build/docker/docker-compose-tests.yml up
 
-docker_down:
-	./build/docker.down.sh
+docker_stop_integration_tests:
+	docker-compose -f ./build/docker/docker-compose-tests.yml down
+
+sleep15:
+	sleep 15
+
+sleep5:
+	sleep 5
