@@ -4,14 +4,10 @@ services:
     build:
       context: ../../
       dockerfile: ./build//docker/calendar/scheduler/Dockerfile
-    networks:
-      - calendar
   calendar_sender:
     build:
       context: ../../
       dockerfile: ./build//docker/calendar/sender/Dockerfile
-    networks:
-      - calendar
   calendar_api:
     build:
       context: ../../
@@ -19,7 +15,3 @@ services:
     ports:
       - "8888:8081" #web  api
       - "8889:5300" #grpc api
-    networks:
-      - calendar
-networks:
-  calendar:

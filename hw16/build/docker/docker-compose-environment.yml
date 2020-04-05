@@ -10,8 +10,6 @@ services:
       POSTGRES_DB: calendar
     volumes:
       - ./../../migration:/docker-entrypoint-initdb.d
-    networks:
-      - calendar
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -20,7 +18,3 @@ services:
     environment:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_USER: guest
-    networks:
-      - calendar
-networks:
-  calendar:

@@ -6,9 +6,9 @@ build:
 	go build -o ./bin/calendar_api_client ./cmd/api_client/api.client.go
 	chmod +x ./bin/calendar_api_client ./bin/calendar_api ./bin/calendar_sender ./bin/calendar_scheduler
 
-test: docker_up_environment go_test docker_down_environment
+test_unit: docker_up_environment  sleep15 go_test docker_down_environment
 
-test2: docker_up_environment sleep15 docker_up_app sleep5 docker_run_integration_tests
+test: docker_up_environment sleep15 docker_up_app sleep5 docker_run_integration_tests
 
 build_grpc:
 	./build/protobuf.grpc.sh

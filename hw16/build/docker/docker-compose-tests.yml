@@ -5,10 +5,6 @@ services:
       context: ../../
       dockerfile: ./build//docker/godog/Dockerfile
     command: sh -c 'cd tests && godog'
-    networks:
-      - calendar
-networks:
-  calendar:
 
 
 
