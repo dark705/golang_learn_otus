@@ -54,7 +54,10 @@ func main() {
 	cal := calendar.Calendar{Config: conf, Storage: &stor, Logger: &log}
 
 	//web Server
-	ws := web.NewServer(web.Config{HttpListen: conf.Api.HttpListen}, &log)
+	ws := web.NewServer(web.Config{
+		HttpListen:       conf.Api.HttpListen,
+		PrometheusListen: conf.Api.PrometheusHttpListen},
+		&log)
 	ws.RunServer()
 
 	//gRPC Server

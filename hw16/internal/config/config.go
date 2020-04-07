@@ -8,8 +8,10 @@ import (
 
 type Config struct {
 	Api struct {
-		HttpListen string `yaml:"http_listen"`
-		GrpcListen string `yaml:"grpc_listen"`
+		HttpListen           string `yaml:"http_listen"`
+		PrometheusHttpListen string `yaml:"prometheus_http_listen"`
+		GrpcListen           string `yaml:"grpc_listen"`
+		PrometheusGrpcListen string `yaml:"prometheus_grpc_listen"`
 	} `yaml:"api"`
 	Sender struct {
 		NumOfSenders int `yaml:"num_of_senders"`
