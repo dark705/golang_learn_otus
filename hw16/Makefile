@@ -8,7 +8,9 @@ build:
 
 test_unit: docker_up_environment  sleep15 go_test docker_down_environment
 
-test: docker_up_environment sleep15 docker_up_app sleep5 docker_run_integration_tests
+test:
+	docker-compose -f ./build/docker/docker-compose-tests.yml up --abort-on-container-exit --exit-code-from godog && \
+	docker-compose -f ./build/docker/docker-compose-tests.yml down
 
 build_grpc:
 	./build/protobuf.grpc.sh
@@ -31,14 +33,5 @@ docker_up_app:
 docker_down_app:
 	docker-compose -f ./build/docker/docker-compose.yml down
 
-docker_run_integration_tests:
-	docker-compose -f ./build/docker/docker-compose-tests.yml up
-
-docker_stop_integration_tests:
-	docker-compose -f ./build/docker/docker-compose-tests.yml down
-
 sleep15:
 	sleep 15
-
-sleep5:
-	sleep 5
