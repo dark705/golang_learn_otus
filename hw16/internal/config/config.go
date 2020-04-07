@@ -14,7 +14,8 @@ type Config struct {
 		PrometheusGrpcListen string `yaml:"prometheus_grpc_listen"`
 	} `yaml:"api"`
 	Sender struct {
-		NumOfSenders int `yaml:"num_of_senders"`
+		NumOfSenders     int    `yaml:"num_of_senders"`
+		PrometheusListen string `yaml:"prometheus_listen"`
 	} `yaml:"sender"`
 	Scheduler struct {
 		CheckInSeconds  int `yaml:"check_in_seconds"`

@@ -10,6 +10,7 @@ scheduler:
 
 sender:
   num_of_senders: 5
+  prometheus_listen: ":9104"
 
 postgres:
   host_port: "127.0.0.1:54441"

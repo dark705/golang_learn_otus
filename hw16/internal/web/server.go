@@ -73,7 +73,7 @@ func (s *Server) Shutdown() {
 		s.l.Errorln("Fail Shutdown Prometheus metrics server")
 		return
 	}
-	s.l.Infoln("Success Prometheus metrics  server")
+	s.l.Infoln("Success shutdown Prometheus metrics server")
 }
 
 func ServeHTTP(w http.ResponseWriter, r *http.Request) {

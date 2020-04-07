@@ -14,3 +14,6 @@ scrape_configs:
   - job_name: 'grpc-api'
     static_configs:
       - targets: ['calendar_api:9103']
+  - job_name: 'sender'
+    static_configs:
+      - targets: ['calendar_sender:9104']

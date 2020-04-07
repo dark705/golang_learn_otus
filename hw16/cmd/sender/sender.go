@@ -49,7 +49,10 @@ func main() {
 	helpers.FailOnError(err, "RMQ fail")
 
 	//Senders
-	senders := sender.NewSenders(sender.Config{NumOfSenders: conf.Sender.NumOfSenders}, &log, rmq, sender.SendToStdout)
+	senders := sender.NewSenders(sender.Config{
+		NumOfSenders:     conf.Sender.NumOfSenders,
+		PrometheusListen: conf.Sender.PrometheusListen,
+	}, &log, rmq, sender.SendToStdout)
 	senders.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)
