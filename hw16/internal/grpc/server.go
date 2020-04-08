@@ -3,12 +3,16 @@ package grpc
 import (
 	"context"
 	"net"
+	"net/http"
 	"time"
 
 	"github.com/dark705/otus/hw16/internal/calendar/calendar"
 	"github.com/dark705/otus/hw16/internal/calendar/event"
+	"github.com/dark705/otus/hw16/internal/helpers"
 	"github.com/dark705/otus/hw16/pkg/calendar/protobuf"
 	"github.com/golang/protobuf/ptypes/empty"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -16,7 +20,8 @@ import (
 )
 
 type Config struct {
-	GrpcListen string
+	GrpcListen       string
+	PrometheusListen string
 }
 
 type Server struct {
@@ -24,6 +29,7 @@ type Server struct {
 	Logger   *logrus.Logger
 	Calendar *calendar.Calendar
 	server   *grpc.Server
+	ps       *http.Server
 }
 
 func (s *Server) Run() {
@@ -34,8 +40,18 @@ func (s *Server) Run() {
 		s.Logger.Fatalf("failed to listen: %v", err)
 	}
 
-	s.server = grpc.NewServer()
+	s.server = grpc.NewServer(grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor))
+	grpc_prometheus.Register(s.server)
 	protobuf.RegisterCalendarServer(s.server, s)
+
+	go func() {
+		s.ps = &http.Server{Addr: s.Config.PrometheusListen, Handler: promhttp.Handler()}
+		s.Logger.Infoln("Start Prometheus gRPC metrics server: ", s.Config.PrometheusListen)
+		err := s.ps.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			helpers.FailOnError(err, "Fail start Prometheus gRPC metrics server")
+		}
+	}()
 
 	err = s.server.Serve(listener)
 	if err != nil {
@@ -46,6 +62,15 @@ func (s *Server) Run() {
 func (s *Server) Shutdown() {
 	s.Logger.Info("Graceful shutdown GRPC server...")
 	s.server.GracefulStop()
+
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+	s.Logger.Infoln("Shutdown Prometheus gRPC metrics server... ")
+	err := s.ps.Shutdown(ctx)
+	if err != nil {
+		s.Logger.Errorln("Fail Shutdown Prometheus gRPC metrics server")
+		return
+	}
+	s.Logger.Infoln("Success shutdown Prometheus gRPC metrics server")
 }
 
 type CalendarServerGrpc struct {

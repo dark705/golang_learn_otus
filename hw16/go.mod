@@ -6,6 +6,7 @@ require (
 	github.com/cucumber/godog v0.8.1
 	github.com/dark705/otus/hw15 v0.0.0-20200403195743-fcb0ba8ffa69 // indirect
 	github.com/golang/protobuf v1.3.3
+	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/jackc/pgx v3.6.2+incompatible
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect

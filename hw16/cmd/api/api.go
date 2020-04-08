@@ -61,7 +61,12 @@ func main() {
 	ws.RunServer()
 
 	//gRPC Server
-	grpcServer := grpc.Server{Config: grpc.Config{GrpcListen: conf.Api.GrpcListen}, Logger: &log, Calendar: &cal}
+	grpcServer := grpc.Server{Config: grpc.Config{
+		GrpcListen:       conf.Api.GrpcListen,
+		PrometheusListen: conf.Api.PrometheusGrpcListen},
+		Logger:   &log,
+		Calendar: &cal,
+	}
 	go grpcServer.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)

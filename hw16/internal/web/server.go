@@ -48,10 +48,10 @@ func (s *Server) RunServer() {
 	}()
 
 	go func() {
-		s.l.Infoln("Start Prometheus metrics server: ", s.c.PrometheusListen)
+		s.l.Infoln("Start Prometheus Http metrics server: ", s.c.PrometheusListen)
 		err := s.ps.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
-			helpers.FailOnError(err, "Start Prometheus metrics server")
+			helpers.FailOnError(err, "Fail start Prometheus Http metrics server")
 		}
 	}()
 
@@ -70,10 +70,10 @@ func (s *Server) Shutdown() {
 	s.l.Infoln("Shutdown Prometheus metrics server... ")
 	err = s.ps.Shutdown(ctx)
 	if err != nil {
-		s.l.Errorln("Fail Shutdown Prometheus metrics server")
+		s.l.Errorln("Fail Shutdown Prometheus Http metrics server")
 		return
 	}
-	s.l.Infoln("Success shutdown Prometheus metrics server")
+	s.l.Infoln("Success shutdown Prometheus Http metrics server")
 }
 
 func ServeHTTP(w http.ResponseWriter, r *http.Request) {
