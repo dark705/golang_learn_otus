@@ -54,19 +54,11 @@ func main() {
 	cal := calendar.Calendar{Config: conf, Storage: &stor, Logger: &log}
 
 	//web Server
-	ws := web.NewServer(web.Config{
-		HttpListen:       conf.Api.HttpListen,
-		PrometheusListen: conf.Api.PrometheusHttpListen},
-		&log)
+	ws := web.NewServer(web.Config{HttpListen: conf.Api.HttpListen}, &log)
 	ws.RunServer()
 
 	//gRPC Server
-	grpcServer := grpc.Server{Config: grpc.Config{
-		GrpcListen:       conf.Api.GrpcListen,
-		PrometheusListen: conf.Api.PrometheusGrpcListen},
-		Logger:   &log,
-		Calendar: &cal,
-	}
+	grpcServer := grpc.Server{Config: grpc.Config{GrpcListen: conf.Api.GrpcListen}, Logger: &log, Calendar: &cal}
 	go grpcServer.Run()
 
 	log.Infof("Got signal from OS: %v. Exit.", <-osSignals)

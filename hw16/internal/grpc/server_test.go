@@ -21,7 +21,7 @@ func TestAddEventGetEvent(t *testing.T) {
 		t.Error("Can't init storage")
 	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
-	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001", PrometheusListen: "127.0.0.1:53002"}, Calendar: &cal, Logger: &logrus.Logger{}}
+	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
 	time.Sleep(time.Second) // wait for grpc server run
@@ -56,7 +56,7 @@ func TestDelGetAllEvents(t *testing.T) {
 		t.Error("Can't init storage")
 	}
 	cal := calendar.Calendar{Storage: &inMemory, Logger: &logrus.Logger{}}
-	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001", PrometheusListen: "127.0.0.1:53002"}, Calendar: &cal, Logger: &logrus.Logger{}}
+	grpcServer := Server{Config: Config{GrpcListen: "127.0.0.1:53001"}, Calendar: &cal, Logger: &logrus.Logger{}}
 	ctx := context.Background()
 	go grpcServer.Run()
 	time.Sleep(time.Second) // wait for grpc server run

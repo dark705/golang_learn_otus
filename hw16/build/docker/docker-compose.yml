@@ -15,5 +15,3 @@ services:
     ports:
       - "8888:8081" #web  api
       - "8889:5300" #grpc api
-      - "9102:9102" #prometheus web metrics
-      - "9103:9103" #prometheus grpc metrics

@@ -7,34 +7,24 @@ import (
 	"time"
 
 	"github.com/dark705/otus/hw16/internal/helpers"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
-	metrics "github.com/slok/go-http-metrics/metrics/prometheus"
-	"github.com/slok/go-http-metrics/middleware"
 )
 
 type Server struct {
 	c  Config
 	l  *logrus.Logger
 	ws *http.Server
-	ps *http.Server
 }
 
 type Config struct {
-	HttpListen       string
-	PrometheusListen string
+	HttpListen string
 }
 
 func NewServer(conf Config, log *logrus.Logger) Server {
-	prometheusMiddlewareHandler := middleware.New(middleware.Config{
-		Recorder: metrics.NewRecorder(metrics.Config{}),
-	})
-
 	return Server{
 		c:  conf,
 		l:  log,
-		ws: &http.Server{Addr: conf.HttpListen, Handler: prometheusMiddlewareHandler.Handler("", logRequest(ServeHTTP, log))},
-		ps: &http.Server{Addr: conf.PrometheusListen, Handler: promhttp.Handler()},
+		ws: &http.Server{Addr: conf.HttpListen, Handler: logRequest(ServeHTTP, log)},
 	}
 }
 
@@ -46,15 +36,6 @@ func (s *Server) RunServer() {
 			helpers.FailOnError(err, "Fail start HTTP Server")
 		}
 	}()
-
-	go func() {
-		s.l.Infoln("Start Prometheus Http metrics server: ", s.c.PrometheusListen)
-		err := s.ps.ListenAndServe()
-		if err != nil && err != http.ErrServerClosed {
-			helpers.FailOnError(err, "Fail start Prometheus Http metrics server")
-		}
-	}()
-
 }
 
 func (s *Server) Shutdown() {
@@ -66,14 +47,6 @@ func (s *Server) Shutdown() {
 		return
 	}
 	s.l.Infoln("Success Shutdown HTTP server")
-
-	s.l.Infoln("Shutdown Prometheus metrics server... ")
-	err = s.ps.Shutdown(ctx)
-	if err != nil {
-		s.l.Errorln("Fail Shutdown Prometheus Http metrics server")
-		return
-	}
-	s.l.Infoln("Success shutdown Prometheus Http metrics server")
 }
 
 func ServeHTTP(w http.ResponseWriter, r *http.Request) {

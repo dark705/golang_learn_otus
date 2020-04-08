@@ -9,5 +9,4 @@ WORKDIR /app
 RUN mkdir config bin logs
 COPY --from=builder /app/bin/sender ./bin/sender
 COPY  config/config.docker.yaml ./config/config.yaml
-EXPOSE 9104/tcp
 CMD ["./bin/sender"]

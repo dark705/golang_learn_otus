@@ -18,25 +18,3 @@ services:
     environment:
       RABBITMQ_DEFAULT_PASS: guest
       RABBITMQ_DEFAULT_USER: guest
-  prometheus:
-    image: prom/prometheus:v2.17.1
-    volumes:
-      - ./../../config/prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    ports:
-      - 9090:9090
-    depends_on:
-      - postgres_exporter
-  postgres_exporter:
-    image: wrouesnel/postgres_exporter:latest
-    environment:
-      DATA_SOURCE_NAME: "postgresql://postgres:postgres@postgres:5432/calendar?sslmode=disable"
-    ports:
-      - 9187:9187
-    depends_on:
-      - postgres
-    volumes:
-      - ./../../config/postgres_exporter_queries.yml:/etc/queries.yml
-    command:
-      - '--extend.query-path=/etc/queries.yml'

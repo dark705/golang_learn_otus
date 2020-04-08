@@ -8,14 +8,11 @@ import (
 
 type Config struct {
 	Api struct {
-		HttpListen           string `yaml:"http_listen"`
-		PrometheusHttpListen string `yaml:"prometheus_http_listen"`
-		GrpcListen           string `yaml:"grpc_listen"`
-		PrometheusGrpcListen string `yaml:"prometheus_grpc_listen"`
+		HttpListen string `yaml:"http_listen"`
+		GrpcListen string `yaml:"grpc_listen"`
 	} `yaml:"api"`
 	Sender struct {
-		NumOfSenders     int    `yaml:"num_of_senders"`
-		PrometheusListen string `yaml:"prometheus_listen"`
+		NumOfSenders int `yaml:"num_of_senders"`
 	} `yaml:"sender"`
 	Scheduler struct {
 		CheckInSeconds  int `yaml:"check_in_seconds"`

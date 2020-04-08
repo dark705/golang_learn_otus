@@ -1,8 +1,6 @@
 api:
   http_listen: "0.0.0.0:8081"
-  prometheus_http_listen: ":9102"
   grpc_listen: "0.0.0.0:5300"
-  prometheus_grpc_listen: ":9103"
 
 scheduler:
   check_in_seconds: 10
@@ -10,7 +8,6 @@ scheduler:
 
 sender:
   num_of_senders: 5
-  prometheus_listen: ":9104"
 
 postgres:
   host_port: "postgres:5432"

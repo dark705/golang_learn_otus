@@ -17,9 +17,9 @@ build_grpc:
 
 go_test:
 	sleep 10 &&\
-	go  test -v --count=1 github.com/dark705/otus/hw16/internal/calendar/calendar && \
-    go  test -v --count=1 github.com/dark705/otus/hw16/internal/storage && \
-    go  test -v --count=1 github.com/dark705/otus/hw16/internal/grpc
+	go  test -v --count=1 github.com/dark705/otus/hw15/internal/calendar/calendar && \
+    go  test -v --count=1 github.com/dark705/otus/hw15/internal/storage && \
+    go  test -v --count=1 github.com/dark705/otus/hw15/internal/grpc
 
 docker_up_environment:
 	docker-compose -f ./build/docker/docker-compose-environment.yml up -d
