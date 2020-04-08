@@ -1,0 +1,88 @@
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T17:25:16Z"}
+{"level":"info","msg":"Got signal from OS: terminated. Exit.","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Shutdown senders","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Sender: 4 shutdown","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Sender: 3 shutdown","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Sender: 2 shutdown","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Sender: 1 shutdown","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Sender: 0 shutdown","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Success shutdown all senders","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Close RMQ connect...","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Success close RMQ connect","time":"2020-04-01T17:26:35Z"}
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T17:50:08Z"}
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T17:52:59Z"}
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T17:54:05Z"}
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T19:10:07Z"}
+{"level":"info","msg":"Senders: 4 success send","time":"2020-04-01T19:10:28Z"}
+{"level":"debug","msg":"Send Ack","time":"2020-04-01T19:10:28Z"}
+{"level":"info","msg":"Got signal from OS: terminated. Exit.","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Shutdown senders","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Sender: 3 shutdown","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Sender: 4 shutdown","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Sender: 1 shutdown","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Sender: 0 shutdown","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Sender: 2 shutdown","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Success shutdown all senders","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Close RMQ connect...","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Success close RMQ connect","time":"2020-04-01T19:10:59Z"}
+{"level":"info","msg":"Start connect to RMQ","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Success connected to RMQ","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Run senders","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Sender: 4 waiting for notices","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Sender: 2 waiting for notices","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Sender: 3 waiting for notices","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Sender: 1 waiting for notices","time":"2020-04-01T19:12:58Z"}
+{"level":"info","msg":"Sender: 0 waiting for notices","time":"2020-04-01T19:12:58Z"}
+{"level":"error","msg":"Error on sender","time":"2020-04-01T19:13:26Z"}
+{"level":"info","msg":"Senders: 4 fail send","time":"2020-04-01T19:13:26Z"}
+{"level":"debug","msg":"Send Nack","time":"2020-04-01T19:13:26Z"}
+{"level":"error","msg":"Error on sender","time":"2020-04-01T19:13:28Z"}
+{"level":"info","msg":"Senders: 2 fail send","time":"2020-04-01T19:13:28Z"}
+{"level":"debug","msg":"Send Nack","time":"2020-04-01T19:13:28Z"}
+{"level":"info","msg":"Senders: 3 success send","time":"2020-04-01T19:13:29Z"}
+{"level":"debug","msg":"Send Ack","time":"2020-04-01T19:13:29Z"}
+{"level":"info","msg":"Got signal from OS: terminated. Exit.","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Shutdown senders","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Sender: 1 shutdown","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Sender: 4 shutdown","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Sender: 2 shutdown","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Sender: 3 shutdown","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Sender: 0 shutdown","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Success shutdown all senders","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Close RMQ connect...","time":"2020-04-01T19:14:57Z"}
+{"level":"info","msg":"Success close RMQ connect","time":"2020-04-01T19:14:57Z"}
