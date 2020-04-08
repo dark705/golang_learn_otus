@@ -1,0 +1,6 @@
+pg_stat_user_tables:
+  query: "SELECT n_live_tup as events_n_live_tup FROM pg_stat_user_tables  where relname = 'events';"
+  metrics:
+    - events_n_live_tup:
+        usage: "GAUGE"
+        description: "Estimated number of live rows"
