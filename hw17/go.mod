@@ -16,6 +16,8 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/slok/go-http-metrics v0.6.1
 	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
+	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
+	golang.org/x/tools v0.0.0-20200414184246-912958979a1a // indirect
 	google.golang.org/grpc v1.27.1
 	gopkg.in/yaml.v2 v2.2.8
 )
